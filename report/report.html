@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>CodeSpace Technical Report</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 14mm 15mm; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: #ffffff;
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 10.3pt;
+    line-height: 1.26;
+    text-align: justify;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  p, li, td, th, caption, div, span, blockquote, figcaption {
+    text-align: justify;
+    color: #000000;
+  }
+
+  h1 { font-size: 14pt; margin: 0 0 3pt 0; font-weight: bold; }
+  h2 { font-size: 11.5pt; margin: 8pt 0 4pt 0; font-weight: bold; border-bottom: 0.75pt solid #000000; padding-bottom: 2pt; }
+  h3 { font-size: 10.3pt; margin: 6pt 0 2pt 0; font-weight: bold; font-style: italic; }
+
+  p { margin: 0 0 4pt 0; }
+
+  .assignment-break { page-break-before: always; }
+  .diagram-section { page-break-before: always; }
+
+  .doc-header {
+    border-bottom: 1pt solid #000000;
+    padding-bottom: 5pt;
+    margin-bottom: 8pt;
+    font-size: 9.5pt;
+  }
+  .doc-header .college { font-weight: bold; font-size: 11pt; }
+
+  .assign-title {
+    font-size: 13pt;
+    font-weight: bold;
+    margin: 0 0 2pt 0;
+  }
+  .assign-sub {
+    font-size: 9.5pt;
+    font-style: italic;
+    margin: 0 0 8pt 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4pt 0 6pt 0;
+    font-size: 8.8pt;
+  }
+  table.formal th, table.formal td {
+    border: 0.75pt solid #000000;
+    padding: 2.5pt 4.5pt;
+    text-align: justify;
+    vertical-align: top;
+  }
+  table.formal th { font-weight: bold; }
+
+  .caption {
+    font-size: 8.5pt;
+    font-style: italic;
+    margin: 2pt 0 8pt 0;
+    text-align: justify;
+  }
+
+  code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 9pt;
+    color: #000000;
+  }
+
+  ul, ol { margin: 0 0 6pt 0; padding-left: 16pt; }
+  li { margin-bottom: 2pt; text-align: justify; }
+
+  .diagram-figure { text-align: justify; margin: 6pt 0; }
+  .diagram-figure img { width: 100%; max-width: 100%; border: 0.75pt solid #000000; }
+
+  .note-box {
+    border: 0.75pt solid #000000;
+    padding: 4pt 6pt;
+    margin: 5pt 0 8pt 0;
+    text-align: justify;
+    font-size: 9pt;
+  }
+  .note-box .note-title { font-weight: bold; margin-bottom: 2pt; }
+
+  a { color: #000000; text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <span class="college">Dwarkadas J. Sanghvi College of Engineering &mdash; Department of Artificial Intelligence and Machine Learning</span><br/>
+  Subject: Fullstack Development with Next.js (DJS23AMD302) &nbsp;|&nbsp; Class: T.Y. B.Tech. AIML, Semester V &nbsp;|&nbsp; Academic Year: 2026&ndash;27 &nbsp;|&nbsp;
+  Project: CodeSpace &mdash; Developer Workspace Application &nbsp;|&nbsp; Student: [NAME &mdash; TO BE FILLED] &nbsp;|&nbsp; Roll No: [TO BE FILLED]
+</div>
+
+<!-- ========================================================= -->
+<!-- ASSIGNMENT 1                                               -->
+<!-- ========================================================= -->
+<div class="assign-title">Assignment 1 &mdash; Technical Report</div>
+<div class="assign-sub">Responsive Accessible Component Architecture, Client State Management &amp; End-to-End Type-Safe Form Mutations</div>
+
+<h2>1. Problem Statement and Objectives</h2>
+<p>
+  Modern Next.js applications require a deliberate split between server-rendered and client-interactive
+  code, a clear boundary for client-only UI state, and validation logic that cannot be bypassed by
+  disabling JavaScript in the browser. Assignment 1 required building a Next.js App Router interface,
+  CodeSpace, that (a) uses accessible shadcn/ui and Radix UI primitives with hydration-safe dark/light/system
+  theming, (b) manages ephemeral client UI state through a persistent Zustand store without duplicating
+  server-owned data, and (c) performs type-safe, Zod-validated form mutations through Server Actions,
+  with the same schema enforced identically on the client and on the server.
+</p>
+
+<h2>2. Solution Overview and Technology Stack</h2>
+<p>
+  CodeSpace is a Server-Component-first Next.js 16 application. Server Components fetch data directly via
+  Prisma and render the dashboard shell; interactivity is isolated into leaf Client Components. A single
+  Zustand store persists local UI preferences to <code>localStorage</code>, and a shared Zod schema
+  library drives both <code>react-hook-form</code> validation in the browser and Server Action validation
+  on the server.
+</p>
+<table class="formal">
+  <tr><th>Layer</th><th>Technology (installed version)</th></tr>
+  <tr><td>Framework / runtime</td><td>Next.js 16.3.5 (App Router) &middot; React 19.2.8</td></tr>
+  <tr><td>Styling / components</td><td>Tailwind CSS 4 &middot; shadcn/ui pattern over Radix UI (Dialog, DropdownMenu, Select, Tabs, Toast, Tooltip, Label)</td></tr>
+  <tr><td>Theming</td><td>next-themes 0.4.6 (dark / light / system)</td></tr>
+  <tr><td>Client state</td><td>Zustand 5.0.15 with <code>persist</code> middleware</td></tr>
+  <tr><td>Forms &amp; validation</td><td>react-hook-form 7.88 + @hookform/resolvers 5.9 + Zod 4.6.5</td></tr>
+  <tr><td>Feedback UI</td><td>sonner (toast dispatch), React Suspense (<code>loading.tsx</code>, <code>error.tsx</code>)</td></tr>
+</table>
+<p><strong>GitHub Repository:</strong> [REPOSITORY URL &mdash; TO BE ADDED]</p>
+
+<h2>3. RSC vs. Client Component Render Trees and Hydration Optimization</h2>
+<p>
+  Every <code>layout.tsx</code> and <code>page.tsx</code> is a Server Component by default; the
+  authenticated dashboard route (<code>src/app/(dashboard)/page.tsx</code>) queries Prisma directly
+  (<code>prisma.project.findMany()</code>) and passes serializable results as props to Client Components
+  such as <code>ProjectList.tsx</code> and <code>TaskList.tsx</code>. <code>"use client"</code> is pushed
+  to leaves only &mdash; forms, dropdowns, the theme toggle, and <code>Header.tsx</code>/<code>NavLink.tsx</code>
+  &mdash; keeping the majority of the render tree free of client JavaScript. Because the dashboard depends on a
+  live database read at request time, it is explicitly marked <code>export const dynamic =
+  "force-dynamic"</code>, so Next.js renders it on-demand instead of attempting static prerendering at build
+  time. For hydration safety, the root <code>&lt;html&gt;</code> element carries <code>suppressHydrationWarning</code>
+  so that <code>next-themes</code>'s post-mount class injection (read from <code>localStorage</code>) does not
+  raise a mismatch warning or flash the wrong theme, and a dedicated <code>useStoreHydration</code> hook defaults
+  the persisted Zustand values to a neutral state during server rendering, applying the real
+  <code>localStorage</code> value only after client mount so the server and first client render match exactly.
+</p>
+
+<h2>4. Server State Handling vs. Zustand Client State Caching</h2>
+<p>
+  CodeSpace enforces a strict three-way split (documented in <code>STATE_MANAGEMENT.md</code>): server-owned
+  data (projects, tasks, notes) is never cached client-side and is re-fetched by Server Components on every
+  navigation; Server Actions call <code>revalidatePath("/")</code> after a mutation to force the next render to
+  reflect the database; and the Zustand store (<code>useWorkspaceStore.ts</code>) is limited strictly to
+  ephemeral, machine-local UI preferences &mdash; <code>sidebarCollapsed</code>, <code>compactMode</code>,
+  <code>projectFilter</code>, <code>taskFilter</code> &mdash; persisted under the key
+  <code>workspace-storage</code>. Because the store is imported only by the Client Components that read it, a
+  state change re-renders just those subscribers and never invalidates the parent Server Component tree, so
+  toggling a local filter never triggers a server round-trip, and a server-side mutation never resets the
+  persisted client preferences. The one deliberate exception to "no client caching of server data" is React's
+  <code>useOptimistic</code> hook in <code>TaskList.tsx</code>, used narrowly for instant visual feedback when a
+  task is marked complete, ahead of the Server Action's round trip &mdash; a lighter-weight alternative to a
+  general-purpose client cache such as React Query or SWR, which this project deliberately does not use.
+</p>
+
+<h2>5. Lighthouse Audit &mdash; Core Web Vitals (LCP, CLS, INP)</h2>
+<p>
+  Lighthouse was run (desktop preset, headless Chrome, production build) against the authenticated dashboard
+  route (<code>/</code>) and the unauthenticated <code>/login</code> route. Raw reports are committed as
+  <code>lighthouse-dashboard-real.json</code> and <code>lighthouse-login-real.json</code>; figures below are
+  read directly from those files. Lighthouse's lab environment reports Total Blocking Time as the proxy for
+  field INP.
+</p>
+<table class="formal">
+  <tr><th>Route</th><th>Performance</th><th>Accessibility</th><th>LCP</th><th>CLS</th><th>TBT (INP proxy)</th></tr>
+  <tr><td><code>/</code> (dashboard, authenticated)</td><td>95/100</td><td>100/100</td><td>1.4 s (1416 ms)</td><td>0.001</td><td>0 ms</td></tr>
+  <tr><td><code>/login</code></td><td>99/100</td><td>100/100</td><td>1.0 s (1002 ms)</td><td>0.000</td><td>0 ms</td></tr>
+</table>
+<p class="caption">Table 1. Core Web Vitals from the raw Lighthouse JSON reports (production build).</p>
+<p>
+  The dashboard's low SEO score (54/100, not shown above) is intentional &mdash; <code>robots: { index:
+  false, follow: false }</code> is set for this authenticated, private workspace. During this audit, a
+  WCAG AA contrast failure was found and fixed on the dashboard (<code>--muted-foreground</code> and
+  <code>--destructive</code> tokens, both under the 4.5:1 threshold); darkening both by one Tailwind shade in
+  <code>globals.css</code> raised dashboard accessibility from 96/100 to the 100/100 reported above.
+</p>
+
+<h2>6. Assignment 1 Compliance Summary</h2>
+<table class="formal">
+  <tr><th>Requirement</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td>shadcn/ui + Radix accessible primitives</td><td>Implemented</td><td><code>src/components/ui/*</code></td></tr>
+  <tr><td>next-themes theming, no hydration mismatch</td><td>Implemented</td><td><code>theme-provider.tsx</code>, <code>layout.tsx</code></td></tr>
+  <tr><td>Persistent Zustand client store</td><td>Implemented</td><td><code>useWorkspaceStore.ts</code></td></tr>
+  <tr><td>React Hook Form + shared Zod schema (client &amp; server)</td><td>Implemented</td><td><code>validations.ts</code>, <code>src/actions/*</code></td></tr>
+  <tr><td>Server Actions, loading/error/optimistic UI</td><td>Implemented</td><td><code>src/actions/*</code>, <code>loading.tsx</code>, <code>useOptimistic</code></td></tr>
+  <tr><td>Lighthouse / Core Web Vitals audit</td><td>Implemented &amp; verified</td><td>Section 5, raw JSON reports</td></tr>
+</table>
+
+<!-- ========================================================= -->
+<!-- ASSIGNMENT 2                                               -->
+<!-- ========================================================= -->
+<div class="assignment-break"></div>
+<div class="assign-title">Assignment 2 &mdash; System Architecture Note</div>
+<div class="assign-sub">Automated Relational Data Seeding, Transactional Event Notification &amp; Secure Full-Stack Endpoints</div>
+
+<h2>1. Problem Statement and Objectives</h2>
+<p>
+  Assignment 2 required a relational database modelled in Prisma ORM and backed by PostgreSQL, populated
+  through a repeatable Faker.js seeding pipeline; session-based authentication with role-based authorization
+  enforced on protected Server Actions and Route Handlers, gated by a Next.js proxy/middleware layer; and a
+  transactional email pipeline built on React Email and Resend, with webhook-verified delivery logging back
+  into the database.
+</p>
+
+<h2>2. Solution Overview and Technology Stack</h2>
+<p>
+  CodeSpace models nine relational entities in <code>prisma/schema.prisma</code> against PostgreSQL, seeded
+  by <code>prisma/seed.ts</code> using Faker.js, and reset in one command. Better Auth provides session
+  authentication with a custom <code>role</code> field (<code>GUEST</code> / <code>MEMBER</code> /
+  <code>ADMIN</code>); the Next.js proxy performs an optimistic authentication check, while the authoritative
+  role check runs inside each Server Action / Route Handler. A successful project-creation mutation triggers a
+  React Email template dispatched via Resend, and a Svix-verified Resend webhook logs delivery/bounce events.
+</p>
+<table class="formal">
+  <tr><th>Layer</th><th>Technology (installed version)</th></tr>
+  <tr><td>ORM / database</td><td>Prisma ORM 5.21.1 &middot; PostgreSQL 17</td></tr>
+  <tr><td>Mock data seeding</td><td>@faker-js/faker 10.6.0 &middot; tsx 4.23.15 (seed runner)</td></tr>
+  <tr><td>Authentication</td><td>Better Auth 1.7.5 (Prisma adapter, email/password provider)</td></tr>
+  <tr><td>Edge authorization gate</td><td>Next.js Proxy (<code>src/proxy.ts</code>, replaces <code>middleware.ts</code> in Next.js 16)</td></tr>
+  <tr><td>Transactional email</td><td>Resend 6.28.1 + @react-email/components 1.0.12</td></tr>
+  <tr><td>Webhook verification</td><td>svix 2.5.0</td></tr>
+</table>
+
+<div class="diagram-section">
+<h2>3. System Architecture</h2>
+<div class="diagram-figure">
+  <img src="architecture.svg" alt="CodeSpace system architecture diagram" />
+</div>
+<p class="caption">Figure 1. Request flow: proxy authentication gate &rarr; Server Components / Server Actions / Route Handlers &rarr; Better Auth + Prisma/PostgreSQL &rarr; React Email/Resend dispatch &rarr; Svix-verified webhook &rarr; audit log. Generated from <code>architecture.mmd</code> using Mermaid.</p>
+</div>
+
+<h2>4. Data Relationships</h2>
+<table class="formal">
+  <tr><th>Entity</th><th>Key Relationships</th><th>Purpose</th></tr>
+  <tr><td>User</td><td>1:N to Session, Account, Project, Task, Note, CodeSnippet, CodingProblem, ProgressRecord, AuditLog</td><td>Identity + Better Auth session + application <code>Role</code> enum</td></tr>
+  <tr><td>Session / Account / Verification</td><td>N:1 to User</td><td>Better Auth session &amp; hashed-credential storage</td></tr>
+  <tr><td>Project</td><td>N:1 to User; 1:N to Task</td><td>Admin-only top-level workspace item</td></tr>
+  <tr><td>Task</td><td>N:1 to Project; N:1 to User</td><td>Actionable work item</td></tr>
+  <tr><td>Note / CodeSnippet / CodingProblem / ProgressRecord</td><td>N:1 to User</td><td>Personal knowledge base &amp; tracking data</td></tr>
+  <tr><td>AuditLog</td><td>N:1 to User (nullable)</td><td>User actions and system webhook events</td></tr>
+</table>
+<p class="caption">Table 2. Core entities from <code>prisma/schema.prisma</code>. All foreign keys are indexed with <code>onDelete: Cascade</code>.</p>
+
+<h2>5. Authorization Flow</h2>
+<p>
+  <code>src/proxy.ts</code> checks only for the presence of the <code>better-auth.session_token</code> cookie
+  and redirects unauthenticated requests to <code>/login</code> (or authenticated requests away from
+  <code>/login</code>); it does not decode the session or check role. The authoritative role check happens
+  inside each Server Action/Route Handler via <code>getCurrentUser()</code>
+  (<code>src/lib/auth.ts</code>), which resolves the session through Better Auth and reads the
+  <code>role</code> field exposed via <code>user.additionalFields</code> (default <code>GUEST</code>,
+  <code>input: false</code> so it can never be client-supplied). <code>createProject</code> rejects any caller
+  whose role is not <code>ADMIN</code>.
+</p>
+<table class="formal">
+  <tr><th>Verified Request</th><th>Result</th></tr>
+  <tr><td>Sign in as <code>admin@codespace.dev</code></td><td>200 OK, session role <code>ADMIN</code></td></tr>
+  <tr><td>Sign in as <code>guest@codespace.dev</code></td><td>200 OK, session role <code>GUEST</code></td></tr>
+  <tr><td><code>POST /api/projects</code> as ADMIN</td><td>201 Created</td></tr>
+  <tr><td><code>POST /api/projects</code> as GUEST</td><td>403 Forbidden</td></tr>
+  <tr><td><code>GET /api/projects</code>, no session</td><td>401 Unauthorized</td></tr>
+  <tr><td><code>GET /</code>, no session (proxy)</td><td>307 redirect to <code>/login</code></td></tr>
+</table>
+<p class="caption">Table 3. Live authorization verification against a production build and a real PostgreSQL database (source: <code>PROJECT_AUDIT.md</code>).</p>
+
+<h2>6. Email Delivery Dispatch Log</h2>
+<p>
+  <code>src/emails/ProjectCreatedEmail.tsx</code> defines the React Email template; <code>src/lib/email.ts</code>
+  calls <code>resend.emails.send()</code> as a fire-and-forget dispatch after <code>createProject</code>'s
+  Prisma transaction commits, so a slow or failing email provider never blocks the mutation.
+  <code>src/app/api/webhooks/resend/route.ts</code> verifies the <code>svix-id</code>/<code>svix-timestamp</code>/
+  <code>svix-signature</code> headers against <code>RESEND_WEBHOOK_SECRET</code> and, on a verified
+  <code>email.delivered</code> or <code>email.bounced</code> event, writes an <code>AuditLog</code> row.
+</p>
+<div class="note-box">
+  <div class="note-title">Verification status</div>
+  Development-mode mock dispatch (<code>NODE_ENV=development</code>, <code>ENABLE_EMAILS</code> unset) was
+  exercised successfully and logged to the console. No <code>RESEND_API_KEY</code> or
+  <code>RESEND_WEBHOOK_SECRET</code> was available in this environment, so a real Resend delivery and a real
+  signed webhook callback were <strong>not</strong> exercised end-to-end; the code for both paths was reviewed
+  and is structurally correct. Live delivery/webhook logs must be captured manually once real credentials are
+  provisioned (see Section 7).
+</div>
+
+<h2>7. Assignment 2 Compliance Summary</h2>
+<table class="formal">
+  <tr><th>Requirement</th><th>Status</th><th>Evidence</th></tr>
+  <tr><td>Relational Prisma schema on PostgreSQL</td><td>Implemented</td><td><code>prisma/schema.prisma</code></td></tr>
+  <tr><td>Faker.js seed script with FK integrity</td><td>Implemented</td><td><code>prisma/seed.ts</code></td></tr>
+  <tr><td>Single-command reset/migrate/seed</td><td>Implemented</td><td><code>npm run db:reset</code></td></tr>
+  <tr><td>Better Auth + RBAC (Admin/Member/Guest)</td><td>Implemented &amp; live-verified</td><td>Section 5, Table 3</td></tr>
+  <tr><td>Proxy authentication gate</td><td>Implemented</td><td><code>src/proxy.ts</code></td></tr>
+  <tr><td>React Email + Resend dispatch</td><td>Implemented; mock verified, live delivery pending real credentials</td><td>Section 6</td></tr>
+  <tr><td>Resend webhook &rarr; audit log</td><td>Implemented; not verified against a live webhook</td><td>Section 6</td></tr>
+</table>
+<p><strong>Manual completion required:</strong> student name/roll number (header of this document), GitHub repository URL (Assignment 1, Section 2), live Resend email/webhook evidence once <code>RESEND_API_KEY</code> / <code>RESEND_WEBHOOK_SECRET</code> are provisioned, and database screenshots if required separately from this note.</p>
+
+</body>
+</html>

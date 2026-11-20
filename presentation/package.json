@@ -1,0 +1,11 @@
+{
+  "name": "codespace-presentation",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node generate.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

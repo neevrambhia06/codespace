@@ -1,0 +1,47 @@
+flowchart TB
+    subgraph CLIENT["Browser (Client)"]
+        UI["React Client Components<br/>LoginForm, RegisterForm,<br/>ProjectList, TaskList"]
+        RHF["react-hook-form<br/>+ zodResolver"]
+        ZUS["Zustand Store<br/>useWorkspaceStore<br/>(sidebarCollapsed, filters)"]
+        UI --> RHF
+        UI --> ZUS
+    end
+
+    subgraph EDGE["Next.js Proxy Layer (proxy.ts)"]
+        PROXY["Cookie-presence check<br/>redirect unauthenticated to /login<br/>redirect authenticated away from /login"]
+    end
+
+    subgraph SERVER["Next.js App Router Server Runtime"]
+        RSC["Server Components<br/>layout.tsx, (dashboard)/page.tsx<br/>direct prisma.findMany() calls"]
+        SA["Server Actions<br/>createProject, createTask, createNote<br/>Zod validation + getCurrentUser() + role check"]
+        RH["Route Handlers<br/>/api/projects, /api/og,<br/>/api/webhooks/resend"]
+        AUTH["Better Auth<br/>auth.ts / auth-client.ts<br/>session + role via additionalFields"]
+        OG["Dynamic OG Image<br/>/api/og (next/og + Satori)"]
+    end
+
+    subgraph DATA["PostgreSQL via Prisma ORM"]
+        DB[("User, Session, Account,<br/>Project, Task, Note,<br/>CodeSnippet, AuditLog")]
+    end
+
+    subgraph EMAIL["Transactional Email"]
+        REACTEMAIL["React Email Template<br/>ProjectCreatedEmail.tsx"]
+        RESEND["Resend API<br/>(sendProjectCreatedEmail)"]
+        WEBHOOK["Resend Webhook<br/>Svix signature verification"]
+    end
+
+    UI -- "HTTPS request" --> PROXY
+    PROXY -- "session cookie present" --> RSC
+    PROXY -- "session cookie present" --> RH
+    RHF -- "call Server Action" --> SA
+    SA --> AUTH
+    SA -- "prisma.$transaction" --> DB
+    SA -- "on success, fire-and-forget" --> REACTEMAIL
+    REACTEMAIL --> RESEND
+    RESEND -- "delivery / bounce event" --> WEBHOOK
+    WEBHOOK -- "prisma.auditLog.create" --> DB
+    RSC -- "prisma.findMany" --> DB
+    RH --> AUTH
+    RH -- "prisma queries" --> DB
+    RH --> OG
+    AUTH -- "prismaAdapter" --> DB
+    RSC -- "serialized props" --> UI

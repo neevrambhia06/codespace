@@ -1,0 +1,16 @@
+{
+  "name": "codespace-report-generator",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Reproducible generator for the CodeSpace academic technical report PDF (Mermaid diagram render + HTML-to-PDF via Puppeteer).",
+  "scripts": {
+    "diagram": "mmdc -i architecture.mmd -o architecture.svg -b white -w 1600 -H 1100 -c mermaid.config.json",
+    "pdf": "node generate-pdf.mjs",
+    "build": "npm run diagram && npm run pdf"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.4.2",
+    "puppeteer": "^23.11.1"
+  }
+}
