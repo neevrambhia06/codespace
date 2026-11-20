@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
   Search,
@@ -11,9 +11,14 @@ import {
   Code2,
   Puzzle,
   Settings,
-  Home,
   ArrowRight,
   X,
+  Home,
+  FolderGit2,
+  CheckCircle2,
+  Circle,
+  FileCode2,
+  Loader2,
 } from "lucide-react";
 
 interface SearchModalProps {
@@ -21,24 +26,16 @@ interface SearchModalProps {
   onClose: () => void;
 }
 
-interface CommandItem {
+interface SearchItem {
   id: string;
   title: string;
   subtitle: string;
-  category: "Navigation" | "Actions";
+  category: "Navigation" | "Projects" | "Tasks" | "Notes" | "Snippets";
   href: string;
   icon: React.ComponentType<{ className?: string }>;
 }
 
-const COMMANDS: CommandItem[] = [
-  {
-    id: "nav-landing",
-    title: "Homepage / Landing",
-    subtitle: "Public landing page, overview and design philosophy",
-    category: "Navigation",
-    href: "/",
-    icon: Home,
-  },
+const STATIC_COMMANDS: SearchItem[] = [
   {
     id: "nav-dashboard",
     title: "Dashboard",
@@ -95,81 +92,169 @@ const COMMANDS: CommandItem[] = [
     href: "/settings",
     icon: Settings,
   },
+  {
+    id: "nav-landing",
+    title: "Homepage / Landing",
+    subtitle: "Public landing page, overview and design philosophy",
+    category: "Navigation",
+    href: "/",
+    icon: Home,
+  },
 ];
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [searchResults, setSearchResults] = useState<SearchItem[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  // Keyboard shortcut: Cmd+K / Ctrl+K
+  // Focus input on open
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        if (isOpen) {
-          onClose();
-        } else {
-          // Trigger open is handled by parent, but if this component manages it or is always rendered
-        }
-      }
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
-
-  const filteredCommands = useMemo(() => {
-    if (!query.trim()) return COMMANDS;
-    const q = query.toLowerCase().trim();
-    return COMMANDS.filter(
-      (cmd) =>
-        cmd.title.toLowerCase().includes(q) ||
-        cmd.subtitle.toLowerCase().includes(q) ||
-        cmd.category.toLowerCase().includes(q)
-    );
-  }, [query]);
-
-  // Handle arrow key navigation
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  useEffect(() => {
-    if (!isOpen) {
+    if (isOpen) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+      }, 50);
+    } else {
       setQuery("");
+      setSearchResults([]);
+    }
+  }, [isOpen]);
+
+  // Debounced search for live database records
+  useEffect(() => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setIsLoading(false);
       return;
     }
 
-    const handleArrowNav = (e: KeyboardEvent) => {
-      if (!isOpen) return;
+    const timer = setTimeout(async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query.trim())}`);
+        if (!res.ok) throw new Error("Search failed");
+        const data = await res.json();
+
+        const items: SearchItem[] = [];
+
+        // Map projects
+        if (data.projects && Array.isArray(data.projects)) {
+          data.projects.forEach((p: { id: string; name: string; description?: string }) => {
+            items.push({
+              id: `proj-${p.id}`,
+              title: p.name,
+              subtitle: p.description || "Active project initiative",
+              category: "Projects",
+              href: `/projects/${p.id}`,
+              icon: FolderGit2,
+            });
+          });
+        }
+
+        // Map tasks
+        if (data.tasks && Array.isArray(data.tasks)) {
+          data.tasks.forEach((t: { id: string; title: string; completed?: boolean; priority?: string }) => {
+            items.push({
+              id: `task-${t.id}`,
+              title: t.title,
+              subtitle: `Deliverable • Priority: ${t.priority || "medium"} • ${t.completed ? "Completed" : "Pending"}`,
+              category: "Tasks",
+              href: `/tasks`,
+              icon: t.completed ? CheckCircle2 : Circle,
+            });
+          });
+        }
+
+        // Map notes
+        if (data.notes && Array.isArray(data.notes)) {
+          data.notes.forEach((n: { id: string; title: string; snippet?: string }) => {
+            items.push({
+              id: `note-${n.id}`,
+              title: n.title,
+              subtitle: n.snippet || "Documentation record",
+              category: "Notes",
+              href: `/notes`,
+              icon: FileText,
+            });
+          });
+        }
+
+        // Map snippets
+        if (data.snippets && Array.isArray(data.snippets)) {
+          data.snippets.forEach((s: { id: string; title: string; language?: string }) => {
+            items.push({
+              id: `snip-${s.id}`,
+              title: s.title,
+              subtitle: `Snippet • Language: ${s.language || "text"}`,
+              category: "Snippets",
+              href: `/snippets`,
+              icon: FileCode2,
+            });
+          });
+        }
+
+        setSearchResults(items);
+      } catch (err) {
+        console.error("[Search error]", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 120);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  // Combined list of matching commands and dynamic database results
+  const allItems = useMemo(() => {
+    const q = query.toLowerCase().trim();
+    const matchingStatic = !q
+      ? STATIC_COMMANDS
+      : STATIC_COMMANDS.filter(
+          (cmd) =>
+            cmd.title.toLowerCase().includes(q) ||
+            cmd.subtitle.toLowerCase().includes(q) ||
+            cmd.category.toLowerCase().includes(q)
+        );
+
+    return [...searchResults, ...matchingStatic];
+  }, [query, searchResults]);
+
+  // Reset selected index when results change
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [allItems.length]);
+
+  // Keyboard navigation & submission
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "ArrowDown") {
         e.preventDefault();
-        setSelectedIndex((prev) => (prev + 1) % Math.max(filteredCommands.length, 1));
+        setSelectedIndex((prev) => (prev + 1) % Math.max(allItems.length, 1));
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev === 0 ? Math.max(filteredCommands.length - 1, 0) : prev - 1
+          prev === 0 ? Math.max(allItems.length - 1, 0) : prev - 1
         );
-      } else if (e.key === "Enter" && filteredCommands[selectedIndex]) {
+      } else if (e.key === "Enter" && allItems[selectedIndex]) {
         e.preventDefault();
-        const selected = filteredCommands[selectedIndex];
+        const selected = allItems[selectedIndex];
         router.push(selected.href);
         onClose();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
       }
-    };
-
-    window.addEventListener("keydown", handleArrowNav);
-    return () => window.removeEventListener("keydown", handleArrowNav);
-  }, [isOpen, filteredCommands, selectedIndex, router, onClose]);
+    },
+    [allItems, selectedIndex, router, onClose]
+  );
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 sm:px-6">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 sm:px-6">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-[#101010]/60 backdrop-blur-xs transition-opacity animate-in fade-in-0 duration-150"
@@ -177,24 +262,28 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[4px_4px_0px_#101010] animate-in fade-in-0 zoom-in-95 duration-150 overflow-hidden flex flex-col">
+      <div className="relative w-full max-w-2xl rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[6px_6px_0px_#101010] animate-in fade-in-0 zoom-in-95 duration-150 overflow-hidden flex flex-col">
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#101010]/15 bg-[#FAF4EA]">
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#101010]/20 bg-[#FAF4EA]">
           <Search className="w-4 h-4 text-[#D5360C] shrink-0" />
           <input
-            autoFocus
+            ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search workspace or jump to section... (Type to filter)"
+            onKeyDown={handleKeyDown}
+            placeholder="Search projects, tasks, notes, snippets, or jump to section…"
             className="flex-1 bg-transparent text-sm text-[#101010] placeholder:text-[#4A443C]/70 outline-none font-sans"
           />
+          {isLoading && (
+            <Loader2 className="w-4 h-4 text-[#D5360C] animate-spin shrink-0" />
+          )}
           <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 font-mono text-[10px] tracking-wider uppercase border border-[#101010]/20 bg-[#E6D5BD] text-[#4A443C] rounded-xs">
             ESC
           </kbd>
           <button
             onClick={onClose}
-            className="sm:hidden text-[#4A443C] hover:text-[#101010]"
+            className="sm:hidden text-[#4A443C] hover:text-[#101010] p-1"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
@@ -202,32 +291,32 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
 
         {/* Results List */}
-        <div className="max-h-80 overflow-y-auto p-2 space-y-1">
-          {filteredCommands.length === 0 ? (
-            <div className="py-8 text-center">
+        <div className="max-h-96 overflow-y-auto p-2 space-y-1">
+          {allItems.length === 0 ? (
+            <div className="py-10 text-center">
               <p className="font-mono text-xs uppercase tracking-wider text-[#4A443C]">
-                No matching destinations found for &quot;{query}&quot;
+                No matching projects, notes, or destinations found for &quot;{query}&quot;
               </p>
             </div>
           ) : (
-            filteredCommands.map((cmd, idx) => {
+            allItems.map((cmd, idx) => {
               const Icon = cmd.icon;
               const isSelected = idx === selectedIndex;
               return (
                 <button
-                  key={cmd.id}
+                  key={`${cmd.id}-${idx}`}
                   onClick={() => {
                     router.push(cmd.href);
                     onClose();
                   }}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full flex items-center justify-between p-2.5 rounded-xs text-left transition-colors font-sans ${
+                  className={`w-full flex items-center justify-between p-2.5 rounded-xs text-left transition-colors font-sans cursor-pointer ${
                     isSelected
                       ? "bg-[#D5360C] text-[#F4EBDD]"
                       : "text-[#101010] hover:bg-[#FAF4EA]"
                   }`}
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
                     <div
                       className={`w-7 h-7 rounded-xs flex items-center justify-center shrink-0 border ${
                         isSelected
@@ -237,12 +326,23 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     >
                       <Icon className="w-3.5 h-3.5" />
                     </div>
-                    <div>
-                      <div className="font-mono text-xs font-bold uppercase tracking-wider">
-                        {cmd.title}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-bold uppercase tracking-wider truncate">
+                          {cmd.title}
+                        </span>
+                        <span
+                          className={`font-mono text-[9px] uppercase px-1.5 py-0.2 rounded-xs border ${
+                            isSelected
+                              ? "border-[#F4EBDD]/40 text-[#F4EBDD]"
+                              : "border-[#101010]/20 text-[#4A443C] bg-[#E6D5BD]"
+                          }`}
+                        >
+                          {cmd.category}
+                        </span>
                       </div>
                       <div
-                        className={`text-[11px] line-clamp-1 ${
+                        className={`text-[11px] line-clamp-1 truncate ${
                           isSelected ? "text-[#F4EBDD]/85" : "text-[#4A443C]"
                         }`}
                       >
@@ -263,10 +363,21 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
           )}
         </div>
 
-        {/* Footer info */}
-        <div className="px-4 py-2 border-t border-[#101010]/15 bg-[#E6D5BD]/50 flex items-center justify-between text-[10px] font-mono uppercase tracking-wider text-[#4A443C]">
-          <span>Navigation: ↑ ↓ Enter</span>
-          <span>Close: Esc</span>
+        {/* Modal Footer */}
+        <div className="px-4 py-2 border-t border-[#101010]/15 bg-[#FAF4EA] flex items-center justify-between text-[11px] font-mono text-[#4A443C]">
+          <div className="flex items-center gap-3">
+            <span>
+              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">↑↓</kbd> Navigate
+            </span>
+            <span>
+              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">↵</kbd> Open
+            </span>
+          </div>
+          <div>
+            <span>
+              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">ESC</kbd> Close
+            </span>
+          </div>
         </div>
       </div>
     </div>

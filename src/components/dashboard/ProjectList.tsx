@@ -3,7 +3,7 @@
 import type { Project } from "@prisma/client";
 import { useState } from "react";
 import Link from "next/link";
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight, Search } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
@@ -32,30 +32,48 @@ export function ProjectList({ projects }: ProjectListProps) {
   const compactMode = useStoreHydration(useWorkspaceStore, (state) => state.compactMode) ?? false;
   const setProjectFilter = useWorkspaceStore((state) => state.setProjectFilter);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filteredProjects = projects.filter((project) => {
-    if (filter === "all") return true;
-    return project.status === filter;
+    const matchesFilter = filter === "all" || project.status === filter;
+    const matchesSearch =
+      !searchQuery.trim() ||
+      project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      Boolean(project.description && project.description.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesFilter && matchesSearch;
   });
 
   return (
     <div className="space-y-4">
       {/* Header controls */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex gap-2">
-          {["all", "active", "archived"].map((mode) => (
-            <button
-              key={mode}
-              onClick={() => setProjectFilter(mode as "all" | "active" | "archived")}
-              className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
-                filter === mode
-                  ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
-                  : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
-              }`}
-            >
-              {mode}
-            </button>
-          ))}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex gap-2">
+            {["all", "active", "archived"].map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setProjectFilter(mode as "all" | "active" | "archived")}
+                className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border cursor-pointer ${
+                  filter === mode
+                    ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
+                    : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative">
+            <Search className="w-3 h-3 text-[#4A443C] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Filter projects…"
+              className="pl-7 pr-3 py-1 font-mono text-[10px] uppercase rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] placeholder:text-[#4A443C]/60 outline-none focus:border-[#D5360C] w-36 sm:w-44 transition-all"
+            />
+          </div>
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

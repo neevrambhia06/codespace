@@ -154,15 +154,20 @@ export function GlobalNavbar() {
 
           {/* ── Right: Compact Utility Cluster ──────────────────────────── */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Minimal Search Trigger (⌘K) */}
+            {/* Search Bar Trigger */}
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search Workspace (⌘K)"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010] transition-colors font-mono text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
+              className="flex items-center justify-between gap-3 px-3 py-1.5 w-36 sm:w-52 md:w-64 lg:w-72 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010]/40 transition-all font-mono text-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] text-left"
             >
-              <Search className="w-3.5 h-3.5 text-[#D5360C]" />
-              <kbd className="hidden sm:inline-block font-mono text-[10px] tracking-wider text-[#4A443C]">
+              <div className="flex items-center gap-2 min-w-0 text-[#4A443C]">
+                <Search className="w-3.5 h-3.5 text-[#D5360C] shrink-0" />
+                <span className="truncate text-xs font-sans text-[#4A443C]/85 font-normal">
+                  Search workspace…
+                </span>
+              </div>
+              <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-xs border border-[#101010]/15 bg-[#E6D5BD] font-mono text-[10px] text-[#4A443C] font-semibold shrink-0">
                 ⌘K
               </kbd>
             </button>

@@ -2,7 +2,7 @@
 
 import type { Task } from "@prisma/client";
 import { useState, useOptimistic, useTransition } from "react";
-import { CheckCircle2, Circle, Plus } from "lucide-react";
+import { CheckCircle2, Circle, Plus, Search } from "lucide-react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -34,6 +34,7 @@ export function TaskList({ tasks }: TaskListProps) {
   const setTaskFilter = useWorkspaceStore((state) => state.setTaskFilter);
   const toggleCompactMode = useWorkspaceStore((state) => state.toggleCompactMode);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [, startTransition] = useTransition();
 
   const [optimisticTasks, setOptimisticTasks] = useOptimistic(
@@ -45,10 +46,14 @@ export function TaskList({ tasks }: TaskListProps) {
   );
 
   const filteredTasks = optimisticTasks.filter((task) => {
-    if (filter === "all") return true;
-    if (filter === "pending") return !task.completed;
-    if (filter === "completed") return task.completed;
-    return true;
+    const matchesFilter =
+      filter === "all" ||
+      (filter === "pending" && !task.completed) ||
+      (filter === "completed" && task.completed);
+    const matchesSearch =
+      !searchQuery.trim() ||
+      task.title.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesFilter && matchesSearch;
   });
 
   const handleToggle = async (taskId: string, currentCompleted: boolean) => {
@@ -67,21 +72,34 @@ export function TaskList({ tasks }: TaskListProps) {
   return (
     <div className="space-y-4">
       {/* Header controls */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex gap-2">
-          {["all", "pending", "completed"].map((mode) => (
-            <button
-              key={mode}
-              onClick={() => setTaskFilter(mode as "all" | "pending" | "completed")}
-              className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
-                filter === mode
-                  ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
-                  : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
-              }`}
-            >
-              {mode}
-            </button>
-          ))}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex gap-2">
+            {["all", "pending", "completed"].map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setTaskFilter(mode as "all" | "pending" | "completed")}
+                className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border cursor-pointer ${
+                  filter === mode
+                    ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
+                    : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative">
+            <Search className="w-3 h-3 text-[#4A443C] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Filter tasks…"
+              className="pl-7 pr-3 py-1 font-mono text-[10px] uppercase rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] placeholder:text-[#4A443C]/60 outline-none focus:border-[#D5360C] w-32 sm:w-40 transition-all"
+            />
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <button
