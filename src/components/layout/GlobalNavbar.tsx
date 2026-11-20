@@ -106,12 +106,12 @@ export function GlobalNavbar() {
     <>
       <header className="sticky top-0 z-40 w-full bg-[#E6D5BD] border-b border-[#101010]">
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
-          {/* ── Left: Wordmark with Burnt Orange mark ───────────────────── */}
+          {/* ── Left: Wordmark with Burnt Orange mark (takes to landing page) ── */}
           <div className="flex items-center gap-6">
             <Link
-              href="/dashboard"
+              href="/"
               className="flex items-center gap-2.5 group outline-none select-none"
-              aria-label={`${APP_NAME} Workspace`}
+              aria-label={`${APP_NAME} Landing Page`}
             >
               <div className="w-7 h-7 rounded-xs bg-[#D5360C] text-[#F4EBDD] flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
                 <Code2 className="w-4 h-4 stroke-[2.5]" />

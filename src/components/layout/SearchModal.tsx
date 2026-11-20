@@ -11,6 +11,7 @@ import {
   Code2,
   Puzzle,
   Settings,
+  Home,
   ArrowRight,
   X,
 } from "lucide-react";
@@ -30,6 +31,14 @@ interface CommandItem {
 }
 
 const COMMANDS: CommandItem[] = [
+  {
+    id: "nav-landing",
+    title: "Homepage / Landing",
+    subtitle: "Public landing page, overview and design philosophy",
+    category: "Navigation",
+    href: "/",
+    icon: Home,
+  },
   {
     id: "nav-dashboard",
     title: "Dashboard",
