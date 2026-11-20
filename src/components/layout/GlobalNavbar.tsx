@@ -158,18 +158,13 @@ export function GlobalNavbar() {
             <button
               type="button"
               onClick={() => setIsSearchOpen(true)}
-              aria-label="Search Workspace (⌘K)"
-              className="flex items-center justify-between gap-3 px-3 py-1.5 w-36 sm:w-52 md:w-64 lg:w-72 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010]/40 transition-all font-mono text-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] text-left"
+              aria-label="Search Workspace"
+              className="flex items-center gap-2.5 px-3 py-1.5 w-36 sm:w-52 md:w-64 lg:w-72 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010]/40 transition-all font-mono text-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] text-left"
             >
-              <div className="flex items-center gap-2 min-w-0 text-[#4A443C]">
-                <Search className="w-3.5 h-3.5 text-[#D5360C] shrink-0" />
-                <span className="truncate text-xs font-sans text-[#4A443C]/85 font-normal">
-                  Search workspace…
-                </span>
-              </div>
-              <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 rounded-xs border border-[#101010]/15 bg-[#E6D5BD] font-mono text-[10px] text-[#4A443C] font-semibold shrink-0">
-                ⌘K
-              </kbd>
+              <Search className="w-3.5 h-3.5 text-[#D5360C] shrink-0" />
+              <span className="truncate text-xs font-sans text-[#4A443C]/85 font-normal">
+                Search workspace…
+              </span>
             </button>
 
             {/* Notification Bell */}
@@ -333,13 +328,10 @@ export function GlobalNavbar() {
                   setIsMobileMenuOpen(false);
                   setIsSearchOpen(true);
                 }}
-                className="w-full flex items-center justify-between p-2 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010]"
+                className="w-full flex items-center gap-2 p-2 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010]"
               >
-                <span className="flex items-center gap-2">
-                  <Search className="w-3.5 h-3.5 text-[#D5360C]" />
-                  <span>Search Workspace</span>
-                </span>
-                <kbd className="text-[10px] text-[#4A443C]">⌘K</kbd>
+                <Search className="w-3.5 h-3.5 text-[#D5360C]" />
+                <span>Search Workspace</span>
               </button>
 
               <Link

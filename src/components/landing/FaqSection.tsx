@@ -18,7 +18,7 @@ const FAQS = [
   },
   {
     q: "Can I organize and search across all my notes and snippets?",
-    a: "Yes. Pressing ⌘K (or Ctrl+K) opens a quick-search palette allowing you to jump to any project, task, or documentation memo in seconds without taking your hands off the keyboard.",
+    a: "Yes. The workspace search bar opens an instant search palette allowing you to jump to any project, task, or documentation memo in seconds.",
   },
   {
     q: "What makes CodeSpace different from typical productivity tools?",

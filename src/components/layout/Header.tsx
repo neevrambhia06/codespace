@@ -55,14 +55,11 @@ export function Header({ title }: HeaderProps) {
         <button
           id="header-search-btn"
           type="button"
-          aria-label="Search (⌘K)"
+          aria-label="Search"
           className="group flex items-center gap-2 rounded-xs border border-[#101010]/15 bg-[#EFE3D1] px-3 py-1.5 text-xs text-[#101010]/70 transition-colors hover:border-[#101010]/30 hover:text-[#101010] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
         >
           <Search className="h-3.5 w-3.5" aria-hidden="true" />
           <span className="hidden sm:inline font-mono text-[11px]">Search workspace…</span>
-          <kbd className="ml-1 hidden rounded-xs border border-[#101010]/20 bg-[#E6D5BD] px-1 font-mono text-[9px] text-[#101010]/60 sm:inline">
-            ⌘K
-          </kbd>
         </button>
 
         {/* Notifications */}
