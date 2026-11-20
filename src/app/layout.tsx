@@ -4,6 +4,7 @@ import "./globals.css";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/Toaster";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 const fontDisplay = Fraunces({
   variable: "--font-display",
@@ -65,9 +66,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} h-full antialiased`}
+      className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} min-h-full antialiased`}
     >
-      <body className="h-full bg-background text-foreground font-sans selection:bg-[#D5360C] selection:text-[#E6D5BD]">
+      <body className="min-h-full bg-background text-foreground font-sans selection:bg-[#D5360C] selection:text-[#E6D5BD]">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -75,6 +76,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <ScrollToTop />
           {children}
           <Toaster />
         </ThemeProvider>
