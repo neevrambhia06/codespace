@@ -75,14 +75,13 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
       {/* ── Editorial Page Header ───────────────────────────────────── */}
       <PageHeader
-        eyebrow="REPOSITORY INSPECTOR // DETAIL"
+        eyebrow="PROJECT DETAILS"
         title={project.name}
-        description={project.description || "Project telemetry, member ownership, and milestone tracking."}
+        description={project.description || "Project overview, key deliverables, and milestone tracking."}
         action={
           <div className="flex items-center gap-2">
             {project.language && (
               <Badge variant="secondary" className="gap-1">
-                <Code className="h-3 w-3" />
                 <span>{project.language}</span>
               </Badge>
             )}
@@ -93,28 +92,28 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         }
       />
 
-      {/* ── Repository Metadata Card ────────────────────────────────── */}
+      {/* ── Project Metadata Card ───────────────────────────────────── */}
       <Card>
         <CardContent className="pt-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
             <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
               <UserIcon className="h-4 w-4 text-[#D5360C]" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Repository Owner</span>
-                <strong className="text-[#101010] font-sans text-xs">{project.user?.name || "Developer"}</strong>
+                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Project Lead</span>
+                <strong className="text-[#101010] font-sans text-xs">{project.user?.name || "Alex Morgan"}</strong>
               </div>
             </div>
             <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
               <Calendar className="h-4 w-4 text-[#D5360C]" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Creation Timestamp</span>
+                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Date Created</span>
                 <strong className="text-[#101010] font-sans text-xs">{new Date(project.createdAt).toLocaleDateString()}</strong>
               </div>
             </div>
             <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
               <Clock className="h-4 w-4 text-[#D5360C]" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Last Mutation</span>
+                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Last Updated</span>
                 <strong className="text-[#101010] font-sans text-xs">{new Date(project.updatedAt).toLocaleDateString()}</strong>
               </div>
             </div>
@@ -127,9 +126,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         {/* Progress Overview */}
         <Card className="lg:col-span-1">
           <CardHeader>
-            <CardTitle className="text-base font-bold">Execution Progress</CardTitle>
+            <CardTitle className="text-base font-bold">Task Progress</CardTitle>
             <CardDescription className="text-xs text-[#4A443C]">
-              Completion rate for linked tasks
+              Completion rate for project tasks
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -164,9 +163,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <div>
-              <CardTitle className="text-base font-bold">Linked Sprint Tasks</CardTitle>
+              <CardTitle className="text-base font-bold">Project Tasks</CardTitle>
               <CardDescription className="text-xs text-[#4A443C]">
-                Actionable deliverables assigned to this repository
+                Deliverables and tasks for this project
               </CardDescription>
             </div>
             <Badge variant="secondary" className="text-xs">
@@ -176,7 +175,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           <CardContent>
             {project.tasks.length === 0 ? (
               <div className="text-center py-8 border border-dashed border-[#101010]/25 rounded-xs bg-[#FAF4EA]">
-                <p className="font-mono text-xs text-[#4A443C]">No tasks linked to this repository yet.</p>
+                <p className="font-mono text-xs text-[#4A443C]">No tasks linked to this project yet.</p>
               </div>
             ) : (
               <div className="space-y-2.5">

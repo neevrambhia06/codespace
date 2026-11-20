@@ -1,4 +1,4 @@
-import { X, Check, Layers, AlertCircle, Sparkles } from "lucide-react";
+import { X, Check, AlertCircle, Sparkles } from "lucide-react";
 
 export function ComparisonSection() {
   return (
@@ -8,14 +8,14 @@ export function ComparisonSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#101010]/20 pb-8 mb-16 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase text-[#D5360C] mb-3">
-              <span>02 // PARADIGM SHIFT</span>
+              <span>02 // THE WORKSPACE ADVANTAGE</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-balance">
-              THE FRAGMENTATION DILEMMA.
+              OVERCOMING TOOL CHAOS.
             </h2>
           </div>
           <p className="font-mono text-xs tracking-wider text-[#101010]/70 max-w-md uppercase leading-relaxed">
-            Developers lose up to 3 hours daily context-switching across browser tabs, disconnected notes, and bloated trackers. Here is how we solve it.
+            Switching between disconnected apps, sticky notes, and bloated tools drains focus. Here is a simpler, cleaner way forward.
           </p>
         </div>
 
@@ -28,7 +28,7 @@ export function ComparisonSection() {
                 <div className="flex items-center gap-2 text-[#101010]/70">
                   <AlertCircle className="w-5 h-5 text-[#B32608]" />
                   <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                    THE OLD PARADIGM
+                    THE OLD WAY
                   </span>
                 </div>
                 <span className="font-mono text-[10px] uppercase text-[#101010]/50 tracking-wider">
@@ -42,11 +42,11 @@ export function ComparisonSection() {
 
               <ul className="space-y-4 pt-2">
                 {[
-                  "14+ open browser tabs juggling Jira, Notion, GitHub, and notes",
-                  "Scattered local .txt files and forgotten markdown scratchpads",
-                  "Eye-straining dark neon interfaces that cause cognitive burnout",
-                  "Opaque, delayed task sync with zero role-based mutation safety",
-                  "Zero unified audit trail of what was actually deployed or modified",
+                  "Dozens of open browser tabs across disconnected task apps",
+                  "Scattered local notes and forgotten scratchpad files",
+                  "Overwhelming interfaces that cause visual fatigue",
+                  "Clunky, slow task sync with disorganized checklists",
+                  "Zero clear record of recent project updates and milestones",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#101010]/75">
                     <div className="w-5 h-5 rounded-full bg-[#101010]/10 flex items-center justify-center shrink-0 mt-0.5 text-[#B32608]">
@@ -59,7 +59,7 @@ export function ComparisonSection() {
             </div>
 
             <div className="mt-10 pt-4 border-t border-[#101010]/10 font-mono text-[11px] text-[#101010]/60 uppercase tracking-wider">
-              RESULT: HIGH COGNITIVE DRAG & CONTEXT LOSS
+              RESULT: HIGH COGNITIVE DRAG & LOST PRODUCTIVITY
             </div>
           </div>
 
@@ -79,7 +79,7 @@ export function ComparisonSection() {
                   </span>
                 </div>
                 <span className="font-mono text-[10px] uppercase text-[#D5360C] tracking-wider font-bold">
-                  SOVEREIGN HARMONY
+                  CALM HARMONY
                 </span>
               </div>
 
@@ -89,11 +89,11 @@ export function ComparisonSection() {
 
               <ul className="space-y-4 pt-2">
                 {[
-                  "One unified cockpit for active repositories, milestones, and tasks",
-                  "Living knowledge vault: curated code snippets and architectural decisions",
-                  "Warm editorial typography engineered for 12+ hour focus sessions",
-                  "Strict RBAC (Admin, Member, Guest) enforced at the Server Action layer",
-                  "Real-time event logging & audit telemetry connected to PostgreSQL",
+                  "One central home for all your projects, milestones, and tasks",
+                  "Living knowledge base for your ideas, notes, and guidelines",
+                  "Warm editorial typography crafted for comfortable daily reading",
+                  "Collaborative workspace with clear team roles and permissions",
+                  "Instant updates and automatic progress tracking across devices",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-[#101010] font-medium">
                     <div className="w-5 h-5 rounded-full bg-[#D5360C] flex items-center justify-center shrink-0 mt-0.5 text-[#E6D5BD]">
@@ -105,9 +105,8 @@ export function ComparisonSection() {
               </ul>
             </div>
 
-            <div className="mt-10 pt-4 border-t border-[#101010]/15 flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-[#D5360C] font-bold">
-              <span>RESULT: MAXIMUM FLOW STATE & CLARITY</span>
-              <Layers className="w-4 h-4 text-[#101010]" />
+            <div className="mt-10 pt-4 border-t border-[#101010]/10 font-mono text-[11px] text-[#D5360C] uppercase tracking-wider font-bold">
+              RESULT: HIGH FOCUS, CLEAR PRIORITIES & PEACE OF MIND
             </div>
           </div>
         </div>

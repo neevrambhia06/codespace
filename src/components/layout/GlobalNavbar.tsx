@@ -98,9 +98,9 @@ export function GlobalNavbar() {
     });
   };
 
-  const userName = session?.user?.name || "Developer";
-  const userEmail = session?.user?.email || "admin@codespace.dev";
-  const userInitial = (userName[0] || "D").toUpperCase();
+  const userName = session?.user?.name && !session.user.name.includes("Developer") ? session.user.name : "Alex Morgan";
+  const userEmail = session?.user?.email || "alex@codespace.dev";
+  const userInitial = (userName[0] || "A").toUpperCase();
 
   return (
     <>
@@ -186,28 +186,28 @@ export function GlobalNavbar() {
               {isNotificationsOpen && (
                 <div className="absolute right-0 mt-2 w-72 rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[4px_4px_0px_#101010] p-3 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
                   <div className="flex items-center justify-between pb-2 border-b border-[#101010]/15 font-mono text-[10px] uppercase tracking-wider font-bold text-[#101010]">
-                    <span>WORKSPACE DISPATCHES</span>
-                    <span className="text-[#D5360C]">ONLINE</span>
+                    <span>WORKSPACE ALERTS</span>
+                    <span className="text-[#D5360C]">UP TO DATE</span>
                   </div>
                   <div className="py-2.5 space-y-2 text-xs">
                     <div className="flex items-start gap-2 text-[#101010]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#D5360C] shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-medium text-[11px] leading-tight">Neon Database Sync</p>
-                        <p className="text-[10px] text-[#4A443C]">PostgreSQL connection verified nominal</p>
+                        <p className="font-medium text-[11px] leading-tight">Workspace Synchronized</p>
+                        <p className="text-[10px] text-[#4A443C]">All project changes saved to cloud</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-2 text-[#101010]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#101010] shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-medium text-[11px] leading-tight">Better Auth Active</p>
-                        <p className="text-[10px] text-[#4A443C]">Session token cryptographically valid</p>
+                        <p className="font-medium text-[11px] leading-tight">Account Protected</p>
+                        <p className="text-[10px] text-[#4A443C]">Session is verified and encrypted</p>
                       </div>
                     </div>
                   </div>
                   <div className="pt-2 border-t border-[#101010]/10 text-center">
                     <span className="font-mono text-[9px] uppercase tracking-wider text-[#4A443C]">
-                      All telemetry logged
+                      All notifications caught up
                     </span>
                   </div>
                 </div>

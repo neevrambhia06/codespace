@@ -69,7 +69,7 @@ export function ProjectList({ projects }: ProjectListProps) {
             <DialogHeader>
               <DialogTitle className="font-display font-bold">Create Project</DialogTitle>
               <DialogDescription className="text-xs text-[#4A443C]">
-                Initialize a new project repository in your workspace.
+                Add a new initiative to your workspace directory.
               </DialogDescription>
             </DialogHeader>
             <CreateProjectForm onSuccess={() => setIsDialogOpen(false)} />

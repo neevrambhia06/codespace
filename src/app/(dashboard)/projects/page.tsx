@@ -25,21 +25,21 @@ export default async function ProjectsPage() {
     <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="REPOSITORY ARCHITECTURE // DIRECTORY"
-        title="Projects & Repositories"
-        description="Create, track, and inspect all software initiatives in your workspace."
+        eyebrow="PROJECT DIRECTORY"
+        title="Projects"
+        description="Create, track, and organize all initiatives in your workspace."
         action={
           <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {projects.length} ACTIVE REPOSITORIES
+            {projects.length} ACTIVE PROJECTS
           </div>
         }
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>Workspace Repositories</CardTitle>
+          <CardTitle>Workspace Projects</CardTitle>
           <CardDescription>
-            You have {projects.length} total projects cataloged in this database.
+            You have {projects.length} total projects in this workspace.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -53,8 +53,8 @@ export function RegisterForm() {
         <CardTitle className="font-display text-2xl font-bold tracking-tight">
           Create an account
         </CardTitle>
-        <CardDescription className="text-xs text-[#101010]/70 font-light">
-          Set up your profile to start building in CodeSpace.
+        <CardDescription className="text-xs text-[#4A443C] font-light">
+          Set up your profile to access your workspace.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">

@@ -20,9 +20,9 @@ export default async function NotesPage() {
     <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="KNOWLEDGE VAULT // DOCUMENTATION"
-        title="Notes & Documentation"
-        description="Capture architectural decisions, meeting memos, and personal engineering notes."
+        eyebrow="KNOWLEDGE & DOCUMENTATION"
+        title="Notes"
+        description="Capture important takeaways, project notes, and team documentation."
         action={<CreateNoteButton />}
       />
 
@@ -32,7 +32,7 @@ export default async function NotesPage() {
             <CardContent className="py-12 text-center text-[#4A443C]">
               <FileText className="h-8 w-8 mx-auto mb-2 text-[#D5360C]/60" />
               <p className="font-mono text-xs uppercase tracking-wider">
-                No documentation records found. Click &quot;+ New Note&quot; to initialize.
+                No notes found. Click &quot;+ New Note&quot; to create one.
               </p>
             </CardContent>
           </Card>

@@ -32,8 +32,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
         <div className="w-full">{children}</div>
 
-        <div className="text-center font-mono text-[10px] text-[#101010]/50 tracking-widest uppercase">
-          ✦ // PROTECTED WITH BETTER AUTH & SCRIPT HASHING
+        <div className="text-center font-mono text-[10px] text-[#4A443C] tracking-widest uppercase">
+          ✦ // SECURE ENCRYPTED SESSION
         </div>
       </div>
     </main>

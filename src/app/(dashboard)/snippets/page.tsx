@@ -20,12 +20,12 @@ export default async function SnippetsPage() {
     <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="CODE CURATION // SYNTAX REPOSITORY"
-        title="Code Snippets"
-        description="Quickly access and copy reusable patterns, scripts, and algorithms."
+        eyebrow="TEMPLATES & SNIPPETS"
+        title="Snippets & Templates"
+        description="Quickly access and copy reusable code snippets, commands, and templates."
         action={
           <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {snippets.length} REUSABLE PATTERNS
+            {snippets.length} SAVED TEMPLATES
           </div>
         }
       />
@@ -36,7 +36,7 @@ export default async function SnippetsPage() {
             <CardContent className="py-12 text-center text-[#4A443C]">
               <Code2 className="h-8 w-8 mx-auto mb-2 text-[#D5360C]/60" />
               <p className="font-mono text-xs uppercase tracking-wider">
-                No code snippets cataloged in this repository yet.
+                No snippets saved in this workspace yet.
               </p>
             </CardContent>
           </Card>

@@ -8,7 +8,6 @@ export function EditorialHero() {
       className="relative min-h-[92vh] lg:min-h-screen bg-[#D5360C] text-[#E6D5BD] pt-32 pb-20 px-6 sm:px-10 flex flex-col justify-between overflow-hidden bg-grain-orange"
     >
       {/* ── Background Editorial Accents ──────────────────────────────────── */}
-      {/* 12-point Soft Black Starburst/Asterisk Graphic from Reference Photo */}
       <div className="absolute top-24 right-8 sm:top-28 sm:right-16 text-[#101010] select-none pointer-events-none transition-transform duration-700 hover:rotate-45">
         <svg
           width="110"
@@ -31,15 +30,15 @@ export function EditorialHero() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start border-b border-[#E6D5BD]/20 pb-8 z-10">
         <div className="md:col-span-5">
           <p className="font-mono text-[11px] sm:text-xs tracking-[0.28em] uppercase text-[#E6D5BD]/90 leading-relaxed">
-            IDEAS, SYSTEMS, AND ROADMAPS FOR THE DISCIPLINED BUILDER
+            IDEAS, PROJECTS, AND ROADMAPS FOR FOCUSED BUILDERS
           </p>
         </div>
         <div className="hidden md:block md:col-span-2 text-center font-mono text-[11px] tracking-[0.25em] text-[#101010]">
-          ✦ // 2026 EDITION
+          ✦ // EDITION 2026
         </div>
         <div className="md:col-span-5 md:text-right">
           <p className="font-serif italic text-xs sm:text-sm text-[#E6D5BD]/85 leading-relaxed max-w-md md:ml-auto">
-            A sovereign space for engineers, makers, and craftsmen who see the world in systems and build with conviction.
+            A quiet, distraction-free environment for creators, planners, and teams who value clarity and momentum.
           </p>
         </div>
       </div>
@@ -48,21 +47,20 @@ export function EditorialHero() {
       <div className="my-auto py-12 lg:py-16 z-10 max-w-5xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E6D5BD]/30 font-mono text-[10px] tracking-[0.25em] uppercase text-[#E6D5BD] mb-6 backdrop-blur-xs">
           <Sparkles className="w-3 h-3 text-[#101010]" />
-          <span>MODERN EDITORIAL WORKSPACE</span>
+          <span>FOCUSED DIGITAL WORKSPACE</span>
         </div>
 
         <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold tracking-tight text-[#E6D5BD] leading-[1.02] text-balance">
-          THE ARCHITECT&apos;S <br className="hidden sm:inline" />
-          <span className="italic font-normal text-[#101010]">SOVEREIGN</span> WORKSPACE.
+          YOUR SOVEREIGN, <br className="hidden sm:inline" />
+          <span className="italic font-normal text-[#101010]">FOCUSED</span> WORKSPACE.
         </h1>
 
         <p className="mt-8 text-base sm:text-lg md:text-xl text-[#E6D5BD]/90 max-w-2xl leading-relaxed font-sans font-light">
-          Where high-velocity engineering meets typographic calm. CodeSpace unifies project tracking, optimistic task execution, code curation, and reactive knowledge in one sovereign environment.
+          Where thoughtful design meets day-to-day focus. CodeSpace unifies project milestones, task checklists, reusable templates, and notes in one unified workspace.
         </p>
 
         {/* ── CTA Row ──────────────────────────────────────────────────────── */}
         <div className="mt-10 flex flex-wrap items-center gap-6 sm:gap-8">
-          {/* Circular Outlined Arrow Button (Inspired directly by Reference Art) */}
           <Link
             href="/dashboard"
             className="group inline-flex items-center gap-4 bg-[#E6D5BD] text-[#101010] pl-6 pr-3 py-3 rounded-full font-mono text-xs tracking-[0.2em] font-bold uppercase transition-all duration-300 hover:bg-[#101010] hover:text-[#E6D5BD] shadow-sm"
@@ -73,21 +71,20 @@ export function EditorialHero() {
             </div>
           </Link>
 
-          {/* Secondary Quick Action */}
           <Link
             href="/login"
             className="font-mono text-xs tracking-[0.2em] uppercase text-[#E6D5BD] hover:text-[#101010] transition-colors py-2 border-b border-transparent hover:border-[#101010]"
           >
-            SIGN IN TO CONSOLE →
+            SIGN IN TO WORKSPACE →
           </Link>
 
           <span className="hidden sm:inline font-mono text-xs text-[#E6D5BD]/60">
-            // NO NOISY ADS. PURE SIGNAL.
+            // DISTRACTION-FREE WORKSPACE
           </span>
         </div>
       </div>
 
-      {/* ── Interactive Workspace Preview Card (Floated Editorial Surface) ── */}
+      {/* ── Interactive Workspace Preview Card ────────────────────────────── */}
       <div className="mt-6 mb-8 z-10">
         <div className="rounded-sm border border-[#101010]/30 bg-[#EFE3D1] text-[#101010] p-4 sm:p-6 shadow-md max-w-4xl">
           <div className="flex items-center justify-between border-b border-[#101010]/15 pb-3">
@@ -96,11 +93,11 @@ export function EditorialHero() {
               <span className="w-2.5 h-2.5 rounded-full bg-[#101010]/30" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#101010]/30" />
               <span className="font-mono text-[11px] font-bold tracking-widest text-[#101010] ml-2">
-                LIVE WORKSPACE TELEMETRY
+                ACTIVE WORKSPACE OVERVIEW
               </span>
             </div>
             <span className="font-mono text-[10px] tracking-wider text-[#101010]/60 uppercase">
-              POSTGRESQL // NEON CONNECTED
+              SYNCHRONIZED & READY
             </span>
           </div>
 
@@ -110,8 +107,8 @@ export function EditorialHero() {
                 <span className="font-mono text-[10px] uppercase text-[#101010]/70">PROJECTS</span>
                 <FolderGit2 className="w-3.5 h-3.5 text-[#D5360C]" />
               </div>
-              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">05 ACTIVE</div>
-              <p className="text-[11px] text-[#101010]/70 mt-0.5">TypeScript & Rust Monorepos</p>
+              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">06 ACTIVE</div>
+              <p className="text-[11px] text-[#101010]/70 mt-0.5">Active initiatives & deliverables</p>
             </div>
 
             <div className="border border-[#101010]/10 rounded-xs p-3 bg-[#E6D5BD]/60">
@@ -119,8 +116,8 @@ export function EditorialHero() {
                 <span className="font-mono text-[10px] uppercase text-[#101010]/70">TASKBOARD</span>
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#D5360C]" />
               </div>
-              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">100% AUDITED</div>
-              <p className="text-[11px] text-[#101010]/70 mt-0.5">Optimistic Server Actions</p>
+              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">ORGANIZED</div>
+              <p className="text-[11px] text-[#101010]/70 mt-0.5">Real-time task tracking</p>
             </div>
 
             <div className="border border-[#101010]/10 rounded-xs p-3 bg-[#E6D5BD]/60">
@@ -128,8 +125,8 @@ export function EditorialHero() {
                 <span className="font-mono text-[10px] uppercase text-[#101010]/70">SNIPPETS</span>
                 <Terminal className="w-3.5 h-3.5 text-[#D5360C]" />
               </div>
-              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">VAULT SYNC</div>
-              <p className="text-[11px] text-[#101010]/70 mt-0.5">High-speed keyboard lookup</p>
+              <div className="font-display text-2xl font-bold mt-1 text-[#101010]">READY TO USE</div>
+              <p className="text-[11px] text-[#101010]/70 mt-0.5">Instant keyboard lookup</p>
             </div>
           </div>
         </div>
@@ -146,7 +143,7 @@ export function EditorialHero() {
         </div>
 
         <div className="text-[#E6D5BD]/80">
-          SCROLL TO EXPLORE ARCHITECTURE ↓
+          SCROLL TO EXPLORE FEATURES ↓
         </div>
       </div>
     </section>

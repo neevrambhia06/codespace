@@ -68,12 +68,12 @@ export default async function DashboardPage() {
     <div className="flex flex-col gap-8 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="WORKSPACE DISPATCH // CODESPACE CONSOLE"
-        title="System Overview & Metrics"
+        eyebrow="WORKSPACE OVERVIEW"
+        title="Workspace Overview"
         action={
           <div className="flex items-center gap-2 font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
             <span className="w-2 h-2 rounded-full bg-[#2A6E3B]" />
-            <span>POSTGRESQL CONNECTED // FLOW STATE</span>
+            <span>ACTIVE & SYNCHRONIZED</span>
           </div>
         }
       />
@@ -172,9 +172,9 @@ export default async function DashboardPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Task Execution Board</CardTitle>
+              <CardTitle>Deliverables Checklist</CardTitle>
               <CardDescription>
-                Live optimistic state with role-based write permissions.
+                Track and manage your team deliverables and priorities.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -271,12 +271,12 @@ export default async function DashboardPage() {
             </CardContent>
           </Card>
 
-          {/* Audit Log / Activity */}
+          {/* Recent Activity */}
           <Card>
             <CardHeader>
-              <CardTitle>Audit Stream</CardTitle>
+              <CardTitle>Recent Activity</CardTitle>
               <CardDescription>
-                System telemetry and administrative logs
+                Latest updates across your workspace
               </CardDescription>
             </CardHeader>
             <CardContent>

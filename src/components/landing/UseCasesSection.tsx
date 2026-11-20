@@ -3,28 +3,28 @@ import Link from "next/link";
 
 const USE_CASES = [
   {
-    role: "SOLO FOUNDER & HACKER",
-    headline: "Shipping multiple SaaS products without context rot.",
+    role: "FOUNDER & PRODUCT BUILDER",
+    headline: "Managing multiple initiatives without losing focus.",
     description:
-      "When you wear every hat—product, architecture, DevOps, and frontend—switching between projects is your biggest time sink. CodeSpace lets you keep your active sprint tasks, deployment commands, and snippets pinned under one clean tab.",
+      "When managing customer feedback, product roadmap, and daily execution, switching between tools is the biggest friction. CodeSpace keeps your active tasks, templates, and notes together in one clean view.",
     icon: Laptop,
-    deliverables: ["Instant project switching", "Snippets for Stripe/Auth boilerplate", "Zero-friction task checklists"],
+    deliverables: ["Instant project overview", "Reusable templates & snippets", "Zero-friction task checklists"],
   },
   {
-    role: "STAFF & SYSTEM ARCHITECT",
-    headline: "Codifying architectural decisions and audit logs.",
+    role: "TEAM LEAD & PROJECT MANAGER",
+    headline: "Organizing deliverables and tracking progress.",
     description:
-      "Maintain a persistent record of technical choices, database migrations, and schema changes. Use role-based permissions to delegate task execution to members while keeping repository creation guarded by admin policy.",
+      "Maintain a clear record of team decisions, project milestones, and priorities. Assign task responsibilities with clear permissions so everyone knows what to deliver next.",
     icon: Cpu,
-    deliverables: ["Clear audit history on Neon PostgreSQL", "RBAC security boundaries", "Decoupled Server Action architecture"],
+    deliverables: ["Clear milestone tracking", "Granular member roles", "Distraction-free environment"],
   },
   {
-    role: "OPEN SOURCE MAINTAINER",
-    headline: "Curating issues, notes, and release milestones.",
+    role: "INDEPENDENT CONSULTANT",
+    headline: "Curating client deliverables and documentation.",
     description:
-      "Track dependencies, triage feature requests, and maintain public knowledge notes without fighting complex enterprise project tools. Clean, fast, and respectful of your screen time.",
+      "Track deadlines, capture meeting takeaways, and organize knowledge without fighting bloated enterprise software. Clean, fast, and respectful of your focus.",
     icon: GitFork,
-    deliverables: ["Keyboard-first workflow", "Light editorial theme for long hours", "Full accessibility and high Lighthouse scores"],
+    deliverables: ["Fast keyboard navigation", "Comfortable reading for long hours", "Clean client reporting"],
   },
 ];
 

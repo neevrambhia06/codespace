@@ -10,28 +10,28 @@ export const metadata = {
 
 const EXTENSIONS = [
   {
-    name: "Prisma Studio",
-    description: "Visual database explorer and editor for Neon PostgreSQL.",
-    category: "Database",
-    status: "Installed",
+    name: "GitHub Repository Sync",
+    description: "Automatically link pull requests, commits, and milestones to workspace tasks.",
+    category: "Workflow",
+    status: "Active",
   },
   {
-    name: "Better Auth Provider",
-    description: "Session management and role-based cryptographic access control.",
-    category: "Security",
-    status: "Installed",
+    name: "Calendar & Schedule Sync",
+    description: "Sync project deadlines and task deliverables directly with your calendar.",
+    category: "Productivity",
+    status: "Active",
   },
   {
-    name: "Dynamic OG Generator",
-    description: "Satori-powered dynamic Open Graph social card renderer.",
-    category: "Social",
-    status: "Installed",
+    name: "Document & PDF Exporter",
+    description: "Export knowledge base notes and project summaries into formatted PDF or Markdown.",
+    category: "Export",
+    status: "Active",
   },
   {
-    name: "Lighthouse Profiler",
-    description: "Core Web Vitals monitoring and accessibility scoring.",
-    category: "Analytics",
-    status: "Installed",
+    name: "Slack Team Notifications",
+    description: "Send project updates, milestone alerts, and daily task summaries to team channels.",
+    category: "Messaging",
+    status: "Active",
   },
 ];
 
@@ -40,12 +40,12 @@ export default function ExtensionsPage() {
     <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="INTEGRATIONS // TOOLCHAIN"
-        title="Workspace Extensions"
-        description="Explore installed plugins and integrations enhancing your developer environment."
+        eyebrow="WORKSPACE INTEGRATIONS"
+        title="Integrations & Tools"
+        description="Connect your workspace with team productivity tools, calendar scheduling, and export options."
         action={
           <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {EXTENSIONS.length} SYSTEM EXTENSIONS ACTIVE
+            {EXTENSIONS.length} ACTIVE INTEGRATIONS
           </div>
         }
       />

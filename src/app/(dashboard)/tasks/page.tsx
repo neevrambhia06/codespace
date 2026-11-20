@@ -21,21 +21,21 @@ export default async function TasksPage() {
     <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
       {/* ── Editorial Page Header ─────────────────────────────────────────── */}
       <PageHeader
-        eyebrow="EXECUTION CHECKLIST // SPRINT"
-        title="Tasks & Milestones"
-        description="Track optimistic checklist items, toggle execution state, and monitor sprint deliverables."
+        eyebrow="DELIVERABLES CHECKLIST"
+        title="Tasks"
+        description="Track, organize, and check off deliverables across all your workspace projects."
         action={
           <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {pendingCount} PENDING DELIVERABLES
+            {pendingCount} PENDING TASKS
           </div>
         }
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>Sprint Checklist</CardTitle>
+          <CardTitle>Workspace Checklist</CardTitle>
           <CardDescription>
-            {pendingCount} pending task{pendingCount === 1 ? "" : "s"} awaiting execution.
+            {pendingCount} pending task{pendingCount === 1 ? "" : "s"} to complete.
           </CardDescription>
         </CardHeader>
         <CardContent>

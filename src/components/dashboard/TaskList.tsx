@@ -105,7 +105,7 @@ export function TaskList({ tasks }: TaskListProps) {
               <DialogHeader>
                 <DialogTitle className="font-display font-bold">Create Task</DialogTitle>
                 <DialogDescription className="text-xs text-[#4A443C]">
-                  Add a actionable item to your development checklist.
+                  Add an actionable item to your checklist.
                 </DialogDescription>
               </DialogHeader>
               <CreateTaskForm onSuccess={() => setIsDialogOpen(false)} />

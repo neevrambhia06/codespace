@@ -28,7 +28,7 @@ export function CreateNoteButton() {
         <DialogHeader>
           <DialogTitle className="font-display font-bold">Create Note</DialogTitle>
           <DialogDescription className="text-xs text-[#4A443C]">
-            Jot down an architectural decision, reminder, or meeting note.
+            Capture an idea, reminder, or meeting takeaway.
           </DialogDescription>
         </DialogHeader>
         <CreateNoteForm onSuccess={() => setIsOpen(false)} />

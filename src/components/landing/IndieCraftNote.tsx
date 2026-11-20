@@ -12,36 +12,36 @@ export function IndieCraftNote() {
 
           <div className="flex items-center justify-between border-b border-[#101010]/15 pb-6 mb-8">
             <span className="font-mono text-xs tracking-widest uppercase text-[#101010]/60">
-              BUILDER MANIFESTO // DISPATCH #01
+              BUILDER NOTE // 01
             </span>
             <Quote className="w-6 h-6 text-[#D5360C]" />
           </div>
 
           <h2 className="font-display text-2xl sm:text-4xl font-bold tracking-tight leading-snug mb-6 text-balance">
-            &ldquo;We got tired of pitch-black neon dashboards that look like gaming consoles.&rdquo;
+            &ldquo;We got tired of noisy, cluttered dashboards that drain your attention.&rdquo;
           </h2>
 
           <div className="space-y-4 text-sm sm:text-base text-[#101010]/85 font-light leading-relaxed">
             <p>
-              Somewhere in the last decade, software engineering tools standardized on generic dark themes—pitch black backgrounds, electric purples, and high-contrast neon borders. While fine for short glanceability, they tire the eyes after twelve hours of deep system architecture.
+              Somewhere in the last decade, daily productivity tools became noisy—filled with intrusive popups, endless sidebars, and confusing menus. They pull you out of deep work rather than supporting it.
             </p>
             <p>
-              We built <strong>CodeSpace</strong> around the calm tactile warmth of classic print editorial design: <em>Warm Ivory (#E6D5BD)</em>, crisp <em>Soft Black (#101010)</em> typography, and deliberate <em>Burnt Orange (#D5360C)</em> accents.
+              We designed <strong>CodeSpace</strong> around the calm warmth of classic print editorial design: natural paper tones, legible serif headlines, and deliberate accents that guide your attention naturally.
             </p>
             <p>
-              No unneeded popups. No AI chatbots interrupting your flow. Just your projects, your tasks, your code snippets, and your architectural truth—persisted securely in PostgreSQL and executed with immediate feedback.
+              No unneeded popups. No distracting notifications. Just your projects, your checklist, your notes, and your focus—kept in sync and always ready when you sit down to work.
             </p>
           </div>
 
           <div className="mt-10 pt-6 border-t border-[#101010]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs text-[#101010]/70">
             <div>
               <span className="font-bold text-[#101010]">THE CODESPACE TEAM</span>
-              <span className="block text-[11px] text-[#101010]/50">Independent Builders & Systems Engineers</span>
+              <span className="block text-[11px] text-[#101010]/50">Independent Designers & Product Builders</span>
             </div>
             <div className="flex items-center gap-4 text-[11px]">
-              <span>STACK: NEXT.JS 16</span>
+              <span>CRAFTED FOR FOCUS</span>
               <span>•</span>
-              <span>ENGINE: NEON PG</span>
+              <span>CALM DESIGN</span>
               <span>•</span>
               <span className="text-[#D5360C] font-bold">SOVEREIGN</span>
             </div>

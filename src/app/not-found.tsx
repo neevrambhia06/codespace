@@ -18,13 +18,13 @@ export default function NotFound() {
         {/* Copy */}
         <div className="flex flex-col gap-2">
           <span className="font-mono text-[10px] tracking-[0.25em] text-[#D5360C] uppercase font-bold">
-            RESOURCE NOT LOCATED
+            PAGE NOT FOUND
           </span>
           <h1 className="font-display text-3xl font-bold tracking-tight text-[#101010]">
             Page Not Found
           </h1>
-          <p className="text-xs text-[#101010]/70 font-light leading-relaxed">
-            The architectural endpoint you requested doesn&apos;t exist or has been refactored.
+          <p className="text-xs text-[#4A443C] font-normal leading-relaxed">
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
           </p>
         </div>
 

@@ -58,8 +58,8 @@ export function LoginForm() {
         <CardTitle className="font-display text-2xl font-bold tracking-tight">
           Welcome back
         </CardTitle>
-        <CardDescription className="text-xs text-[#101010]/70 font-light">
-          Authenticate to access your sovereign developer workspace.
+        <CardDescription className="text-xs text-[#4A443C] font-light">
+          Sign in to access your projects, tasks, and notes.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
@@ -67,7 +67,7 @@ export function LoginForm() {
         <div className="mb-6 rounded-xs border border-[#101010]/15 bg-[#E6D5BD]/60 p-3">
           <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase text-[#D5360C] font-bold mb-2">
             <KeyRound className="w-3 h-3" />
-            <span>QUICK-FILL SEEDED CREDENTIALS</span>
+            <span>ONE-CLICK DEMO ACCESS</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button
@@ -75,7 +75,7 @@ export function LoginForm() {
               onClick={() => fillDemoAccount("admin@codespace.dev")}
               className="text-left p-2 rounded-xs border border-[#101010]/10 bg-[#EFE3D1] hover:bg-[#101010] hover:text-[#E6D5BD] transition-all font-mono text-[10px]"
             >
-              <span className="block font-bold">ADMIN ROLE</span>
+              <span className="block font-bold">TEAM LEAD (ALEX)</span>
               <span className="opacity-70">admin@codespace.dev</span>
             </button>
             <button
@@ -83,7 +83,7 @@ export function LoginForm() {
               onClick={() => fillDemoAccount("guest@codespace.dev")}
               className="text-left p-2 rounded-xs border border-[#101010]/10 bg-[#EFE3D1] hover:bg-[#101010] hover:text-[#E6D5BD] transition-all font-mono text-[10px]"
             >
-              <span className="block font-bold">GUEST ROLE</span>
+              <span className="block font-bold">MEMBER (JORDAN)</span>
               <span className="opacity-70">guest@codespace.dev</span>
             </button>
           </div>

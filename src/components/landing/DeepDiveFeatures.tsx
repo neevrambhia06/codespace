@@ -12,11 +12,11 @@ export function DeepDiveFeatures() {
               <span>03 // CORE CAPABILITIES</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-balance">
-              ENGINEERED FOR VELOCITY.
+              ENGINEERED FOR FOCUS.
             </h2>
           </div>
           <p className="font-mono text-xs tracking-wider text-[#101010]/70 max-w-md uppercase leading-relaxed">
-            Every screen and action in CodeSpace is intentionally stripped of unnecessary chrome, keeping you immersed in the act of building.
+            Every screen and view in CodeSpace is intentionally stripped of unnecessary chrome, keeping you immersed in what matters.
           </p>
         </div>
 
@@ -27,13 +27,13 @@ export function DeepDiveFeatures() {
               <FolderGit2 className="w-5 h-5" />
             </div>
             <div className="font-mono text-xs tracking-[0.25em] text-[#D5360C] uppercase font-bold">
-              01 / PROJECT ARCHITECTURE
+              01 / PROJECT MANAGEMENT
             </div>
             <h3 className="font-display text-3xl sm:text-4xl font-bold leading-tight">
-              Atomic Project & Milestone Tracking.
+              Clear Project & Milestone Organization.
             </h3>
             <p className="text-base text-[#101010]/80 leading-relaxed font-light">
-              Organize multi-stack initiatives across TypeScript, Rust, Go, or Python. Gain instant visibility into completion metrics, recent updates, and team ownership without wading through bloated enterprise suites.
+              Keep your key initiatives organized in one central directory. Track overall progress, upcoming milestones, and project ownership without dealing with complex enterprise software.
             </p>
             <div className="pt-2">
               <Link
@@ -50,10 +50,10 @@ export function DeepDiveFeatures() {
             <div className="rounded-xs border border-[#101010]/25 bg-[#EFE3D1] p-6 sm:p-8 shadow-sm">
               <div className="flex items-center justify-between border-b border-[#101010]/15 pb-4 mb-6">
                 <span className="font-mono text-xs uppercase tracking-wider font-bold text-[#101010]">
-                  ACTIVE DIRECTORY // MONOREPO VIEW
+                  ACTIVE PROJECTS // DIRECTORY VIEW
                 </span>
                 <span className="px-2 py-0.5 rounded-full bg-[#D5360C]/10 text-[#D5360C] font-mono text-[10px] font-bold">
-                  POSTGRESQL SYNCED
+                  CLOUD SYNCED
                 </span>
               </div>
 
@@ -61,23 +61,23 @@ export function DeepDiveFeatures() {
               <div className="space-y-3">
                 {[
                   {
-                    name: "Distributed Consensus Engine",
-                    desc: "Raft consensus implementation in Rust with atomic memory barrier.",
-                    lang: "Rust",
+                    name: "Customer Analytics Dashboard",
+                    desc: "Real-time metrics, user retention analysis, and revenue reporting.",
+                    tag: "Product",
                     status: "active",
                     progress: 84,
                   },
                   {
-                    name: "Next.js App Router Proxy",
-                    desc: "Edge-based JWT session authorization and RBAC action dispatch.",
-                    lang: "TypeScript",
+                    name: "Customer Invoicing & Billing System",
+                    desc: "Automated subscription renewals, invoice generation, and tax compliance.",
+                    tag: "Finance",
                     status: "active",
                     progress: 92,
                   },
                   {
-                    name: "Vector Pipeline Evaluator",
-                    desc: "Embedding distillation and cosine index benchmark harness.",
-                    lang: "Python",
+                    name: "Team Knowledge Base Portal",
+                    desc: "Centralized workspace documentation, guides, and project playbooks.",
+                    tag: "Docs",
                     status: "completed",
                     progress: 100,
                   },
@@ -90,13 +90,13 @@ export function DeepDiveFeatures() {
                       <h4 className="font-medium text-sm text-[#101010]">{p.name}</h4>
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded-xs bg-[#101010]/10 text-[#101010]">
-                          {p.lang}
+                          {p.tag}
                         </span>
                         <span
                           className={`font-mono text-[10px] uppercase px-2 py-0.5 rounded-xs font-bold ${
                             p.status === "completed"
-                              ? "bg-[#2A6E3B]/15 text-[#2A6E3B]"
-                              : "bg-[#D5360C]/15 text-[#D5360C]"
+                              ? "bg-[#101010] text-[#E6D5BD]"
+                              : "bg-[#D5360C] text-[#E6D5BD]"
                           }`}
                         >
                           {p.status}
@@ -120,7 +120,7 @@ export function DeepDiveFeatures() {
           </div>
         </div>
 
-        {/* ── Feature 2: Optimistic Taskboard with RBAC ──────────────────── */}
+        {/* ── Feature 2: Task Checklist ──────────────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 order-2 lg:order-1">
             <div className="rounded-xs border border-[#101010]/25 bg-[#EFE3D1] p-6 sm:p-8 shadow-sm">
@@ -128,39 +128,39 @@ export function DeepDiveFeatures() {
                 <div className="flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-[#D5360C]" />
                   <span className="font-mono text-xs uppercase tracking-wider font-bold text-[#101010]">
-                    RBAC ACTION PIPELINE
+                    PROJECT DELIVERABLES
                   </span>
                 </div>
                 <span className="font-mono text-[10px] uppercase text-[#101010]/60">
-                  LATENCY &lt; 20MS
+                  INSTANT STATUS UPDATE
                 </span>
               </div>
 
               <div className="space-y-3">
                 {[
                   {
-                    title: "Implement database seed with Faker.js",
+                    title: "Review quarterly customer feedback and survey notes",
                     priority: "high",
                     completed: true,
-                    role: "ADMIN ONLY",
+                    role: "TEAM LEAD",
                   },
                   {
-                    title: "Verify WCAG AA contrast for warm editorial palette",
+                    title: "Finalize touch gestures for mobile task completion",
                     priority: "medium",
                     completed: true,
-                    role: "MEMBER+",
+                    role: "CORE TEAM",
                   },
                   {
-                    title: "Audit Resend webhook signature verification (Svix)",
+                    title: "Draft release announcement and user walkthrough",
                     priority: "high",
                     completed: false,
-                    role: "ADMIN ONLY",
+                    role: "ALL MEMBERS",
                   },
                   {
-                    title: "Ship Fraunces & Space Mono typography scale",
+                    title: "Verify accessible typography and form inputs",
                     priority: "low",
                     completed: true,
-                    role: "MEMBER+",
+                    role: "CORE TEAM",
                   },
                 ].map((t, idx) => (
                   <div
@@ -191,10 +191,8 @@ export function DeepDiveFeatures() {
                       <span
                         className={`font-mono text-[9px] uppercase px-1.5 py-0.5 rounded-xs font-bold ${
                           t.priority === "high"
-                            ? "bg-[#B32608]/15 text-[#B32608]"
-                            : t.priority === "medium"
-                            ? "bg-[#D5360C]/15 text-[#D5360C]"
-                            : "bg-[#101010]/10 text-[#101010]/70"
+                            ? "bg-[#D5360C] text-[#E6D5BD]"
+                            : "border border-[#101010] text-[#101010]"
                         }`}
                       >
                         {t.priority}
@@ -211,20 +209,20 @@ export function DeepDiveFeatures() {
               <Zap className="w-5 h-5 text-[#D5360C]" />
             </div>
             <div className="font-mono text-xs tracking-[0.25em] text-[#D5360C] uppercase font-bold">
-              02 // OPTIMISTIC MUTATION LAYER
+              02 // RESPONSIVE TASK BOARD
             </div>
             <h3 className="font-display text-3xl sm:text-4xl font-bold leading-tight">
-              Instant Feedback with Cryptographic RBAC.
+              Fast Checklists & Team Collaboration.
             </h3>
             <p className="text-base text-[#101010]/80 leading-relaxed font-light">
-              Toggling task completion feels instantaneous thanks to React 19 optimistic transitions. Permissions are locked down on the server: Guests browse safely, Members manage tasks, and Admins wield project-level command.
+              Checking off deliverables feels instant with no waiting. Easily manage team access with clear permissions for owners, contributors, and guests.
             </p>
             <div className="pt-2">
               <Link
                 href="/tasks"
                 className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] font-bold text-[#D5360C] hover:text-[#101010] transition-colors"
               >
-                <span>VIEW TASK ENGINE</span>
+                <span>VIEW TASK CHECKLIST</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -238,61 +236,56 @@ export function DeepDiveFeatures() {
               <Terminal className="w-5 h-5" />
             </div>
             <div className="font-mono text-xs tracking-[0.25em] text-[#D5360C] uppercase font-bold">
-              03 // LIVING KNOWLEDGE VAULT
+              03 // NOTES & TEMPLATES
             </div>
             <h3 className="font-display text-3xl sm:text-4xl font-bold leading-tight">
-              Curate Snippets & Architectural Decisions.
+              Capture Notes, Decisions & Reference Materials.
             </h3>
             <p className="text-base text-[#101010]/80 leading-relaxed font-light">
-              Don&apos;t let vital scripts and design decisions get buried in Discord or chat logs. CodeSpace lets you capture code chunks with syntax labels and maintain persistent notes beside your projects.
+              Never lose an important decision or repeat routine setup. Keep meeting notes, project specs, and reusable text snippets directly beside your active checklists.
             </p>
             <div className="pt-2">
               <Link
-                href="/snippets"
+                href="/notes"
                 className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] font-bold text-[#D5360C] hover:text-[#101010] transition-colors"
               >
-                <span>OPEN SNIPPET VAULT</span>
+                <span>BROWSE NOTES & DOCS</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <div className="rounded-xs border border-[#101010]/25 bg-[#101010] text-[#E6D5BD] p-6 sm:p-8 shadow-md">
-              <div className="flex items-center justify-between border-b border-[#E6D5BD]/15 pb-4 mb-4">
+            <div className="rounded-xs border border-[#101010]/25 bg-[#EFE3D1] p-6 sm:p-8 shadow-sm">
+              <div className="flex items-center justify-between border-b border-[#101010]/15 pb-4 mb-6">
                 <div className="flex items-center gap-2">
                   <Code2 className="w-4 h-4 text-[#D5360C]" />
-                  <span className="font-mono text-xs uppercase tracking-wider font-bold text-[#E6D5BD]">
-                    SNIPPET // PRISMA TRANSACTION HOOK
+                  <span className="font-mono text-xs uppercase tracking-wider font-bold text-[#101010]">
+                    REFERENCE LIBRARY
                   </span>
                 </div>
-                <span className="font-mono text-[10px] uppercase text-[#D5360C] tracking-widest font-bold">
-                  TYPESCRIPT
+                <span className="font-mono text-[10px] uppercase text-[#101010]/60">
+                  ONE-CLICK COPY
                 </span>
               </div>
 
-              <pre className="font-mono text-xs text-[#E6D5BD]/90 leading-relaxed overflow-x-auto p-2 bg-[#101010]">
-                <code>{`// Safe atomic project creation with audit trail
-await prisma.$transaction(async (tx) => {
-  const project = await tx.project.create({
-    data: { name, description, status, userId }
-  });
-
-  await tx.auditLog.create({
-    data: {
-      title: "Project Initialized",
-      description: \`Created "\${name}" with RBAC authorization\`,
-      userId
-    }
-  });
-
-  return project;
-});`}</code>
-              </pre>
-
-              <div className="mt-4 pt-3 border-t border-[#E6D5BD]/10 flex items-center justify-between font-mono text-[10px] text-[#E6D5BD]/60 uppercase">
-                <span>FORMAT: STRICT MONOCHROME</span>
-                <span>COPY TO CLIPBOARD [⌘C]</span>
+              <div className="space-y-4">
+                <div className="p-4 rounded-xs border border-[#101010]/15 bg-[#E6D5BD]/40">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-display text-sm font-bold text-[#101010]">Format Currency Utility</span>
+                    <span className="font-mono text-[10px] uppercase px-2 py-0.5 rounded-xs bg-[#101010] text-[#E6D5BD]">
+                      TypeScript
+                    </span>
+                  </div>
+                  <pre className="font-mono text-xs text-[#E6D5BD] leading-relaxed overflow-x-auto p-3 bg-[#101010] rounded-xs">
+                    <code>{`export function formatCurrency(amount: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(amount);
+}`}</code>
+                  </pre>
+                </div>
               </div>
             </div>
           </div>

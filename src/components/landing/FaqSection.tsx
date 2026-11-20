@@ -5,24 +5,24 @@ import { Plus, Minus } from "lucide-react";
 
 const FAQS = [
   {
-    q: "How does the Role-Based Access Control (RBAC) work?",
-    a: "CodeSpace implements a 3-tier permission ladder: GUEST, MEMBER, and ADMIN. Authentication is verified at the edge proxy, while authorization is enforced at the Server Action layer. Guests have read-only access to browse projects; Members can toggle and create tasks; only Admins can create projects and trigger email dispatches.",
+    q: "How do team roles and workspace permissions work?",
+    a: "CodeSpace offers intuitive member roles: Guests can view projects and milestones without making changes; Members can check off deliverables and add documentation notes; and Team Leads can create new projects, assign priorities, and manage workspace preferences.",
   },
   {
-    q: "Can I connect my own PostgreSQL instance (Neon, Supabase, AWS RDS)?",
-    a: "Yes. CodeSpace uses standard Prisma ORM mapped to PostgreSQL. Simply set the DATABASE_URL environment variable in your Vercel deployment or local .env file and run `npx prisma db push` to synchronize all tables in seconds.",
+    q: "Can I access CodeSpace on mobile and tablet devices?",
+    a: "Yes. The entire editorial interface—including top navigation, drawer menus, project boards, and notes—is fully responsive and designed for easy reading across laptops, tablets, and phones.",
   },
   {
-    q: "How are sessions and credentials handled?",
-    a: "Sessions are managed via Better Auth using secure HttpOnly, SameSite cookies. User passwords are encrypted with industry-standard scrypt hashing in the Account table, completely isolating credentials from client-side JavaScript.",
+    q: "How is my workspace data backed up and protected?",
+    a: "Your data is protected with secure, encrypted session credentials and saved to dedicated cloud databases with continuous backups and zero third-party tracking.",
   },
   {
-    q: "Does CodeSpace work on mobile and tablet devices?",
-    a: "Yes. The entire editorial interface—including the navbar, responsive drawers, project lists, and taskboards—is built mobile-first and tested across all viewport dimensions with 100/100 accessibility standards.",
+    q: "Can I organize and search across all my notes and snippets?",
+    a: "Yes. Pressing ⌘K (or Ctrl+K) opens a quick-search palette allowing you to jump to any project, task, or documentation memo in seconds without taking your hands off the keyboard.",
   },
   {
-    q: "How is the warm editorial theme enforced?",
-    a: "The application strictly adheres to a 3-color palette: Burnt Orange (#D5360C), Warm Ivory (#E6D5BD), and Soft Black (#101010). All surfaces, cards, and text hierarchy derive from these tokens, preventing dark neon noise and maintaining consistent typographic calm.",
+    q: "What makes CodeSpace different from typical productivity tools?",
+    a: "CodeSpace deliberately avoids cluttered sidebars, unneeded banners, and flashing notification badges. It provides a tactile, warm editorial environment inspired by print design so you can focus on meaningful work without visual fatigue.",
   },
 ];
 
@@ -40,14 +40,14 @@ export function FaqSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#101010]/20 pb-8 mb-16 gap-6">
           <div>
             <div className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] uppercase text-[#D5360C] mb-3">
-              <span>06 // CLARIFICATIONS</span>
+              <span>06 // QUESTIONS & ANSWERS</span>
             </div>
             <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-balance">
-              QUESTIONS & ARCHITECTURE.
+              FREQUENTLY ASKED QUESTIONS.
             </h2>
           </div>
-          <p className="font-mono text-xs tracking-wider text-[#101010]/70 uppercase leading-relaxed">
-            Everything you need to know about the stack, security, and developer ergonomics.
+          <p className="font-mono text-xs tracking-wider text-[#101010]/70 max-w-md uppercase leading-relaxed">
+            Helpful answers about workspace organization, team collaboration, and daily productivity.
           </p>
         </div>
 
