@@ -59,10 +59,16 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     <div className="flex flex-col gap-6 animate-in fade-in-0 slide-in-from-bottom-2 duration-500 max-w-5xl mx-auto">
       {/* ── Breadcrumb & Navigation ─────────────────────────────────── */}
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="sm" asChild className="gap-1.5 text-muted-foreground hover:text-foreground">
-          <Link href="/">
+        <Button variant="ghost" size="sm" asChild className="gap-1.5 text-[#101010]/70 hover:text-[#D5360C]">
+          <Link href="/projects">
             <ArrowLeft className="h-4 w-4" />
-            Back to Dashboard
+            Back to Projects
+          </Link>
+        </Button>
+        <span className="font-mono text-xs text-[#101010]/30">/</span>
+        <Button variant="ghost" size="sm" asChild className="gap-1.5 text-[#101010]/70 hover:text-[#D5360C]">
+          <Link href="/dashboard">
+            Dashboard
           </Link>
         </Button>
       </div>

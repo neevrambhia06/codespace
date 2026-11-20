@@ -3,7 +3,7 @@
 import type { Project } from "@prisma/client";
 import { useState } from "react";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import {
@@ -22,7 +22,6 @@ const CreateProjectForm = dynamic(
   () => import("@/components/forms/CreateProjectForm").then((m) => m.CreateProjectForm),
   { ssr: false }
 );
-
 
 interface ProjectListProps {
   projects: (Project & { lastUpdated: string })[];
@@ -44,38 +43,33 @@ export function ProjectList({ projects }: ProjectListProps) {
       {/* Header controls */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-2">
-          <button
-            onClick={() => setProjectFilter("all")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "all" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setProjectFilter("active")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "active" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            Active
-          </button>
-          <button
-            onClick={() => setProjectFilter("archived")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "archived" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            Archived
-          </button>
+          {["all", "active", "archived"].map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setProjectFilter(mode as "all" | "active" | "archived")}
+              className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
+                filter === mode
+                  ? "bg-[#D5360C] text-[#E6D5BD] border-[#D5360C] font-bold"
+                  : "bg-[#EFE3D1] text-[#101010]/70 border-[#101010]/15 hover:bg-[#E6D5BD]"
+              }`}
+            >
+              {mode}
+            </button>
+          ))}
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="h-8 gap-1">
+            <Button size="sm" className="h-8 gap-1.5">
               <Plus className="h-3.5 w-3.5" />
-              <span className="hidden sm:inline">New Project</span>
+              <span>New Project</span>
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="border border-[#101010]/20 bg-[#EFE3D1] text-[#101010]">
             <DialogHeader>
-              <DialogTitle>Create Project</DialogTitle>
-              <DialogDescription>
-                Add a new project to your workspace.
+              <DialogTitle className="font-display font-bold">Create Project</DialogTitle>
+              <DialogDescription className="text-xs text-[#101010]/70">
+                Initialize a new project repository in your workspace.
               </DialogDescription>
             </DialogHeader>
             <CreateProjectForm onSuccess={() => setIsDialogOpen(false)} />
@@ -84,34 +78,42 @@ export function ProjectList({ projects }: ProjectListProps) {
       </div>
 
       {/* List */}
-      <div className={`space-y-${compactMode ? '2' : '4'}`}>
+      <div className={compactMode ? "space-y-2" : "space-y-3"}>
         {filteredProjects.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No projects found.</p>
+          <p className="text-xs font-mono text-[#101010]/60 p-4 border border-dashed border-[#101010]/20 rounded-xs text-center">
+            No projects found matching current filter.
+          </p>
         ) : (
           filteredProjects.map((project) => (
             <div
               key={project.id}
-              className={`flex items-center justify-between rounded-lg border border-border transition-colors hover:bg-muted/50 ${compactMode ? 'p-2' : 'p-4'}`}
+              className={`flex items-center justify-between rounded-xs border border-[#101010]/15 bg-[#E6D5BD]/50 transition-all hover:bg-[#E6D5BD] hover:border-[#101010]/30 ${
+                compactMode ? "p-2.5" : "p-4"
+              }`}
             >
-              <div className="flex flex-col gap-1">
-                <Link href={`/projects/${project.id}`} className="font-medium text-foreground hover:underline">
-                  {project.name}
+              <div className="flex flex-col gap-0.5">
+                <Link
+                  href={`/projects/${project.id}`}
+                  className="font-display text-sm sm:text-base font-bold text-[#101010] hover:text-[#D5360C] transition-colors flex items-center gap-1.5 group"
+                >
+                  <span>{project.name}</span>
+                  <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#D5360C]" />
                 </Link>
-                {!compactMode && (
-                  <p className="text-xs text-muted-foreground">
+                {!compactMode && project.description && (
+                  <p className="text-xs text-[#101010]/70 font-light line-clamp-1">
                     {project.description}
                   </p>
                 )}
               </div>
-              <div className="flex flex-col items-end gap-2">
+              <div className="flex flex-col items-end gap-1.5 shrink-0 ml-4">
                 <Badge
                   variant={project.status === "active" ? "default" : "secondary"}
                 >
                   {project.status}
                 </Badge>
                 {!compactMode && (
-                  <span className="text-[10px] text-muted-foreground">
-                    {project.lastUpdated}
+                  <span className="font-mono text-[9px] text-[#101010]/50 tracking-wider">
+                    UPDATED: {project.lastUpdated}
                   </span>
                 )}
               </div>

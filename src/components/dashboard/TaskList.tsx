@@ -17,13 +17,12 @@ import {
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { useStoreHydration } from "@/hooks/useStoreHydration";
 import dynamic from "next/dynamic";
+import { toggleTaskStatus } from "@/actions/task";
 
 const CreateTaskForm = dynamic(
   () => import("@/components/forms/CreateTaskForm").then((m) => m.CreateTaskForm),
   { ssr: false }
 );
-import { toggleTaskStatus } from "@/actions/task";
-
 
 interface TaskListProps {
   tasks: Task[];
@@ -70,46 +69,43 @@ export function TaskList({ tasks }: TaskListProps) {
       {/* Header controls */}
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-2">
-          <button
-            onClick={() => setTaskFilter("all")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "all" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            All
-          </button>
-          <button
-            onClick={() => setTaskFilter("pending")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "pending" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            Pending
-          </button>
-          <button
-            onClick={() => setTaskFilter("completed")}
-            className={`text-xs px-2 py-1 rounded-md transition-colors ${filter === "completed" ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}
-          >
-            Completed
-          </button>
+          {["all", "pending", "completed"].map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setTaskFilter(mode as "all" | "pending" | "completed")}
+              className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
+                filter === mode
+                  ? "bg-[#D5360C] text-[#E6D5BD] border-[#D5360C] font-bold"
+                  : "bg-[#EFE3D1] text-[#101010]/70 border-[#101010]/15 hover:bg-[#E6D5BD]"
+              }`}
+            >
+              {mode}
+            </button>
+          ))}
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={toggleCompactMode}
-            className={`text-xs px-2 py-1 rounded-md border border-border transition-colors ${compactMode ? 'bg-muted' : 'bg-transparent'} hover:bg-muted`}
+            className={`font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-xs border border-[#101010]/15 transition-colors ${
+              compactMode ? 'bg-[#101010] text-[#E6D5BD]' : 'bg-[#EFE3D1] text-[#101010]/70'
+            } hover:bg-[#E6D5BD]`}
             title="Toggle Compact Mode"
           >
-            Compact UI
+            Compact
           </button>
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" className="h-8 gap-1">
+              <Button size="sm" className="h-8 gap-1.5">
                 <Plus className="h-3.5 w-3.5" />
-                <span className="hidden sm:inline">New Task</span>
+                <span>New Task</span>
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="border border-[#101010]/20 bg-[#EFE3D1] text-[#101010]">
               <DialogHeader>
-                <DialogTitle>Create Task</DialogTitle>
-                <DialogDescription>
-                  Add a new task to your workspace.
+                <DialogTitle className="font-display font-bold">Create Task</DialogTitle>
+                <DialogDescription className="text-xs text-[#101010]/70">
+                  Add an actionable task to your active workspace.
                 </DialogDescription>
               </DialogHeader>
               <CreateTaskForm onSuccess={() => setIsDialogOpen(false)} />
@@ -119,32 +115,36 @@ export function TaskList({ tasks }: TaskListProps) {
       </div>
 
       {/* List */}
-      <div className={`space-y-${compactMode ? '1' : '3'}`}>
+      <div className={compactMode ? "space-y-1.5" : "space-y-2.5"}>
         {filteredTasks.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No tasks found.</p>
+          <p className="text-xs font-mono text-[#101010]/60 p-4 border border-dashed border-[#101010]/20 rounded-xs text-center">
+            No tasks found matching current filter.
+          </p>
         ) : (
           filteredTasks.map((task) => (
             <div
               key={task.id}
-              className={`flex items-center gap-3 rounded-lg border border-transparent transition-colors hover:bg-muted/50 ${compactMode ? 'p-1' : 'p-2'}`}
+              className={`flex items-center gap-3 rounded-xs border border-[#101010]/10 bg-[#E6D5BD]/40 transition-colors hover:bg-[#E6D5BD] hover:border-[#101010]/25 ${
+                compactMode ? 'p-2' : 'p-3'
+              }`}
             >
               <button 
                 onClick={() => handleToggle(task.id, task.completed)}
-                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full"
+                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] rounded-full shrink-0"
                 aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
               >
                 {task.completed ? (
-                  <CheckCircle2 className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-primary`} />
+                  <CheckCircle2 className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-[#D5360C]`} />
                 ) : (
-                  <Circle className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-muted-foreground`} />
+                  <Circle className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-[#101010]/40 hover:text-[#101010]`} />
                 )}
               </button>
-              <div className="flex flex-1 items-center justify-between">
+              <div className="flex flex-1 items-center justify-between gap-4">
                 <span
-                  className={`${compactMode ? 'text-xs' : 'text-sm'} font-medium ${
+                  className={`${compactMode ? 'text-xs' : 'text-sm'} ${
                     task.completed
-                      ? "line-through text-muted-foreground"
-                      : "text-foreground"
+                      ? "line-through text-[#101010]/40"
+                      : "text-[#101010] font-medium"
                   }`}
                 >
                   {task.title}
@@ -154,10 +154,10 @@ export function TaskList({ tasks }: TaskListProps) {
                     task.priority === "high"
                       ? "destructive"
                       : task.priority === "medium"
-                      ? "warning" // Uses our custom extension in Badge.tsx
+                      ? "warning"
                       : "secondary"
                   }
-                  className={`capitalize ${compactMode ? 'text-[9px] px-1.5 py-0' : ''}`}
+                  className={`capitalize shrink-0 ${compactMode ? 'text-[9px] px-1.5 py-0' : ''}`}
                 >
                   {task.priority}
                 </Badge>

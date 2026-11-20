@@ -3,22 +3,21 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-xs border px-2 py-0.5 font-mono text-[10px] tracking-wider uppercase font-bold transition-colors select-none",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "border-[#D5360C]/30 bg-[#D5360C]/15 text-[#D5360C]",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-[#101010]/15 bg-[#101010]/8 text-[#101010]",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        outline: "text-foreground",
-        // Extended for backward compatibility
-        accent: "border-primary/20 bg-primary/5 text-foreground hover:bg-primary/10",
-        success: "border-success/25 bg-success/10 text-success",
-        warning: "border-warning/25 bg-warning/10 text-warning",
-        error: "border-destructive/25 bg-destructive/10 text-destructive",
+          "border-[#B32608]/30 bg-[#B32608]/15 text-[#B32608]",
+        outline: "border-[#101010]/30 text-[#101010]",
+        accent: "border-[#D5360C]/30 bg-[#D5360C]/10 text-[#D5360C]",
+        success: "border-[#2A6E3B]/30 bg-[#2A6E3B]/15 text-[#2A6E3B]",
+        warning: "border-[#D5360C]/30 bg-[#D5360C]/15 text-[#D5360C]",
+        error: "border-[#B32608]/30 bg-[#B32608]/15 text-[#B32608]",
       },
     },
     defaultVariants: {

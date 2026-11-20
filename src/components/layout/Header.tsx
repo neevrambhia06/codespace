@@ -1,9 +1,5 @@
 "use client";
 
-// Header
-// Renders the top bar. Takes its title from the parent layout
-// via a slot/prop so individual pages can control the heading.
-
 import { Bell, Search, PanelLeftClose, PanelLeft } from "lucide-react";
 import { useWorkspaceStore } from "@/store/useWorkspaceStore";
 import { useStoreHydration } from "@/hooks/useStoreHydration";
@@ -35,36 +31,36 @@ export function Header({ title }: HeaderProps) {
   return (
     <header
       id="app-header"
-      className="flex h-[var(--header-height)] shrink-0 items-center justify-between border-b border-border bg-background px-6"
+      className="flex h-[var(--header-height)] shrink-0 items-center justify-between border-b border-[#101010]/15 bg-[#E6D5BD] px-6 text-[#101010]"
     >
       {/* ── Left: page title & toggle ─────────────────────────────────────── */}
       <div className="flex items-center gap-3">
         <button
           onClick={toggleSidebar}
-          className="mr-2 flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="mr-2 flex h-8 w-8 items-center justify-center rounded-xs text-[#101010]/70 transition-colors hover:bg-[#EFE3D1] hover:text-[#101010] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
           aria-label="Toggle Sidebar"
         >
           {isCollapsed ? <PanelLeft className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
         </button>
         {title && (
-          <h1 className="text-sm font-semibold text-foreground">
+          <h1 className="font-display text-sm font-bold tracking-tight text-[#101010]">
             {title}
           </h1>
         )}
       </div>
 
       {/* ── Right: actions ──────────────────────────────────────────────── */}
-      <div className="flex items-center gap-1">
-        {/* Search trigger — future: open a command palette (⌘K) */}
+      <div className="flex items-center gap-2">
+        {/* Search trigger */}
         <button
           id="header-search-btn"
           type="button"
           aria-label="Search (⌘K)"
-          className="group flex items-center gap-2 rounded-md border border-border bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-border/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="group flex items-center gap-2 rounded-xs border border-[#101010]/15 bg-[#EFE3D1] px-3 py-1.5 text-xs text-[#101010]/70 transition-colors hover:border-[#101010]/30 hover:text-[#101010] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
         >
           <Search className="h-3.5 w-3.5" aria-hidden="true" />
-          <span className="hidden sm:inline">Search…</span>
-          <kbd className="ml-1 hidden rounded bg-background px-1 font-mono text-[10px] text-muted-foreground sm:inline">
+          <span className="hidden sm:inline font-mono text-[11px]">Search workspace…</span>
+          <kbd className="ml-1 hidden rounded-xs border border-[#101010]/20 bg-[#E6D5BD] px-1 font-mono text-[9px] text-[#101010]/60 sm:inline">
             ⌘K
           </kbd>
         </button>
@@ -74,23 +70,21 @@ export function Header({ title }: HeaderProps) {
           id="header-notifications-btn"
           type="button"
           aria-label="Notifications"
-          className="relative flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="relative flex h-8 w-8 items-center justify-center rounded-xs text-[#101010]/70 transition-colors hover:bg-[#EFE3D1] hover:text-[#101010] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
         >
           <Bell className="h-4 w-4" aria-hidden="true" />
-          {/* Notification dot */}
           <span
-            className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-primary"
+            className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-[#D5360C]"
             aria-hidden="true"
-            style={{ animation: "pulse-dot 2s ease-in-out infinite" }}
           />
         </button>
 
         {session?.user && (
-          <div className="flex items-center gap-3 ml-2 border-l border-border pl-3">
-            <span className="text-sm font-medium text-foreground">{session.user.name}</span>
+          <div className="flex items-center gap-3 ml-2 border-l border-[#101010]/15 pl-3">
+            <span className="font-mono text-xs font-semibold text-[#101010]">{session.user.name}</span>
             <button
               onClick={handleLogout}
-              className="text-sm text-destructive hover:underline"
+              className="font-mono text-[11px] uppercase tracking-wider text-[#D5360C] hover:text-[#101010] font-bold transition-colors"
             >
               Logout
             </button>

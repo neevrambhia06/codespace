@@ -1,18 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/Toaster";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontDisplay = Fraunces({
+  variable: "--font-display",
+  subsets: ["latin"],
+  display: "swap",
+  axes: ["opsz", "SOFT", "WONK"],
+});
+
+const fontSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontMono = Space_Mono({
+  variable: "--font-mono",
+  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -20,15 +28,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
-    default: APP_NAME,
+    default: `${APP_NAME} — The Sovereign Developer Workspace`,
     template: `%s | ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
-  keywords: ["developer", "workspace", "code", "IDE", "productivity"],
+  keywords: ["developer", "workspace", "code", "IDE", "productivity", "editorial"],
   authors: [{ name: "CodeSpace Team" }],
-  robots: { index: false, follow: false },
+  robots: { index: true, follow: true },
   openGraph: {
-    title: APP_NAME,
+    title: `${APP_NAME} — The Sovereign Developer Workspace`,
     description: APP_DESCRIPTION,
     siteName: APP_NAME,
     images: [
@@ -57,13 +65,14 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} h-full antialiased`}
     >
-      <body className="h-full bg-background text-foreground">
+      <body className="h-full bg-background text-foreground font-sans selection:bg-[#D5360C] selection:text-[#E6D5BD]">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          forcedTheme="light"
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

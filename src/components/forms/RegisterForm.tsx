@@ -42,74 +42,86 @@ export function RegisterForm() {
       return;
     }
 
-    toast.success("Registered successfully!");
-    router.push("/");
+    toast.success("Registered successfully! Welcome to CodeSpace.");
+    router.push("/dashboard");
     router.refresh();
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
-          Enter your information to get started.
+    <Card className="border-[#101010]/20 bg-[#EFE3D1] text-[#101010] shadow-sm">
+      <CardHeader className="border-b border-[#101010]/10 pb-5">
+        <CardTitle className="font-display text-2xl font-bold tracking-tight">
+          Create an account
+        </CardTitle>
+        <CardDescription className="text-xs text-[#101010]/70 font-light">
+          Set up your profile to start building in CodeSpace.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="name" className="font-mono text-xs uppercase text-[#101010]">
+              Full Name
+            </Label>
             <Input
               id="name"
               type="text"
-              placeholder="John Doe"
+              placeholder="Ada Lovelace"
               autoComplete="name"
+              className="border-[#101010]/20 bg-[#E6D5BD]/50 focus:border-[#D5360C] text-sm"
               {...form.register("name")}
             />
             {form.formState.errors.name && (
-              <p className="text-xs font-medium text-destructive">
+              <p className="text-xs font-mono text-[#B32608]">
                 {form.formState.errors.name.message}
               </p>
             )}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="email" className="font-mono text-xs uppercase text-[#101010]">
+              Email Address
+            </Label>
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="ada@example.dev"
               autoComplete="email"
+              className="border-[#101010]/20 bg-[#E6D5BD]/50 focus:border-[#D5360C] text-sm"
               {...form.register("email")}
             />
             {form.formState.errors.email && (
-              <p className="text-xs font-medium text-destructive">
+              <p className="text-xs font-mono text-[#B32608]">
                 {form.formState.errors.email.message}
               </p>
             )}
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="password" className="font-mono text-xs uppercase text-[#101010]">
+              Password
+            </Label>
             <Input
               id="password"
               type="password"
+              placeholder="••••••••"
               autoComplete="new-password"
+              className="border-[#101010]/20 bg-[#E6D5BD]/50 focus:border-[#D5360C] text-sm"
               {...form.register("password")}
             />
             {form.formState.errors.password && (
-              <p className="text-xs font-medium text-destructive">
+              <p className="text-xs font-mono text-[#B32608]">
                 {form.formState.errors.password.message}
               </p>
             )}
           </div>
-          <Button type="submit" loading={isLoading} className="w-full">
-            {isLoading ? "Creating account…" : "Create account"}
+          <Button type="submit" loading={isLoading} className="w-full mt-2">
+            {isLoading ? "Creating account…" : "Complete Registration"}
           </Button>
         </form>
-        <p className="mt-6 text-center text-sm text-muted-foreground">
+        <p className="mt-6 text-center text-xs text-[#101010]/70 font-mono">
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-medium text-foreground underline underline-offset-4 hover:text-foreground/80"
+            className="font-bold text-[#D5360C] underline underline-offset-4 hover:text-[#101010]"
           >
             Sign in
           </Link>

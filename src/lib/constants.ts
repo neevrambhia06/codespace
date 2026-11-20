@@ -23,7 +23,7 @@ export const NAV_SECTIONS: NavSection[] = [
     items: [
       {
         label: "Dashboard",
-        href: "/",
+        href: "/dashboard",
         icon: LayoutDashboard,
         exact: true,
       },
