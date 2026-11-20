@@ -58,7 +58,7 @@ export function EditorialNavbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? "bg-[#E6D5BD]/95 backdrop-blur-md border-b border-[#101010]/20 py-3.5 shadow-xs"
+            ? "bg-[#E6D5BD]/95 backdrop-blur-md border-b border-[#101010] py-3.5 shadow-xs"
             : "bg-transparent py-6"
         }`}
       >
@@ -98,8 +98,8 @@ export function EditorialNavbar() {
                   className={`group relative flex flex-col items-center font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 outline-none ${
                     isScrolled
                       ? isActive
-                        ? "text-[#D5360C] font-bold"
-                        : "text-[#101010]/70 hover:text-[#101010]"
+                        ? "text-[#101010] font-bold"
+                        : "text-[#101010]/60 hover:text-[#101010]"
                       : isActive
                       ? "text-[#E6D5BD] font-bold"
                       : "text-[#E6D5BD]/75 hover:text-[#E6D5BD]"

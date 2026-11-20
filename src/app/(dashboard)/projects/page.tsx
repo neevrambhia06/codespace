@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ProjectList } from "@/components/dashboard/ProjectList";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Project } from "@prisma/client";
 
@@ -21,19 +22,24 @@ export default async function ProjectsPage() {
   }));
 
   return (
-    <div className="flex flex-col gap-6 animate-in fade-in-0 slide-in-from-bottom-2 duration-500 max-w-5xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Projects</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Create, track, and organize your software repositories and initiatives.
-        </p>
-      </div>
+    <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
+      {/* ── Editorial Page Header ─────────────────────────────────────────── */}
+      <PageHeader
+        eyebrow="REPOSITORY ARCHITECTURE // DIRECTORY"
+        title="Projects & Repositories"
+        description="Create, track, and inspect all software initiatives in your workspace."
+        action={
+          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
+            {projects.length} ACTIVE REPOSITORIES
+          </div>
+        }
+      />
 
       <Card>
         <CardHeader>
-          <CardTitle>All Projects</CardTitle>
+          <CardTitle>Workspace Repositories</CardTitle>
           <CardDescription>
-            You have {projects.length} total projects in this workspace.
+            You have {projects.length} total projects cataloged in this database.
           </CardDescription>
         </CardHeader>
         <CardContent>

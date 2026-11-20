@@ -1,5 +1,4 @@
-import { Sidebar } from "@/components/layout/Sidebar";
-import { Header } from "@/components/layout/Header";
+import { GlobalNavbar } from "@/components/layout/GlobalNavbar";
 
 export default function DashboardLayout({
   children,
@@ -7,23 +6,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-full overflow-hidden bg-[#E6D5BD] text-[#101010]">
-      {/* ── Sidebar ──────────────────────────────────────────────────────── */}
-      <Sidebar />
+    <div className="min-h-screen flex flex-col bg-[#E6D5BD] text-[#101010] bg-grain">
+      {/* ── Unified Full-Width Horizontal Top Navbar ─────────────────── */}
+      <GlobalNavbar />
 
-      {/* ── Main column ──────────────────────────────────────────────────── */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <Header />
-
-        {/* Page content in Warm Ivory with subtle paper grain texture */}
-        <main
-          id="main-content"
-          className="flex-1 overflow-y-auto p-6 lg:p-8 bg-grain"
-          tabIndex={-1}
-        >
-          {children}
-        </main>
-      </div>
+      {/* ── Full-Width Editorial Canvas ──────────────────────────────── */}
+      <main
+        id="main-content"
+        className="flex-1 w-full max-w-7xl mx-auto px-6 sm:px-10 py-8 lg:py-10"
+        tabIndex={-1}
+      >
+        {children}
+      </main>
     </div>
   );
 }

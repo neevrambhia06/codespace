@@ -75,8 +75,8 @@ export function TaskList({ tasks }: TaskListProps) {
               onClick={() => setTaskFilter(mode as "all" | "pending" | "completed")}
               className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
                 filter === mode
-                  ? "bg-[#D5360C] text-[#E6D5BD] border-[#D5360C] font-bold"
-                  : "bg-[#EFE3D1] text-[#101010]/70 border-[#101010]/15 hover:bg-[#E6D5BD]"
+                  ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
+                  : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
               }`}
             >
               {mode}
@@ -86,9 +86,9 @@ export function TaskList({ tasks }: TaskListProps) {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleCompactMode}
-            className={`font-mono text-[10px] uppercase tracking-wider px-2 py-1 rounded-xs border border-[#101010]/15 transition-colors ${
-              compactMode ? 'bg-[#101010] text-[#E6D5BD]' : 'bg-[#EFE3D1] text-[#101010]/70'
-            } hover:bg-[#E6D5BD]`}
+            className={`font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-xs border border-[#101010]/20 transition-colors ${
+              compactMode ? 'bg-[#101010] text-[#F4EBDD]' : 'bg-[#F4EBDD] text-[#4A443C]'
+            } hover:bg-[#FAF4EA] hover:text-[#101010]`}
             title="Toggle Compact Mode"
           >
             Compact
@@ -96,16 +96,16 @@ export function TaskList({ tasks }: TaskListProps) {
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" className="h-8 gap-1.5">
+              <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]">
                 <Plus className="h-3.5 w-3.5" />
-                <span>New Task</span>
+                <span>+ New Task</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="border border-[#101010]/20 bg-[#EFE3D1] text-[#101010]">
+            <DialogContent className="border border-[#101010] bg-[#F4EBDD] text-[#101010]">
               <DialogHeader>
                 <DialogTitle className="font-display font-bold">Create Task</DialogTitle>
-                <DialogDescription className="text-xs text-[#101010]/70">
-                  Add an actionable task to your active workspace.
+                <DialogDescription className="text-xs text-[#4A443C]">
+                  Add a actionable item to your development checklist.
                 </DialogDescription>
               </DialogHeader>
               <CreateTaskForm onSuccess={() => setIsDialogOpen(false)} />
@@ -115,52 +115,55 @@ export function TaskList({ tasks }: TaskListProps) {
       </div>
 
       {/* List */}
-      <div className={compactMode ? "space-y-1.5" : "space-y-2.5"}>
+      <div className={compactMode ? "space-y-2" : "space-y-3"}>
         {filteredTasks.length === 0 ? (
-          <p className="text-xs font-mono text-[#101010]/60 p-4 border border-dashed border-[#101010]/20 rounded-xs text-center">
+          <p className="text-xs font-mono text-[#4A443C] p-6 border border-dashed border-[#101010]/25 rounded-xs text-center bg-[#F4EBDD]/50">
             No tasks found matching current filter.
           </p>
         ) : (
           filteredTasks.map((task) => (
             <div
               key={task.id}
-              className={`flex items-center gap-3 rounded-xs border border-[#101010]/10 bg-[#E6D5BD]/40 transition-colors hover:bg-[#E6D5BD] hover:border-[#101010]/25 ${
-                compactMode ? 'p-2' : 'p-3'
+              className={`flex items-center justify-between rounded-xs border border-[rgba(16,16,16,0.22)] bg-[#F4EBDD] transition-all duration-200 hover:bg-[#FAF4EA] hover:border-[#101010]/40 hover:shadow-[2px_2px_0px_rgba(16,16,16,0.08)] ${
+                compactMode ? "p-2.5" : "p-3.5"
               }`}
             >
-              <button 
-                onClick={() => handleToggle(task.id, task.completed)}
-                className="focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] rounded-full shrink-0"
-                aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
-              >
-                {task.completed ? (
-                  <CheckCircle2 className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-[#D5360C]`} />
-                ) : (
-                  <Circle className={`${compactMode ? 'h-4 w-4' : 'h-5 w-5'} text-[#101010]/40 hover:text-[#101010]`} />
-                )}
-              </button>
-              <div className="flex flex-1 items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => handleToggle(task.id, task.completed)}
+                  className="text-[#101010]/40 hover:text-[#D5360C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] rounded-xs"
+                  aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
+                >
+                  {task.completed ? (
+                    <CheckCircle2 className="h-4 w-4 text-[#D5360C]" />
+                  ) : (
+                    <Circle className="h-4 w-4 text-[#101010]/50" />
+                  )}
+                </button>
                 <span
-                  className={`${compactMode ? 'text-xs' : 'text-sm'} ${
+                  className={`text-xs sm:text-sm font-sans ${
                     task.completed
-                      ? "line-through text-[#101010]/40"
+                      ? "line-through text-[#4A443C]/60"
                       : "text-[#101010] font-medium"
                   }`}
                 >
                   {task.title}
                 </span>
-                <Badge
-                  variant={
-                    task.priority === "high"
-                      ? "destructive"
-                      : task.priority === "medium"
-                      ? "warning"
-                      : "secondary"
-                  }
-                  className={`capitalize shrink-0 ${compactMode ? 'text-[9px] px-1.5 py-0' : ''}`}
-                >
-                  {task.priority}
-                </Badge>
+              </div>
+              <div className="flex items-center gap-2">
+                {task.priority && (
+                  <Badge
+                    variant={task.priority.toLowerCase() === "high" ? "accent" : "secondary"}
+                    className="text-[9px]"
+                  >
+                    {task.priority}
+                  </Badge>
+                )}
+                {task.completed && (
+                  <Badge variant="default" className="text-[9px]">
+                    DONE
+                  </Badge>
+                )}
               </div>
             </div>
           ))

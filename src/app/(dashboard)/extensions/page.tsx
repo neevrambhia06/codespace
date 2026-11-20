@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { PageHeader } from "@/components/layout/PageHeader";
 import { Puzzle, CheckCircle2 } from "lucide-react";
 
 export const metadata = {
@@ -10,13 +11,13 @@ export const metadata = {
 const EXTENSIONS = [
   {
     name: "Prisma Studio",
-    description: "Visual database explorer and editor for PostgreSQL.",
+    description: "Visual database explorer and editor for Neon PostgreSQL.",
     category: "Database",
     status: "Installed",
   },
   {
     name: "Better Auth Provider",
-    description: "Session management and role-based access control.",
+    description: "Session management and role-based cryptographic access control.",
     category: "Security",
     status: "Installed",
   },
@@ -27,7 +28,7 @@ const EXTENSIONS = [
     status: "Installed",
   },
   {
-    name: "Lighthouse Performance Profiler",
+    name: "Lighthouse Profiler",
     description: "Core Web Vitals monitoring and accessibility scoring.",
     category: "Analytics",
     status: "Installed",
@@ -36,33 +37,38 @@ const EXTENSIONS = [
 
 export default function ExtensionsPage() {
   return (
-    <div className="flex flex-col gap-6 animate-in fade-in-0 slide-in-from-bottom-2 duration-500 max-w-5xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Workspace Extensions</h1>
-        <p className="text-sm text-muted-foreground mt-1">
-          Explore installed plugins and integrations enhancing your developer environment.
-        </p>
-      </div>
+    <div className="flex flex-col gap-6 animate-in fade-in-0 duration-300 w-full">
+      {/* ── Editorial Page Header ─────────────────────────────────────────── */}
+      <PageHeader
+        eyebrow="INTEGRATIONS // TOOLCHAIN"
+        title="Workspace Extensions"
+        description="Explore installed plugins and integrations enhancing your developer environment."
+        action={
+          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
+            {EXTENSIONS.length} SYSTEM EXTENSIONS ACTIVE
+          </div>
+        }
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {EXTENSIONS.map((ext) => (
-          <Card key={ext.name}>
+          <Card key={ext.name} className="hover:border-[#101010]/40 transition-all">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-base flex items-center gap-2">
-                  <Puzzle className="h-4 w-4 text-primary shrink-0" />
-                  {ext.name}
+                  <Puzzle className="h-4 w-4 text-[#D5360C] shrink-0" />
+                  <span>{ext.name}</span>
                 </CardTitle>
-                <Badge variant="secondary" className="text-xs">
+                <Badge variant="default" className="text-xs">
                   {ext.category}
                 </Badge>
               </div>
-              <CardDescription className="text-xs mt-1">
+              <CardDescription className="text-xs mt-1 text-[#4A443C]">
                 {ext.description}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-500 font-medium">
+              <div className="flex items-center gap-1.5 text-xs text-[#2A6E3B] font-mono uppercase tracking-wider font-bold">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 <span>{ext.status}</span>
               </div>

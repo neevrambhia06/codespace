@@ -49,8 +49,8 @@ export function ProjectList({ projects }: ProjectListProps) {
               onClick={() => setProjectFilter(mode as "all" | "active" | "archived")}
               className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border ${
                 filter === mode
-                  ? "bg-[#D5360C] text-[#E6D5BD] border-[#D5360C] font-bold"
-                  : "bg-[#EFE3D1] text-[#101010]/70 border-[#101010]/15 hover:bg-[#E6D5BD]"
+                  ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
+                  : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
               }`}
             >
               {mode}
@@ -60,15 +60,15 @@ export function ProjectList({ projects }: ProjectListProps) {
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="h-8 gap-1.5">
+            <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]">
               <Plus className="h-3.5 w-3.5" />
-              <span>New Project</span>
+              <span>+ New Project</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="border border-[#101010]/20 bg-[#EFE3D1] text-[#101010]">
+          <DialogContent className="border border-[#101010] bg-[#F4EBDD] text-[#101010]">
             <DialogHeader>
               <DialogTitle className="font-display font-bold">Create Project</DialogTitle>
-              <DialogDescription className="text-xs text-[#101010]/70">
+              <DialogDescription className="text-xs text-[#4A443C]">
                 Initialize a new project repository in your workspace.
               </DialogDescription>
             </DialogHeader>
@@ -80,15 +80,15 @@ export function ProjectList({ projects }: ProjectListProps) {
       {/* List */}
       <div className={compactMode ? "space-y-2" : "space-y-3"}>
         {filteredProjects.length === 0 ? (
-          <p className="text-xs font-mono text-[#101010]/60 p-4 border border-dashed border-[#101010]/20 rounded-xs text-center">
+          <p className="text-xs font-mono text-[#4A443C] p-6 border border-dashed border-[#101010]/25 rounded-xs text-center bg-[#F4EBDD]/50">
             No projects found matching current filter.
           </p>
         ) : (
           filteredProjects.map((project) => (
             <div
               key={project.id}
-              className={`flex items-center justify-between rounded-xs border border-[#101010]/15 bg-[#E6D5BD]/50 transition-all hover:bg-[#E6D5BD] hover:border-[#101010]/30 ${
-                compactMode ? "p-2.5" : "p-4"
+              className={`flex items-center justify-between rounded-xs border border-[rgba(16,16,16,0.22)] bg-[#F4EBDD] transition-all duration-200 hover:bg-[#FAF4EA] hover:border-[#101010]/40 hover:shadow-[2px_2px_0px_rgba(16,16,16,0.08)] ${
+                compactMode ? "p-3" : "p-4"
               }`}
             >
               <div className="flex flex-col gap-0.5">
@@ -99,23 +99,20 @@ export function ProjectList({ projects }: ProjectListProps) {
                   <span>{project.name}</span>
                   <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#D5360C]" />
                 </Link>
-                {!compactMode && project.description && (
-                  <p className="text-xs text-[#101010]/70 font-light line-clamp-1">
+                {project.description && (
+                  <p className="text-xs text-[#4A443C] line-clamp-1 leading-relaxed">
                     {project.description}
                   </p>
                 )}
               </div>
-              <div className="flex flex-col items-end gap-1.5 shrink-0 ml-4">
-                <Badge
-                  variant={project.status === "active" ? "default" : "secondary"}
-                >
+
+              <div className="flex items-center gap-3 shrink-0">
+                <Badge variant={project.status === "active" ? "accent" : "secondary"}>
                   {project.status}
                 </Badge>
-                {!compactMode && (
-                  <span className="font-mono text-[9px] text-[#101010]/50 tracking-wider">
-                    UPDATED: {project.lastUpdated}
-                  </span>
-                )}
+                <span className="hidden sm:inline font-mono text-[10px] text-[#4A443C] uppercase tracking-wider">
+                  Updated: {project.lastUpdated}
+                </span>
               </div>
             </div>
           ))

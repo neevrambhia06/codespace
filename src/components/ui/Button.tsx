@@ -8,17 +8,22 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-[#D5360C] text-[#E6D5BD] hover:bg-[#101010] hover:text-[#E6D5BD] shadow-xs active:translate-y-px",
+        default:
+          "bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09] shadow-xs active:translate-y-px",
         destructive:
-          "bg-[#B32608] text-[#E6D5BD] hover:bg-[#101010] shadow-xs",
+          "bg-[#B32608] text-[#F4EBDD] hover:bg-[#101010] shadow-xs",
         outline:
-          "border border-[#101010]/30 bg-transparent text-[#101010] hover:bg-[#101010] hover:text-[#E6D5BD]",
+          "border border-[#101010] bg-transparent text-[#101010] hover:bg-[#101010] hover:text-[#F4EBDD]",
         secondary:
-          "bg-[#EFE3D1] text-[#101010] border border-[#101010]/15 hover:bg-[#E6D5BD] hover:border-[#101010]/30",
-        ghost: "hover:bg-[#EFE3D1] text-[#101010]",
-        link: "text-[#D5360C] underline-offset-4 hover:underline lowercase font-sans font-medium",
-        primary: "bg-[#D5360C] text-[#E6D5BD] hover:bg-[#101010]",
-        danger: "bg-[#B32608] text-[#E6D5BD] hover:bg-[#101010]",
+          "bg-[#101010] text-[#F4EBDD] hover:bg-[#2A2A2A] shadow-xs",
+        ghost:
+          "text-[#101010] hover:bg-[#F4EBDD] hover:text-[#D5360C]",
+        link:
+          "text-[#D5360C] underline-offset-4 hover:underline lowercase font-sans font-medium",
+        primary:
+          "bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]",
+        danger:
+          "bg-[#B32608] text-[#F4EBDD] hover:bg-[#101010]",
       },
       size: {
         default: "h-9 px-4 py-2",
