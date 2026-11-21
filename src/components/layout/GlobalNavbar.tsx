@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -48,6 +48,57 @@ export function GlobalNavbar() {
 
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const navContainerRef = useRef<HTMLElement>(null);
+  const routeRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
+
+  const [indicatorStyle, setIndicatorStyle] = useState<{
+    left: number;
+    width: number;
+    opacity: number;
+    isReady: boolean;
+  }>({ left: 0, width: 0, opacity: 0, isReady: false });
+
+  const updateIndicator = useCallback(() => {
+    const container = navContainerRef.current;
+    if (!container) return;
+
+    const activeRoute = PRIMARY_ROUTES.find((r) =>
+      r.href === "/dashboard"
+        ? pathname === "/dashboard"
+        : pathname.startsWith(r.href)
+    );
+
+    if (!activeRoute) {
+      setIndicatorStyle((prev) => ({ ...prev, opacity: 0 }));
+      return;
+    }
+
+    const activeEl = routeRefs.current[activeRoute.href];
+    if (!activeEl) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const linkRect = activeEl.getBoundingClientRect();
+
+    setIndicatorStyle((prev) => ({
+      left: linkRect.left - containerRect.left,
+      width: linkRect.width,
+      opacity: 1,
+      isReady: prev.isReady,
+    }));
+  }, [pathname]);
+
+  useEffect(() => {
+    updateIndicator();
+    const t = setTimeout(() => {
+      setIndicatorStyle((prev) => ({ ...prev, isReady: true }));
+    }, 50);
+    return () => clearTimeout(t);
+  }, [pathname, updateIndicator]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [updateIndicator]);
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -124,8 +175,11 @@ export function GlobalNavbar() {
             </button>
           </div>
 
-          {/* ── Centre: Primary Nav Links with Active Dot Indicator ─────── */}
-          <nav className="hidden md:flex items-center gap-7 lg:gap-8">
+          {/* ── Centre: Primary Nav Links with Continuous Moving Underline ─────── */}
+          <nav
+            ref={navContainerRef}
+            className="hidden md:flex items-center gap-7 lg:gap-8 relative py-1"
+          >
             {PRIMARY_ROUTES.map((route) => {
               const isActive =
                 route.href === "/dashboard"
@@ -135,6 +189,9 @@ export function GlobalNavbar() {
               return (
                 <Link
                   key={route.href}
+                  ref={(el) => {
+                    routeRefs.current[route.href] = el;
+                  }}
                   href={route.href}
                   className={`relative py-1 flex flex-col items-center font-sans text-xs tracking-normal transition-colors outline-none ${
                     isActive
@@ -143,15 +200,23 @@ export function GlobalNavbar() {
                   }`}
                 >
                   <span>{route.label}</span>
-                  {isActive && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute -bottom-1.5 w-1.5 h-1.5 rounded-full bg-[#D5360C]"
-                    />
-                  )}
                 </Link>
               );
             })}
+
+            {/* Continuous Moving Underline */}
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-1 left-0 h-[2px] rounded-full bg-[#D5360C] pointer-events-none"
+              style={{
+                transform: `translateX(${indicatorStyle.left}px)`,
+                width: `${indicatorStyle.width}px`,
+                opacity: indicatorStyle.opacity,
+                transition: indicatorStyle.isReady
+                  ? "transform 350ms cubic-bezier(0.22, 1, 0.36, 1), width 350ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease"
+                  : "opacity 200ms ease",
+              }}
+            />
           </nav>
 
           {/* ── Right: Compact Utility Cluster ──────────────────────────── */}

@@ -45,9 +45,9 @@ export function EditorialFooter() {
 
       {/* ── Multi-Column Editorial Footer ─────────────────────────────────── */}
       <div className="max-w-7xl mx-auto py-12 sm:py-16 px-6 sm:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-[#E6D5BD]/15">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-8 pb-12 border-b border-[#E6D5BD]/15">
           {/* Brand Column */}
-          <div className="md:col-span-5 space-y-3">
+          <div className="space-y-3 max-w-md">
             <div className="flex items-center gap-2.5">
               <div className="w-6 h-6 rounded-md bg-[#D5360C] text-white flex items-center justify-center">
                 <Code2 className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -57,7 +57,7 @@ export function EditorialFooter() {
               </span>
             </div>
 
-            <p className="text-xs text-[#E6D5BD]/70 max-w-sm font-normal leading-relaxed">
+            <p className="text-xs text-[#E6D5BD]/70 font-normal leading-relaxed">
               A unified, distraction-free workspace designed for clarity, momentum, and typographic calm.
             </p>
 
@@ -68,7 +68,7 @@ export function EditorialFooter() {
           </div>
 
           {/* Directory Links */}
-          <div className="md:col-span-3 space-y-2.5">
+          <div className="space-y-2.5">
             <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#D5360C] font-bold">
               DIRECTORY
             </p>
@@ -99,27 +99,6 @@ export function EditorialFooter() {
                 </Link>
               </li>
             </ul>
-          </div>
-
-          {/* Security & Sessions */}
-          <div className="md:col-span-4 space-y-2.5">
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#D5360C] font-bold">
-              SECURITY & ACCESS
-            </p>
-            <div className="space-y-2 text-xs text-[#E6D5BD]/70 font-sans">
-              <div className="flex justify-between border-b border-[#E6D5BD]/10 pb-1.5">
-                <span>Encryption:</span>
-                <span className="text-[#E6D5BD] font-medium">256-bit SSL</span>
-              </div>
-              <div className="flex justify-between border-b border-[#E6D5BD]/10 pb-1.5">
-                <span>Access Sessions:</span>
-                <span className="text-[#E6D5BD] font-medium">Verified Credentials</span>
-              </div>
-              <div className="flex justify-between pb-1.5">
-                <span>Experience:</span>
-                <span className="text-[#D5360C] font-bold">Fast & Distraction-Free</span>
-              </div>
-            </div>
           </div>
         </div>
 

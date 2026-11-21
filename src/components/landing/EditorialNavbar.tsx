@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X, Code2 } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
@@ -23,10 +23,49 @@ const NAV_LINKS: NavItem[] = [
 
 export function EditorialNavbar() {
   const navRef = useRef<HTMLElement>(null);
+  const navLinksContainerRef = useRef<HTMLElement>(null);
+  const linkRefs = useRef<{ [key: string]: HTMLAnchorElement | null }>({});
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("OVERVIEW");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { navigateWithTransition } = usePageTransition();
+
+  const [indicatorStyle, setIndicatorStyle] = useState<{
+    left: number;
+    width: number;
+    opacity: number;
+    isReady: boolean;
+  }>({ left: 0, width: 0, opacity: 0, isReady: false });
+
+  const updateIndicator = useCallback(() => {
+    const container = navLinksContainerRef.current;
+    const activeEl = linkRefs.current[activeSection];
+    if (!container || !activeEl) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const linkRect = activeEl.getBoundingClientRect();
+
+    setIndicatorStyle((prev) => ({
+      left: linkRect.left - containerRect.left,
+      width: linkRect.width,
+      opacity: 1,
+      isReady: prev.isReady,
+    }));
+  }, [activeSection]);
+
+  useEffect(() => {
+    updateIndicator();
+    const t = setTimeout(() => {
+      setIndicatorStyle((prev) => ({ ...prev, isReady: true }));
+    }, 50);
+    return () => clearTimeout(t);
+  }, [activeSection, updateIndicator]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [updateIndicator]);
 
   useEffect(() => {
     if (!prefersReducedMotion() && navRef.current) {
@@ -99,15 +138,21 @@ export function EditorialNavbar() {
             </span>
           </Link>
 
-          {/* ── Centre: Clean, evenly spaced uppercase navigation links with active dot ── */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-10">
+          {/* ── Centre: Clean, evenly spaced uppercase navigation links with continuous gliding underline ── */}
+          <nav
+            ref={navLinksContainerRef}
+            className="hidden md:flex items-center gap-8 lg:gap-10 relative py-1"
+          >
             {NAV_LINKS.map((item) => {
               const isActive = activeSection === item.label;
               return (
                 <a
                   key={item.label}
+                  ref={(el) => {
+                    linkRefs.current[item.label] = el;
+                  }}
                   href={item.href}
-                  className={`group relative flex flex-col items-center font-sans text-xs tracking-wider uppercase transition-colors duration-200 outline-none ${
+                  className={`relative flex flex-col items-center py-1 font-sans text-xs tracking-wider uppercase transition-colors duration-200 outline-none ${
                     isScrolled
                       ? isActive
                         ? "text-[#101010] font-bold"
@@ -118,20 +163,25 @@ export function EditorialNavbar() {
                   }`}
                 >
                   <span>{item.label}</span>
-                  {/* Subtle circular dot indicator directly beneath active link */}
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full mt-1 transition-all duration-300 ${
-                      isActive
-                        ? isScrolled
-                          ? "bg-[#D5360C] scale-100 opacity-100"
-                          : "bg-[#E6D5BD] scale-100 opacity-100"
-                        : "scale-0 opacity-0"
-                    }`}
-                    aria-hidden="true"
-                  />
                 </a>
               );
             })}
+
+            {/* ── Continuous Moving Underline Indicator ── */}
+            <span
+              aria-hidden="true"
+              className={`absolute -bottom-1 left-0 h-[2.5px] rounded-full pointer-events-none ${
+                isScrolled ? "bg-[#D5360C]" : "bg-[#E6D5BD]"
+              }`}
+              style={{
+                transform: `translateX(${indicatorStyle.left}px)`,
+                width: `${indicatorStyle.width}px`,
+                opacity: indicatorStyle.opacity,
+                transition: indicatorStyle.isReady
+                  ? "transform 350ms cubic-bezier(0.22, 1, 0.36, 1), width 350ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms ease, opacity 200ms ease"
+                  : "opacity 200ms ease",
+              }}
+            />
           </nav>
 
           {/* ── Right: Minimal action trigger & mobile drawer button ──────── */}
