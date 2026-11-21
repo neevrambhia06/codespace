@@ -68,7 +68,7 @@ export function EditorialNavbar() {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 opacity-0 ${
           isScrolled
-            ? "bg-[#E6D5BD]/95 backdrop-blur-md border-b border-[#101010] py-3.5 shadow-xs"
+            ? "bg-[#E6D5BD]/95 backdrop-blur-md py-3.5 shadow-xs"
             : "bg-transparent py-5"
         }`}
       >

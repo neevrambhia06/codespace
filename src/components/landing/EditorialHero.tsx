@@ -11,7 +11,6 @@ import {
   Sparkles,
   Layers,
   Check,
-  Move,
 } from "lucide-react";
 import {
   animate,
@@ -22,7 +21,7 @@ import {
   onScroll,
   stagger,
 } from "animejs";
-import { createDrawable, createMotionPath, morphTo } from "animejs/svg";
+import { createDrawable } from "animejs/svg";
 import { prefersReducedMotion } from "@/lib/motion";
 
 interface SampleTask {
@@ -128,7 +127,7 @@ export function EditorialHero() {
         );
       }
 
-      // 2. Continuous Starburst Rotation + Shape Morphing via morphTo()
+      // 2. Continuous Circular Seal Rotation
       if (starburstRef.current) {
         animate(starburstRef.current, {
           rotate: [0, 360],
@@ -136,18 +135,6 @@ export function EditorialHero() {
           loop: true,
           ease: "linear",
         });
-
-        try {
-          animate("#hero-morph-shape", {
-            d: morphTo("#hero-morph-target"),
-            duration: 2600,
-            loop: true,
-            alternate: true,
-            ease: "inOutQuad",
-          });
-        } catch (e) {
-          console.warn("Hero shape morph fallback:", e);
-        }
       }
 
       // 3. Scroll-Synced SVG Line Drawing
@@ -202,71 +189,42 @@ export function EditorialHero() {
       id="overview"
       className="relative min-h-[92vh] lg:min-h-screen bg-[#D5360C] text-[#E6D5BD] pt-28 pb-16 px-6 sm:px-10 flex flex-col justify-between overflow-hidden bg-grain-orange"
     >
-      {/* ── Background Editorial Morphing Starburst ──────────────────────── */}
+      {/* ── Background Editorial Rotating Circular Seal ─────────────────── */}
       <div
         ref={starburstRef}
-        className="absolute top-24 right-8 sm:top-28 sm:right-16 text-[#101010] select-none pointer-events-none opacity-90 drop-shadow-sm z-0"
+        className="absolute top-20 right-8 sm:top-24 sm:right-16 text-[#101010] select-none pointer-events-none opacity-85 drop-shadow-sm z-0"
         aria-hidden="true"
       >
         <svg
           width="110"
           height="110"
           viewBox="0 0 100 100"
-          fill="currentColor"
-          className="w-16 h-16 sm:w-24 sm:h-24"
+          className="w-16 h-16 sm:w-22 sm:h-22"
         >
-          {/* Active Morphing Shape */}
-          <path
-            id="hero-morph-shape"
-            d="M50 0 L58 35 L93 20 L72 50 L100 50 L72 65 L93 90 L58 75 L50 100 L42 75 L7 90 L28 65 L0 50 L28 50 L7 20 L42 35 Z"
+          {/* Outer circular seal */}
+          <circle cx="50" cy="50" r="46" fill="#101010" />
+          {/* Subtle dashed inner orbit ring */}
+          <circle
+            cx="50"
+            cy="50"
+            r="40"
+            fill="none"
+            stroke="#E6D5BD"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
           />
-          {/* Target Geometry for Shape Morphing (Smooth Octagonal Seal) */}
+          {/* Centered geometric starburst accent */}
           <path
-            id="hero-morph-target"
-            d="M50 4 L82 18 L96 50 L82 82 L50 96 L18 82 L4 50 L18 18 Z"
-            style={{ display: "none" }}
+            d="M50 20 L53 38 L68 32 L58 46 L72 50 L58 54 L68 68 L53 62 L50 80 L47 62 L32 68 L42 54 L28 50 L42 46 L32 32 L47 38 Z"
+            fill="#E6D5BD"
           />
-        </svg>
-      </div>
-
-      {/* ── Top Editorial Flank with Scroll-Synced Drawing Lines ───────────── */}
-      <div className="relative border-b border-[#E6D5BD]/20 pb-5 z-10 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-          <div className="md:col-span-6 flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#101010]" />
-            <p className="font-mono text-[11px] tracking-[0.25em] uppercase text-[#E6D5BD] font-medium">
-              THE SOVEREIGN WORKSPACE // EDITION 2026
-            </p>
-          </div>
-          <div className="md:col-span-6 md:text-right flex items-center justify-start md:justify-end gap-3">
-            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-black/20 text-[#E6D5BD] font-mono text-[10px] tracking-wider">
-              <Move className="w-2.5 h-2.5 text-[#E6D5BD]" />
-              INTERACTIVE PREVIEW
-            </span>
-            <p className="font-sans text-xs text-[#E6D5BD]/90 hidden sm:inline">
-              One calm home for projects, deliverables, and notes.
-            </p>
-          </div>
-        </div>
-
-        {/* Scroll-synced decorative SVG line at top header */}
-        <svg
-          viewBox="0 0 1000 12"
-          className="absolute -bottom-[6px] left-0 w-full h-[12px] text-[#101010] pointer-events-none"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M 0 6 L 1000 6"
-            stroke="#101010"
-            strokeWidth="2"
-            className="hero-draw-path"
-          />
+          {/* Core dot in Burnt Orange */}
+          <circle cx="50" cy="50" r="6" fill="#D5360C" />
         </svg>
       </div>
 
       {/* ── Center Stage: Hero Headline & CTA ──────────────────────────────── */}
-      <div className="my-auto py-8 lg:py-12 z-10 max-w-5xl mx-auto w-full text-center sm:text-left">
+      <div className="my-auto pt-4 pb-8 lg:py-12 z-10 max-w-5xl mx-auto w-full text-center sm:text-left">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#E6D5BD]/30 font-mono text-[10px] tracking-[0.22em] uppercase text-[#E6D5BD] mb-5 backdrop-blur-xs">
           <Sparkles className="w-3 h-3 text-[#101010]" />
           <span>FOCUSED WORKSPACE</span>
