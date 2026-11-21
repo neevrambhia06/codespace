@@ -3,6 +3,7 @@ import { Fraunces, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { PageTransitionProvider } from "@/components/providers/PageTransitionProvider";
 import { Toaster } from "@/components/ui/Toaster";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
@@ -75,9 +76,11 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <ScrollToTop />
-          {children}
-          <Toaster />
+          <PageTransitionProvider>
+            <ScrollToTop />
+            {children}
+            <Toaster />
+          </PageTransitionProvider>
         </ThemeProvider>
       </body>
     </html>

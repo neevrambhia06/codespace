@@ -19,6 +19,7 @@ import { APP_NAME } from "@/lib/constants";
 import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { SearchModal } from "@/components/layout/SearchModal";
+import { usePageTransition } from "@/components/providers/PageTransitionProvider";
 
 interface NavRoute {
   label: string;
@@ -38,6 +39,7 @@ export function GlobalNavbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = useSession();
+  const { navigateWithTransition } = usePageTransition();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -106,11 +108,11 @@ export function GlobalNavbar() {
     <>
       <header className="sticky top-0 z-40 w-full bg-[#F7F4EF] border-b border-[#101010]/12 transition-colors">
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
-          {/* ── Left: Wordmark with Burnt Orange mark (takes to landing page) ── */}
+          {/* ── Left: Wordmark with Burnt Orange mark (takes to landing page with NeoLeaf transition) ── */}
           <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="flex items-center gap-2.5 group outline-none select-none"
+            <button
+              onClick={() => navigateWithTransition("/")}
+              className="flex items-center gap-2.5 group outline-none select-none cursor-pointer"
               aria-label={`${APP_NAME} Landing Page`}
             >
               <div className="w-7 h-7 rounded-md bg-[#D5360C] text-white flex items-center justify-center transition-transform group-hover:scale-105 duration-200 shadow-2xs">
@@ -119,7 +121,7 @@ export function GlobalNavbar() {
               <span className="font-sans text-sm tracking-[0.16em] font-bold uppercase text-[#101010]">
                 {APP_NAME}
               </span>
-            </Link>
+            </button>
           </div>
 
           {/* ── Centre: Primary Nav Links with Active Dot Indicator ─────── */}
@@ -250,14 +252,16 @@ export function GlobalNavbar() {
                       <Settings className="w-3.5 h-3.5 text-[#524D46]" />
                       <span>Settings</span>
                     </Link>
-                    <Link
-                      href="/"
-                      onClick={() => setIsProfileOpen(false)}
-                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#F7F4EF] rounded-md transition-colors font-sans font-medium"
+                    <button
+                      onClick={() => {
+                        setIsProfileOpen(false);
+                        navigateWithTransition("/");
+                      }}
+                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#F7F4EF] rounded-md transition-colors font-sans font-medium text-left cursor-pointer"
                     >
                       <ExternalLink className="w-3.5 h-3.5 text-[#524D46]" />
                       <span>Back to Landing</span>
-                    </Link>
+                    </button>
                   </div>
 
                   {/* Logout */}
@@ -344,14 +348,16 @@ export function GlobalNavbar() {
                 <span>Settings</span>
               </Link>
 
-              <Link
-                href="/"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center gap-2 p-2 rounded-lg border border-[#101010]/12 bg-white text-[#101010]"
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  navigateWithTransition("/");
+                }}
+                className="w-full flex items-center gap-2 p-2 rounded-lg border border-[#101010]/12 bg-white text-[#101010] text-left cursor-pointer"
               >
                 <ExternalLink className="w-3.5 h-3.5 text-[#101010]" />
                 <span>Back to Landing</span>
-              </Link>
+              </button>
 
               <button
                 onClick={handleLogout}

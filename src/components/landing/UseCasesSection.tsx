@@ -12,6 +12,7 @@ import {
 } from "animejs";
 import { createDrawable } from "animejs/svg";
 import { animateCounter, prefersReducedMotion } from "@/lib/motion";
+import { usePageTransition } from "@/components/providers/PageTransitionProvider";
 
 interface Persona {
   id: string;
@@ -74,6 +75,7 @@ export function UseCasesSection() {
   const stat4Ref = useRef<HTMLSpanElement>(null);
 
   const [activePersona, setActivePersona] = useState<Persona>(PERSONAS[0]);
+  const { navigateWithTransition } = usePageTransition();
 
   // ── Anime.js v4 Scope Lifecycle: 2D Grid Stagger & Scroll Draw ───────────
   useEffect(() => {
@@ -229,13 +231,13 @@ export function UseCasesSection() {
               </div>
 
               <div className="pt-4">
-                <Link
-                  href="/dashboard"
-                  className="inline-flex items-center gap-2 bg-[#D5360C] text-white px-5 py-2.5 rounded-lg font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#B82D09] transition-colors"
+                <button
+                  onClick={() => navigateWithTransition("/dashboard")}
+                  className="inline-flex items-center gap-2 bg-[#D5360C] text-white px-5 py-2.5 rounded-lg font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#B82D09] transition-colors cursor-pointer"
                 >
                   <span>Launch Workspace</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                </button>
               </div>
             </div>
 

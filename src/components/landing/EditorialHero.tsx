@@ -23,6 +23,7 @@ import {
 } from "animejs";
 import { createDrawable } from "animejs/svg";
 import { prefersReducedMotion } from "@/lib/motion";
+import { usePageTransition } from "@/components/providers/PageTransitionProvider";
 
 interface SampleTask {
   id: string;
@@ -44,6 +45,7 @@ export function EditorialHero() {
   const ctaGroupRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const starburstRef = useRef<HTMLDivElement>(null);
+  const { navigateWithTransition } = usePageTransition();
 
   // Interactive Hero Preview State
   const [activeTab, setActiveTab] = useState<"tasks" | "projects" | "notes">("tasks");
@@ -247,15 +249,15 @@ export function EditorialHero() {
           ref={ctaGroupRef}
           className="mt-8 flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 opacity-0"
         >
-          <Link
-            href="/dashboard"
-            className="group inline-flex items-center gap-3 bg-[#E6D5BD] text-[#101010] pl-6 pr-3 py-3 rounded-full font-sans text-xs tracking-wider font-bold uppercase transition-all duration-300 hover:bg-[#101010] hover:text-[#E6D5BD] shadow-md hover:scale-[1.02] active:scale-[0.98]"
+          <button
+            onClick={() => navigateWithTransition("/dashboard")}
+            className="group inline-flex items-center gap-3 bg-[#E6D5BD] text-[#101010] pl-6 pr-3 py-3 rounded-full font-sans text-xs tracking-wider font-bold uppercase transition-all duration-300 hover:bg-[#101010] hover:text-[#E6D5BD] shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             <span>EXPLORE WORKSPACE</span>
             <div className="w-8 h-8 rounded-full border border-[#101010] group-hover:border-[#E6D5BD] flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1 bg-white/20">
               <ArrowRight className="w-3.5 h-3.5" />
             </div>
-          </Link>
+          </button>
 
           <Link
             href="/login"
@@ -465,12 +467,12 @@ export function EditorialHero() {
 
           <div className="mt-3 pt-2.5 border-t border-[#101010]/10 flex items-center justify-between text-[11px] font-sans text-[#524D46]">
             <span>Click or drag any card to test live interactions</span>
-            <Link
-              href="/dashboard"
-              className="font-semibold text-[#D5360C] hover:underline flex items-center gap-1"
+            <button
+              onClick={() => navigateWithTransition("/dashboard")}
+              className="font-semibold text-[#D5360C] hover:underline flex items-center gap-1 cursor-pointer"
             >
               Open Full Workspace →
-            </Link>
+            </button>
           </div>
         </div>
       </div>

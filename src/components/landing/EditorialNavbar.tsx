@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, Menu, X, Code2 } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
 import { animate, prefersReducedMotion } from "@/lib/motion";
+import { usePageTransition } from "@/components/providers/PageTransitionProvider";
 
 interface NavItem {
   label: string;
@@ -25,6 +26,7 @@ export function EditorialNavbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("OVERVIEW");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { navigateWithTransition } = usePageTransition();
 
   useEffect(() => {
     if (!prefersReducedMotion() && navRef.current) {
@@ -134,9 +136,9 @@ export function EditorialNavbar() {
 
           {/* ── Right: Minimal action trigger & mobile drawer button ──────── */}
           <div className="flex items-center gap-3">
-            <Link
-              href="/dashboard"
-              className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 font-sans text-xs tracking-wider uppercase font-bold rounded-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] ${
+            <button
+              onClick={() => navigateWithTransition("/dashboard")}
+              className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 font-sans text-xs tracking-wider uppercase font-bold rounded-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] cursor-pointer ${
                 isScrolled
                   ? "bg-[#D5360C] text-white hover:bg-[#B82D09] shadow-xs"
                   : "bg-[#E6D5BD] text-[#101010] hover:bg-[#101010] hover:text-[#E6D5BD]"
@@ -144,7 +146,7 @@ export function EditorialNavbar() {
             >
               <span>WORKSPACE</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
-            </Link>
+            </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -181,14 +183,16 @@ export function EditorialNavbar() {
           </div>
 
           <div className="space-y-3 pt-6 border-t border-[#101010]/20">
-            <Link
-              href="/dashboard"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-[#D5360C] text-white font-sans text-xs uppercase tracking-wider font-bold rounded-lg shadow-sm"
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                navigateWithTransition("/dashboard");
+              }}
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[#D5360C] text-white font-sans text-xs uppercase tracking-wider font-bold rounded-lg shadow-sm cursor-pointer"
             >
               <span>ENTER WORKSPACE</span>
               <ArrowUpRight className="w-4 h-4" />
-            </Link>
+            </button>
             <Link
               href="/login"
               onClick={() => setIsMobileMenuOpen(false)}

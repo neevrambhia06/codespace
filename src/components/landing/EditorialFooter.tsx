@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, Code2, ShieldCheck } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
+import { usePageTransition } from "@/components/providers/PageTransitionProvider";
 
 export function EditorialFooter() {
+  const { navigateWithTransition } = usePageTransition();
   return (
     <footer className="bg-[#101010] text-[#E6D5BD]">
       {/* ── Closing Callout Band ─────────────────────────────────────────── */}
@@ -21,13 +25,13 @@ export function EditorialFooter() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-3 bg-[#E6D5BD] text-[#101010] px-8 py-3.5 rounded-full font-sans text-xs tracking-wider font-bold uppercase transition-all duration-300 hover:bg-[#101010] hover:text-[#E6D5BD] shadow-md hover:scale-[1.02] active:scale-[0.98]"
+            <button
+              onClick={() => navigateWithTransition("/dashboard")}
+              className="inline-flex items-center gap-3 bg-[#E6D5BD] text-[#101010] px-8 py-3.5 rounded-full font-sans text-xs tracking-wider font-bold uppercase transition-all duration-300 hover:bg-[#101010] hover:text-[#E6D5BD] shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <span>ENTER WORKSPACE</span>
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </button>
 
             <Link
               href="/login"
