@@ -7,6 +7,13 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://codespace-five.vercel.app",
+    process.env.BETTER_AUTH_URL || "",
+    process.env.NEXT_PUBLIC_APP_URL || "",
+  ].filter(Boolean),
   emailAndPassword: {
     enabled: true,
   },

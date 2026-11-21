@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { APP_NAME, APP_DESCRIPTION } from "@/lib/constants";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/Toaster";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
-const fontDisplay = Fraunces({
-  variable: "--font-display",
+const fontEditorial = Fraunces({
+  variable: "--font-editorial",
   subsets: ["latin"],
   display: "swap",
   axes: ["opsz", "SOFT", "WONK"],
@@ -19,9 +19,8 @@ const fontSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const fontMono = Space_Mono({
+const fontMono = JetBrains_Mono({
   variable: "--font-mono",
-  weight: ["400", "700"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -66,9 +65,9 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} min-h-full antialiased`}
+      className={`${fontEditorial.variable} ${fontSans.variable} ${fontMono.variable} min-h-full antialiased`}
     >
-      <body className="min-h-full bg-background text-foreground font-sans selection:bg-[#D5360C] selection:text-[#E6D5BD]">
+      <body className="min-h-full bg-background text-foreground font-sans selection:bg-[#D5360C] selection:text-white">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

@@ -262,9 +262,9 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
       />
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-2xl rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[6px_6px_0px_#101010] animate-in fade-in-0 zoom-in-95 duration-150 overflow-hidden flex flex-col">
+      <div className="relative w-full max-w-2xl rounded-xl border border-[#101010]/15 bg-white shadow-2xl animate-in fade-in-0 zoom-in-95 duration-150 overflow-hidden flex flex-col">
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#101010]/20 bg-[#FAF4EA]">
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#101010]/10 bg-white">
           <Search className="w-4 h-4 text-[#D5360C] shrink-0" />
           <input
             ref={inputRef}
@@ -273,17 +273,17 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search projects, tasks, notes, snippets, or jump to section…"
-            className="flex-1 bg-transparent text-sm text-[#101010] placeholder:text-[#4A443C]/70 outline-none font-sans"
+            className="flex-1 bg-transparent text-sm text-[#101010] placeholder:text-[#524D46] outline-none font-sans"
           />
           {isLoading && (
             <Loader2 className="w-4 h-4 text-[#D5360C] animate-spin shrink-0" />
           )}
-          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 font-mono text-[10px] tracking-wider uppercase border border-[#101010]/20 bg-[#E6D5BD] text-[#4A443C] rounded-xs">
+          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 font-mono text-[10px] uppercase border border-[#101010]/10 bg-[#EDE4D5] text-[#524D46] rounded-md">
             ESC
           </kbd>
           <button
             onClick={onClose}
-            className="sm:hidden text-[#4A443C] hover:text-[#101010] p-1"
+            className="sm:hidden text-[#524D46] hover:text-[#101010] p-1 cursor-pointer"
             aria-label="Close"
           >
             <X className="w-4 h-4" />
@@ -294,7 +294,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <div className="max-h-96 overflow-y-auto p-2 space-y-1">
           {allItems.length === 0 ? (
             <div className="py-10 text-center">
-              <p className="font-mono text-xs uppercase tracking-wider text-[#4A443C]">
+              <p className="font-sans text-xs text-[#524D46]">
                 No matching projects, notes, or destinations found for &quot;{query}&quot;
               </p>
             </div>
@@ -310,32 +310,32 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                     onClose();
                   }}
                   onMouseEnter={() => setSelectedIndex(idx)}
-                  className={`w-full flex items-center justify-between p-2.5 rounded-xs text-left transition-colors font-sans cursor-pointer ${
+                  className={`w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-colors font-sans cursor-pointer ${
                     isSelected
-                      ? "bg-[#D5360C] text-[#F4EBDD]"
-                      : "text-[#101010] hover:bg-[#FAF4EA]"
+                      ? "bg-[#D5360C] text-white"
+                      : "text-[#101010] hover:bg-[#EDE4D5]/40"
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div
-                      className={`w-7 h-7 rounded-xs flex items-center justify-center shrink-0 border ${
+                      className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 border ${
                         isSelected
-                          ? "border-[#F4EBDD]/40 bg-[#B82D09] text-[#F4EBDD]"
-                          : "border-[#101010]/15 bg-[#E6D5BD] text-[#101010]"
+                          ? "border-white/30 bg-[#B82D09] text-white"
+                          : "border-[#101010]/10 bg-[#EDE4D5] text-[#101010]"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs font-bold uppercase tracking-wider truncate">
+                        <span className="font-sans text-xs font-semibold truncate">
                           {cmd.title}
                         </span>
                         <span
-                          className={`font-mono text-[9px] uppercase px-1.5 py-0.2 rounded-xs border ${
+                          className={`font-mono text-[9px] uppercase px-1.5 py-0.5 rounded-md border ${
                             isSelected
-                              ? "border-[#F4EBDD]/40 text-[#F4EBDD]"
-                              : "border-[#101010]/20 text-[#4A443C] bg-[#E6D5BD]"
+                              ? "border-white/30 text-white bg-white/10"
+                              : "border-[#101010]/10 text-[#524D46] bg-[#EDE4D5]"
                           }`}
                         >
                           {cmd.category}
@@ -343,7 +343,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       </div>
                       <div
                         className={`text-[11px] line-clamp-1 truncate ${
-                          isSelected ? "text-[#F4EBDD]/85" : "text-[#4A443C]"
+                          isSelected ? "text-white/85" : "text-[#524D46]"
                         }`}
                       >
                         {cmd.subtitle}
@@ -353,7 +353,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   <ArrowRight
                     className={`w-3.5 h-3.5 shrink-0 transition-transform ${
                       isSelected
-                        ? "translate-x-0.5 opacity-100 text-[#F4EBDD]"
+                        ? "translate-x-0.5 opacity-100 text-white"
                         : "opacity-0"
                     }`}
                   />
@@ -364,18 +364,18 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
 
         {/* Modal Footer */}
-        <div className="px-4 py-2 border-t border-[#101010]/15 bg-[#FAF4EA] flex items-center justify-between text-[11px] font-mono text-[#4A443C]">
+        <div className="px-4 py-2 border-t border-[#101010]/10 bg-[#F7F4EF] flex items-center justify-between text-[11px] font-sans text-[#524D46]">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">↑↓</kbd> Navigate
+              <kbd className="px-1 border border-[#101010]/10 bg-[#EDE4D5] rounded-md text-[10px] font-mono">↑↓</kbd> Navigate
             </span>
             <span>
-              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">↵</kbd> Open
+              <kbd className="px-1 border border-[#101010]/10 bg-[#EDE4D5] rounded-md text-[10px] font-mono">↵</kbd> Open
             </span>
           </div>
           <div>
             <span>
-              <kbd className="px-1 border border-[#101010]/20 bg-[#E6D5BD] rounded-xs text-[10px]">ESC</kbd> Close
+              <kbd className="px-1 border border-[#101010]/10 bg-[#EDE4D5] rounded-md text-[10px] font-mono">ESC</kbd> Close
             </span>
           </div>
         </div>

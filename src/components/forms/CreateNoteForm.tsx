@@ -76,7 +76,7 @@ export function CreateNoteForm({ onSuccess }: CreateNoteFormProps) {
               <FormLabel>Content (Optional)</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Keep the UI simple, dark mode by default..."
+                  placeholder="Document key decisions, architecture notes, or next steps..."
                   className="min-h-[100px]"
                   {...field}
                 />

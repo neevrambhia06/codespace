@@ -19,15 +19,15 @@ export function CreateNoteButton() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]">
+        <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-white hover:bg-[#B82D09] font-medium">
           <Plus className="h-3.5 w-3.5" />
-          <span>+ New Note</span>
+          <span>New Note</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="border border-[#101010] bg-[#F4EBDD] text-[#101010]">
+      <DialogContent className="border border-[#101010]/15 bg-white text-[#101010] rounded-xl">
         <DialogHeader>
-          <DialogTitle className="font-display font-bold">Create Note</DialogTitle>
-          <DialogDescription className="text-xs text-[#4A443C]">
+          <DialogTitle className="font-sans font-bold text-lg text-[#101010]">Create Note</DialogTitle>
+          <DialogDescription className="text-xs text-[#524D46]">
             Capture an idea, reminder, or meeting takeaway.
           </DialogDescription>
         </DialogHeader>

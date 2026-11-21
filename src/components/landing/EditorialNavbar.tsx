@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Menu, X, Code2 } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
+import { animate, prefersReducedMotion } from "@/lib/motion";
 
 interface NavItem {
   label: string;
@@ -20,16 +21,24 @@ const NAV_LINKS: NavItem[] = [
 ];
 
 export function EditorialNavbar() {
+  const navRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("OVERVIEW");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    if (!prefersReducedMotion() && navRef.current) {
+      animate(navRef.current, {
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        duration: 700,
+        ease: "outExpo",
+      });
+    }
+
     const handleScroll = () => {
-      // Transition from transparent to solid after passing the initial hero zone
       setIsScrolled(window.scrollY > 40);
 
-      // Section spy
       const sections = NAV_LINKS.map((link) => {
         const id = link.href.replace("#", "");
         const el = document.getElementById(id);
@@ -56,10 +65,11 @@ export function EditorialNavbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        ref={navRef}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 opacity-0 ${
           isScrolled
             ? "bg-[#E6D5BD]/95 backdrop-blur-md border-b border-[#101010] py-3.5 shadow-xs"
-            : "bg-transparent py-6"
+            : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
@@ -70,16 +80,16 @@ export function EditorialNavbar() {
             aria-label={`${APP_NAME} Home`}
           >
             <div
-              className={`w-6 h-6 rounded-xs flex items-center justify-center transition-colors duration-300 ${
+              className={`w-7 h-7 rounded-md flex items-center justify-center transition-colors duration-300 shadow-2xs ${
                 isScrolled
-                  ? "bg-[#D5360C] text-[#E6D5BD]"
+                  ? "bg-[#D5360C] text-white"
                   : "bg-[#101010] text-[#E6D5BD]"
               }`}
             >
-              <Code2 className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Code2 className="w-4 h-4 stroke-[2.5]" />
             </div>
             <span
-              className={`font-mono text-sm tracking-[0.25em] font-bold uppercase transition-colors duration-300 ${
+              className={`font-sans text-sm tracking-[0.2em] font-bold uppercase transition-colors duration-300 ${
                 isScrolled ? "text-[#101010]" : "text-[#E6D5BD]"
               }`}
             >
@@ -95,7 +105,7 @@ export function EditorialNavbar() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className={`group relative flex flex-col items-center font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-200 outline-none ${
+                  className={`group relative flex flex-col items-center font-sans text-xs tracking-wider uppercase transition-colors duration-200 outline-none ${
                     isScrolled
                       ? isActive
                         ? "text-[#101010] font-bold"
@@ -126,9 +136,9 @@ export function EditorialNavbar() {
           <div className="flex items-center gap-3">
             <Link
               href="/dashboard"
-              className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[11px] tracking-[0.18em] uppercase font-bold rounded-xs transition-all duration-200 ${
+              className={`hidden sm:inline-flex items-center gap-1.5 px-4 py-2 font-sans text-xs tracking-wider uppercase font-bold rounded-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] ${
                 isScrolled
-                  ? "bg-[#D5360C] text-[#E6D5BD] hover:bg-[#101010] shadow-xs"
+                  ? "bg-[#D5360C] text-white hover:bg-[#B82D09] shadow-xs"
                   : "bg-[#E6D5BD] text-[#101010] hover:bg-[#101010] hover:text-[#E6D5BD]"
               }`}
             >
@@ -138,63 +148,54 @@ export function EditorialNavbar() {
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`p-2 rounded-xs transition-colors md:hidden outline-none ${
-                isScrolled
-                  ? "text-[#101010] hover:bg-[#101010]/10"
-                  : "text-[#E6D5BD] hover:bg-[#E6D5BD]/15"
+              className={`md:hidden p-2 rounded-lg transition-colors cursor-pointer ${
+                isScrolled ? "text-[#101010] hover:bg-black/5" : "text-[#E6D5BD] hover:bg-white/10"
               }`}
               aria-label="Toggle navigation drawer"
-              aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6 stroke-[1.75]" />
-              ) : (
-                <Menu className="w-6 h-6 stroke-[1.75]" />
-              )}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </header>
 
-      {/* ── Mobile Editorial Drawer ────────────────────────────────────────── */}
+      {/* ── Mobile Drawer Navigation ───────────────────────────────────────── */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#E6D5BD] text-[#101010] pt-24 px-8 pb-10 flex flex-col justify-between md:hidden animate-in fade-in-0 duration-200">
-          <div className="flex flex-col gap-6">
-            <p className="font-mono text-[10px] tracking-[0.3em] uppercase text-[#101010]/50 border-b border-[#101010]/20 pb-2">
-              INDEX // NAVIGATION
+        <div className="fixed inset-0 z-40 bg-[#E6D5BD] flex flex-col pt-24 px-8 pb-10 justify-between animate-in fade-in-0 duration-200 md:hidden bg-grain">
+          <div className="space-y-6">
+            <p className="font-mono text-[10px] tracking-[0.25em] text-[#D5360C] uppercase font-bold">
+              NAVIGATION
             </p>
-            <nav className="flex flex-col gap-5">
-              {NAV_LINKS.map((link) => (
+            <nav className="flex flex-col space-y-5">
+              {NAV_LINKS.map((item) => (
                 <a
-                  key={link.label}
-                  href={link.href}
+                  key={item.label}
+                  href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-display text-2xl font-bold uppercase tracking-tight hover:text-[#D5360C] transition-colors flex items-center justify-between"
+                  className="font-display text-2xl font-bold text-[#101010] hover:text-[#D5360C] transition-colors"
                 >
-                  <span>{link.label}</span>
-                  <span className="font-mono text-xs text-[#101010]/40">→</span>
+                  {item.label}
                 </a>
               ))}
             </nav>
           </div>
 
-          <div className="flex flex-col gap-3 pt-6 border-t border-[#101010]/20">
+          <div className="space-y-3 pt-6 border-t border-[#101010]/20">
             <Link
               href="/dashboard"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="w-full text-center py-3.5 bg-[#D5360C] text-[#E6D5BD] font-mono text-xs uppercase tracking-[0.2em] font-bold rounded-xs"
+              className="w-full flex items-center justify-center gap-2 py-3 bg-[#D5360C] text-white font-sans text-xs uppercase tracking-wider font-bold rounded-lg shadow-sm"
             >
-              ENTER WORKSPACE
+              <span>ENTER WORKSPACE</span>
+              <ArrowUpRight className="w-4 h-4" />
             </Link>
-            <div className="flex items-center justify-between text-xs font-mono text-[#101010]/60 pt-2">
-              <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-                Sign In
-              </Link>
-              <Link href="/register" onClick={() => setIsMobileMenuOpen(false)} className="hover:underline">
-                Register
-              </Link>
-              <span>Build 0.1.0</span>
-            </div>
+            <Link
+              href="/login"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center py-3 border border-[#101010]/30 text-[#101010] font-sans text-xs uppercase tracking-wider font-semibold rounded-lg"
+            >
+              SIGN IN
+            </Link>
           </div>
         </div>
       )}

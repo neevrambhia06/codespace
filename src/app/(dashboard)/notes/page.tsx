@@ -29,30 +29,30 @@ export default async function NotesPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {dbNotes.length === 0 ? (
           <Card className="col-span-full">
-            <CardContent className="py-12 text-center text-[#4A443C]">
+            <CardContent className="py-12 text-center text-[#524D46]">
               <FileText className="h-8 w-8 mx-auto mb-2 text-[#D5360C]/60" />
-              <p className="font-mono text-xs uppercase tracking-wider">
-                No notes found. Click &quot;+ New Note&quot; to create one.
+              <p className="font-sans text-xs">
+                No notes found. Click &quot;New Note&quot; to create one.
               </p>
             </CardContent>
           </Card>
         ) : (
           dbNotes.map((note) => (
-            <Card key={note.id} className="hover:border-[#101010]/40 transition-all">
+            <Card key={note.id} className="hover:border-[#101010]/25 transition-all">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-sm sm:text-base font-semibold flex items-center gap-2">
                     <FileText className="h-4 w-4 text-[#D5360C] shrink-0" />
                     <span>{note.title}</span>
                   </CardTitle>
-                  <span className="font-mono text-[10px] text-[#4A443C] flex items-center gap-1 uppercase tracking-wider">
+                  <span className="font-mono text-xs text-[#524D46] flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
                     {new Date(note.createdAt).toLocaleDateString()}
                   </span>
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-xs text-[#4A443C] whitespace-pre-wrap leading-relaxed font-sans">
+                <p className="text-xs text-[#524D46] whitespace-pre-wrap leading-relaxed font-sans">
                   {note.snippet}
                 </p>
               </CardContent>

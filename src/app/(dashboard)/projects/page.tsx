@@ -29,8 +29,8 @@ export default async function ProjectsPage() {
         title="Projects"
         description="Create, track, and organize all initiatives in your workspace."
         action={
-          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {projects.length} ACTIVE PROJECTS
+          <div className="font-sans text-xs text-[#524D46] font-medium">
+            {projects.length} active initiatives
           </div>
         }
       />

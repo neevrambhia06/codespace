@@ -49,44 +49,48 @@ export function ProjectList({ projects }: ProjectListProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-2">
-            {["all", "active", "archived"].map((mode) => (
+            {[
+              { id: "all", label: "All" },
+              { id: "active", label: "Active" },
+              { id: "archived", label: "Archived" },
+            ].map((tab) => (
               <button
-                key={mode}
-                onClick={() => setProjectFilter(mode as "all" | "active" | "archived")}
-                className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border cursor-pointer ${
-                  filter === mode
-                    ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
-                    : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
+                key={tab.id}
+                onClick={() => setProjectFilter(tab.id as "all" | "active" | "archived")}
+                className={`font-sans text-xs px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                  filter === tab.id
+                    ? "bg-[#D5360C] text-white font-semibold shadow-2xs"
+                    : "bg-[#EDE4D5] text-[#101010] hover:bg-[#E2D6C3] border border-[#101010]/10 font-medium"
                 }`}
               >
-                {mode}
+                {tab.label}
               </button>
             ))}
           </div>
 
           <div className="relative">
-            <Search className="w-3 h-3 text-[#4A443C] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-[#524D46] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter projects…"
-              className="pl-7 pr-3 py-1 font-mono text-[10px] uppercase rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] placeholder:text-[#4A443C]/60 outline-none focus:border-[#D5360C] w-36 sm:w-44 transition-all"
+              className="pl-8 pr-3 py-1.5 font-sans text-xs rounded-lg border border-[#101010]/12 bg-white text-[#101010] placeholder:text-[#524D46] outline-none focus:border-[#D5360C] w-36 sm:w-48 transition-all"
             />
           </div>
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]">
+            <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-white hover:bg-[#B82D09] font-medium">
               <Plus className="h-3.5 w-3.5" />
-              <span>+ New Project</span>
+              <span>New Project</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="border border-[#101010] bg-[#F4EBDD] text-[#101010]">
+          <DialogContent className="border border-[#101010]/15 bg-white text-[#101010] rounded-xl">
             <DialogHeader>
-              <DialogTitle className="font-display font-bold">Create Project</DialogTitle>
-              <DialogDescription className="text-xs text-[#4A443C]">
+              <DialogTitle className="font-sans font-bold text-lg text-[#101010]">Create Project</DialogTitle>
+              <DialogDescription className="text-xs text-[#524D46]">
                 Add a new initiative to your workspace directory.
               </DialogDescription>
             </DialogHeader>
@@ -98,27 +102,27 @@ export function ProjectList({ projects }: ProjectListProps) {
       {/* List */}
       <div className={compactMode ? "space-y-2" : "space-y-3"}>
         {filteredProjects.length === 0 ? (
-          <p className="text-xs font-mono text-[#4A443C] p-6 border border-dashed border-[#101010]/25 rounded-xs text-center bg-[#F4EBDD]/50">
+          <p className="text-xs font-sans text-[#524D46] p-6 border border-dashed border-[#101010]/15 rounded-lg text-center bg-[#EDE4D5]/30">
             No projects found matching current filter.
           </p>
         ) : (
           filteredProjects.map((project) => (
             <div
               key={project.id}
-              className={`flex items-center justify-between rounded-xs border border-[rgba(16,16,16,0.22)] bg-[#F4EBDD] transition-all duration-200 hover:bg-[#FAF4EA] hover:border-[#101010]/40 hover:shadow-[2px_2px_0px_rgba(16,16,16,0.08)] ${
+              className={`flex items-center justify-between rounded-lg border border-[#101010]/12 bg-white transition-all duration-200 hover:border-[#101010]/25 hover:shadow-xs ${
                 compactMode ? "p-3" : "p-4"
               }`}
             >
               <div className="flex flex-col gap-0.5">
                 <Link
                   href={`/projects/${project.id}`}
-                  className="font-display text-sm sm:text-base font-bold text-[#101010] hover:text-[#D5360C] transition-colors flex items-center gap-1.5 group"
+                  className="font-sans text-sm sm:text-base font-semibold text-[#101010] hover:text-[#D5360C] transition-colors flex items-center gap-1.5 group tracking-[-0.01em]"
                 >
                   <span>{project.name}</span>
                   <ArrowRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-[#D5360C]" />
                 </Link>
                 {project.description && (
-                  <p className="text-xs text-[#4A443C] line-clamp-1 leading-relaxed">
+                  <p className="text-xs text-[#524D46] line-clamp-1 leading-relaxed font-normal">
                     {project.description}
                   </p>
                 )}
@@ -128,8 +132,8 @@ export function ProjectList({ projects }: ProjectListProps) {
                 <Badge variant={project.status === "active" ? "accent" : "secondary"}>
                   {project.status}
                 </Badge>
-                <span className="hidden sm:inline font-mono text-[10px] text-[#4A443C] uppercase tracking-wider">
-                  Updated: {project.lastUpdated}
+                <span className="hidden sm:inline font-mono text-xs text-[#524D46]">
+                  {project.lastUpdated}
                 </span>
               </div>
             </div>

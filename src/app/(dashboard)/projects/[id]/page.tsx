@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Code, CheckCircle2, Circle, Clock, FolderGit2, User as UserIcon } from "lucide-react";
+import { ArrowLeft, Calendar, CheckCircle2, Circle, Clock, User as UserIcon } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/layout/PageHeader";
 
 export const dynamic = "force-dynamic";
@@ -62,13 +61,13 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       <div className="flex items-center gap-2 mb-1">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#4A443C] hover:text-[#D5360C] transition-colors font-bold"
+          className="inline-flex items-center gap-1.5 font-sans text-xs text-[#524D46] hover:text-[#D5360C] transition-colors font-medium"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
           <span>All Projects</span>
         </Link>
-        <span className="font-mono text-xs text-[#101010]/30">/</span>
-        <span className="font-mono text-xs uppercase tracking-wider text-[#101010] font-bold">
+        <span className="font-sans text-xs text-[#101010]/30">/</span>
+        <span className="font-sans text-xs text-[#101010] font-semibold truncate max-w-xs">
           {project.name}
         </span>
       </div>
@@ -81,7 +80,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         action={
           <div className="flex items-center gap-2">
             {project.language && (
-              <Badge variant="secondary" className="gap-1">
+              <Badge variant="secondary">
                 <span>{project.language}</span>
               </Badge>
             )}
@@ -96,25 +95,25 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
       <Card>
         <CardContent className="pt-6">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
-              <UserIcon className="h-4 w-4 text-[#D5360C]" />
+            <div className="flex items-center gap-3 p-3 rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35">
+              <UserIcon className="h-4 w-4 text-[#D5360C] shrink-0" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Project Lead</span>
-                <strong className="text-[#101010] font-sans text-xs">{project.user?.name || "Alex Morgan"}</strong>
+                <span className="block font-sans text-[11px] text-[#524D46]">Project Lead</span>
+                <strong className="text-[#101010] font-sans text-xs font-semibold">{project.user?.name || "Alex Morgan"}</strong>
               </div>
             </div>
-            <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
-              <Calendar className="h-4 w-4 text-[#D5360C]" />
+            <div className="flex items-center gap-3 p-3 rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35">
+              <Calendar className="h-4 w-4 text-[#D5360C] shrink-0" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Date Created</span>
-                <strong className="text-[#101010] font-sans text-xs">{new Date(project.createdAt).toLocaleDateString()}</strong>
+                <span className="block font-sans text-[11px] text-[#524D46]">Date Created</span>
+                <strong className="text-[#101010] font-mono text-xs">{new Date(project.createdAt).toLocaleDateString()}</strong>
               </div>
             </div>
-            <div className="flex items-center gap-2.5 p-3 rounded-xs border border-[rgba(16,16,16,0.15)] bg-[#FAF4EA]">
-              <Clock className="h-4 w-4 text-[#D5360C]" />
+            <div className="flex items-center gap-3 p-3 rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35">
+              <Clock className="h-4 w-4 text-[#D5360C] shrink-0" />
               <div>
-                <span className="block font-mono text-[10px] text-[#4A443C] uppercase">Last Updated</span>
-                <strong className="text-[#101010] font-sans text-xs">{new Date(project.updatedAt).toLocaleDateString()}</strong>
+                <span className="block font-sans text-[11px] text-[#524D46]">Last Updated</span>
+                <strong className="text-[#101010] font-mono text-xs">{new Date(project.updatedAt).toLocaleDateString()}</strong>
               </div>
             </div>
           </div>
@@ -127,33 +126,33 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-base font-bold">Task Progress</CardTitle>
-            <CardDescription className="text-xs text-[#4A443C]">
+            <CardDescription className="text-xs text-[#524D46]">
               Completion rate for project tasks
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-baseline justify-between">
-              <span className="font-display text-4xl font-bold tracking-tight text-[#101010]">
+              <span className="font-sans text-4xl font-bold tracking-tight text-[#101010]">
                 {progressPercent}%
               </span>
-              <span className="font-mono text-xs text-[#4A443C]">
+              <span className="font-mono text-xs text-[#524D46]">
                 {completedTasks} / {totalTasks} done
               </span>
             </div>
-            <div className="w-full bg-[#E6D5BD] h-2.5 rounded-full overflow-hidden border border-[#101010]/15">
+            <div className="w-full bg-[#EDE4D5] h-2 rounded-full overflow-hidden border border-[#101010]/10">
               <div
                 className="bg-[#D5360C] h-full transition-all duration-500 rounded-full"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-            <div className="pt-3 text-xs text-[#4A443C] space-y-2 border-t border-[#101010]/15 font-mono">
-              <div className="flex justify-between">
-                <span>PENDING ITEMS:</span>
-                <strong className="text-[#101010]">{totalTasks - completedTasks}</strong>
+            <div className="pt-3 text-xs text-[#524D46] space-y-2 border-t border-[#101010]/10 font-sans">
+              <div className="flex justify-between items-center">
+                <span>Pending items:</span>
+                <strong className="text-[#101010] font-mono text-xs">{totalTasks - completedTasks}</strong>
               </div>
-              <div className="flex justify-between">
-                <span>COMPLETED ITEMS:</span>
-                <strong className="text-[#101010]">{completedTasks}</strong>
+              <div className="flex justify-between items-center">
+                <span>Completed items:</span>
+                <strong className="text-[#101010] font-mono text-xs">{completedTasks}</strong>
               </div>
             </div>
           </CardContent>
@@ -164,7 +163,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <div>
               <CardTitle className="text-base font-bold">Project Tasks</CardTitle>
-              <CardDescription className="text-xs text-[#4A443C]">
+              <CardDescription className="text-xs text-[#524D46]">
                 Deliverables and tasks for this project
               </CardDescription>
             </div>
@@ -174,15 +173,15 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           </CardHeader>
           <CardContent>
             {project.tasks.length === 0 ? (
-              <div className="text-center py-8 border border-dashed border-[#101010]/25 rounded-xs bg-[#FAF4EA]">
-                <p className="font-mono text-xs text-[#4A443C]">No tasks linked to this project yet.</p>
+              <div className="text-center py-8 border border-dashed border-[#101010]/15 rounded-lg bg-[#EDE4D5]/30">
+                <p className="font-sans text-xs text-[#524D46]">No tasks linked to this project yet.</p>
               </div>
             ) : (
               <div className="space-y-2.5">
                 {project.tasks.map((task) => (
                   <div
                     key={task.id}
-                    className="flex items-center justify-between p-3 rounded-xs border border-[rgba(16,16,16,0.18)] bg-[#FAF4EA] transition-all hover:border-[#101010]/40 hover:shadow-[2px_2px_0px_rgba(16,16,16,0.08)]"
+                    className="flex items-center justify-between p-3 rounded-lg border border-[#101010]/12 bg-white transition-all hover:border-[#101010]/25 hover:shadow-xs"
                   >
                     <div className="flex items-center gap-3">
                       {task.completed ? (
@@ -192,7 +191,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       )}
                       <span
                         className={`text-xs sm:text-sm font-sans ${
-                          task.completed ? "line-through text-[#4A443C]/60" : "font-medium text-[#101010]"
+                          task.completed ? "line-through text-[#524D46]/60" : "font-medium text-[#101010]"
                         }`}
                       >
                         {task.title}
@@ -205,7 +204,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                           ? "accent"
                           : "secondary"
                       }
-                      className="text-[9px]"
+                      className="text-[10px]"
                     >
                       {task.priority || "NORMAL"}
                     </Badge>

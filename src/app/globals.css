@@ -3,17 +3,18 @@
 
 /* ── Tailwind Theme Extension (Tailwind v4) ─────────────────────────────────── */
 @theme inline {
-  --font-display: var(--font-display), "Fraunces", Georgia, serif;
+  --font-editorial: var(--font-editorial), "Fraunces", Georgia, serif;
   --font-sans: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), "Space Mono", ui-monospace, monospace;
+  --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-display: var(--font-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   --color-editorial-orange: #D5360C;
   --color-editorial-orange-hover: #B82D09;
   --color-editorial-ivory: #E6D5BD;
-  --color-editorial-surface: #F4EBDD;
-  --color-editorial-surface-hover: #FAF4EA;
+  --color-editorial-surface: #EDE4D5;
+  --color-editorial-surface-hover: #F7F4EF;
   --color-editorial-black: #101010;
-  --color-editorial-charcoal: #4A443C;
+  --color-editorial-charcoal: #524D46;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -48,101 +49,100 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --radius-sm: 0.125rem;
-  --radius-md: 0.25rem;
-  --radius-lg: 0.375rem;
-  --radius-xl: 0.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
 }
 
-/* ── STRICT 3-COLOR EDITORIAL PALETTE & TOKENS ────────────────────────────────
-   --bg-canvas:        #E6D5BD  (Warm Ivory: Main app background)
-   --bg-surface:       #F4EBDD  (Crisp Lighter Ivory: Cards, panels, modals)
-   --bg-surface-hover: #FAF4EA  (Subtle hover lift for interactive rows/cards)
-   --color-primary:    #D5360C  (Burnt Orange: Primary CTAs, active nav dots, key status)
+/* ── REFINED CRISP MODERN EDITORIAL PALETTE ───────────────────────────────────
+   --bg-page:         #F7F4EF  (Crisp Warm Paper: Replaces heavy beige on inner app pages)
+   --bg-card:         #FFFFFF  (Clean White: Elevated cards and containers)
+   --bg-subtle:       #EDE4D5  (Soft Warm Ivory tint: Hover states, filter bars, secondary pills)
+   --color-primary:   #D5360C  (Burnt Orange: Primary CTAs, active nav dot, key status)
    --color-primary-hover: #B82D09
-   --color-ink:        #101010  (Soft Black: Headlines, primary text, crisp borders)
-   --color-ink-muted:  #4A443C  (Warm Charcoal: Secondary/metadata text for WCAG AA)
-   --border-crisp:     rgba(16, 16, 16, 0.22)
-   --border-strong:    #101010
+   --color-ink:       #101010  (Soft Black: Headlines, primary text, crisp accents)
+   --color-ink-muted: #524D46  (Balanced Warm Charcoal: Subtitles, descriptions, dates)
+   --border-light:    rgba(16, 16, 16, 0.12)
+   --border-strong:   rgba(16, 16, 16, 0.25)
    ───────────────────────────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    --bg-canvas: #E6D5BD;
-    --bg-surface: #F4EBDD;
-    --bg-surface-hover: #FAF4EA;
+    --bg-page: #F7F4EF;
+    --bg-card: #FFFFFF;
+    --bg-subtle: #EDE4D5;
     --color-primary: #D5360C;
     --color-primary-hover: #B82D09;
     --color-ink: #101010;
-    --color-ink-muted: #4A443C;
-    --border-crisp: rgba(16, 16, 16, 0.22);
-    --border-strong: #101010;
+    --color-ink-muted: #524D46;
+    --border-light: rgba(16, 16, 16, 0.12);
+    --border-strong: rgba(16, 16, 16, 0.25);
 
-    /* Semantic Mapped Tokens */
-    --background: #E6D5BD;
+    /* Semantic Mapped Tokens for Components */
+    --background: #F7F4EF;
     --foreground: #101010;
 
-    --card: #F4EBDD;
+    --card: #FFFFFF;
     --card-foreground: #101010;
 
-    --popover: #F4EBDD;
+    --popover: #FFFFFF;
     --popover-foreground: #101010;
 
     --primary: #D5360C;
-    --primary-foreground: #F4EBDD;
+    --primary-foreground: #FFFFFF;
 
-    --secondary: #E6D5BD;
+    --secondary: #EDE4D5;
     --secondary-foreground: #101010;
 
-    --muted: #F4EBDD;
-    --muted-foreground: #4A443C;
+    --muted: #EDE4D5;
+    --muted-foreground: #524D46;
 
     --accent: #D5360C;
-    --accent-foreground: #F4EBDD;
+    --accent-foreground: #FFFFFF;
 
     --destructive: #B32608;
-    --destructive-foreground: #F4EBDD;
+    --destructive-foreground: #FFFFFF;
 
     --success: #2A6E3B;
-    --success-foreground: #F4EBDD;
+    --success-foreground: #FFFFFF;
     --warning: #D5360C;
-    --warning-foreground: #F4EBDD;
+    --warning-foreground: #FFFFFF;
 
-    --border: rgba(16, 16, 16, 0.22);
-    --input: rgba(16, 16, 16, 0.25);
+    --border: rgba(16, 16, 16, 0.12);
+    --input: rgba(16, 16, 16, 0.15);
     --ring: #D5360C;
 
-    --radius: 0.25rem;
+    --radius: 0.5rem;
   }
 
   .dark {
-    /* Universally light editorial palette across all states */
-    --background: #E6D5BD;
+    --background: #F7F4EF;
     --foreground: #101010;
-    --card: #F4EBDD;
+    --card: #FFFFFF;
     --card-foreground: #101010;
-    --popover: #F4EBDD;
+    --popover: #FFFFFF;
     --popover-foreground: #101010;
     --primary: #D5360C;
-    --primary-foreground: #F4EBDD;
-    --secondary: #E6D5BD;
+    --primary-foreground: #FFFFFF;
+    --secondary: #EDE4D5;
     --secondary-foreground: #101010;
-    --muted: #F4EBDD;
-    --muted-foreground: #4A443C;
+    --muted: #EDE4D5;
+    --muted-foreground: #524D46;
     --accent: #D5360C;
-    --accent-foreground: #F4EBDD;
+    --accent-foreground: #FFFFFF;
     --destructive: #B32608;
-    --destructive-foreground: #F4EBDD;
+    --destructive-foreground: #FFFFFF;
     --success: #2A6E3B;
-    --success-foreground: #F4EBDD;
+    --success-foreground: #FFFFFF;
     --warning: #D5360C;
-    --warning-foreground: #F4EBDD;
-    --border: rgba(16, 16, 16, 0.22);
-    --input: rgba(16, 16, 16, 0.25);
+    --warning-foreground: #FFFFFF;
+    --border: rgba(16, 16, 16, 0.12);
+    --input: rgba(16, 16, 16, 0.15);
     --ring: #D5360C;
   }
 }
 
-/* ── Base Reset ─────────────────────────────────────────────────────────────── */
+/* ── Base Reset & Modern Typography ────────────────────────────────────────── */
 @layer base {
   *,
   *::before,
@@ -168,15 +168,27 @@
     line-height: 1.5;
   }
 
-  h1, h2, h3, .font-display {
-    font-family: var(--font-display);
+  /* Workspace Headings: Clean, modern Plus Jakarta Sans with tight letter-spacing */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-sans);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  /* Reserved Editorial Serif for Landing Page Highlights */
+  .font-editorial-theme h1,
+  .font-editorial-theme h2,
+  .font-editorial-theme h3,
+  .font-editorial-theme .font-display,
+  .font-editorial {
+    font-family: var(--font-editorial);
     letter-spacing: -0.025em;
   }
 }
 
-/* ── Tactile Matte Paper/Film Grain Texture ─────────────────────────────────── */
+/* ── Tactile Matte Paper/Film Grain Texture (Reserved for Landing Page) ──────── */
 .bg-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
 }
 
 .bg-grain-orange {
@@ -184,63 +196,34 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* ── Editorial Card & Offset Shadows ────────────────────────────────────────── */
-.card-editorial {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-crisp);
+/* ── Clean Modern Elevated Card Styles ──────────────────────────────────────── */
+.card-modern {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(16, 16, 16, 0.12);
+  border-radius: 0.5rem;
   transition: all 0.2s ease;
 }
 
-.card-editorial:hover {
-  background-color: var(--bg-surface-hover);
-  border-color: rgba(16, 16, 16, 0.4);
-  box-shadow: 2px 2px 0px rgba(16, 16, 16, 0.08);
+.card-modern:hover {
+  border-color: rgba(16, 16, 16, 0.25);
+  box-shadow: 0 1px 3px 0 rgba(16, 16, 16, 0.06);
 }
 
-.shadow-editorial-sm {
-  box-shadow: 2px 2px 0px rgba(16, 16, 16, 0.08);
-}
-
-.shadow-editorial {
-  box-shadow: 3px 3px 0px #101010;
-}
-
-/* ── Editorial Hairline Borders ─────────────────────────────────────────────── */
-.border-editorial {
-  border: 1px solid rgba(16, 16, 16, 0.22);
-}
-
-.border-editorial-strong {
-  border: 1px solid #101010;
-}
-
-/* ── Custom Scrollbars ──────────────────────────────────────────────────────── */
+/* ── Custom Scrollbar ───────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #E6D5BD;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(16, 16, 16, 0.25);
-  border-radius: 2px;
+  background: rgba(16, 16, 16, 0.15);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D5360C;
-}
-
-/* ── Focus ring ─────────────────────────────────────────────────────────────── */
-:focus-visible {
-  outline: 2px solid #D5360C;
-  outline-offset: 2px;
-}
-
-/* ── Selection ──────────────────────────────────────────────────────────────── */
-::selection {
-  background: #D5360C;
-  color: #F4EBDD;
+  background: rgba(16, 16, 16, 0.25);
 }

@@ -24,8 +24,8 @@ export default async function SnippetsPage() {
         title="Snippets & Templates"
         description="Quickly access and copy reusable code snippets, commands, and templates."
         action={
-          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {snippets.length} SAVED TEMPLATES
+          <div className="font-sans text-xs text-[#524D46] font-medium">
+            {snippets.length} saved templates
           </div>
         }
       />
@@ -33,29 +33,29 @@ export default async function SnippetsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {snippets.length === 0 ? (
           <Card className="col-span-full">
-            <CardContent className="py-12 text-center text-[#4A443C]">
+            <CardContent className="py-12 text-center text-[#524D46]">
               <Code2 className="h-8 w-8 mx-auto mb-2 text-[#D5360C]/60" />
-              <p className="font-mono text-xs uppercase tracking-wider">
+              <p className="font-sans text-xs">
                 No snippets saved in this workspace yet.
               </p>
             </CardContent>
           </Card>
         ) : (
           snippets.map((snippet) => (
-            <Card key={snippet.id} className="overflow-hidden hover:border-[#101010]/40 transition-all">
+            <Card key={snippet.id} className="overflow-hidden hover:border-[#101010]/25 transition-all">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-base flex items-center gap-2">
+                  <CardTitle className="text-sm sm:text-base font-semibold flex items-center gap-2">
                     <Code2 className="h-4 w-4 text-[#D5360C] shrink-0" />
                     <span>{snippet.title}</span>
                   </CardTitle>
-                  <Badge variant="default" className="text-xs uppercase font-mono">
+                  <Badge variant="secondary" className="text-[10px]">
                     {snippet.language}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <pre className="rounded-xs bg-[#E6D5BD]/60 p-3 text-xs font-mono text-[#101010] border border-[#101010]/15 overflow-x-auto">
+                <pre className="rounded-lg bg-[#F7F4EF] p-3 text-xs font-mono text-[#101010] border border-[#101010]/10 overflow-x-auto">
                   <code>{snippet.code}</code>
                 </pre>
               </CardContent>

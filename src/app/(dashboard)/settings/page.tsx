@@ -23,7 +23,7 @@ export default async function SettingsPage() {
         description="Manage your profile, notification options, and account security settings."
         action={
           <Badge variant={user?.role === "ADMIN" ? "accent" : "secondary"} className="text-xs">
-            ROLE: {user?.role || "MEMBER"}
+            Role: {user?.role || "Member"}
           </Badge>
         }
       />
@@ -35,44 +35,44 @@ export default async function SettingsPage() {
             <User className="h-5 w-5 text-[#D5360C]" />
             <CardTitle>Profile & Identification</CardTitle>
           </div>
-          <CardDescription className="text-xs text-[#4A443C]">
+          <CardDescription className="text-xs text-[#524D46]">
             Personal details associated with your workspace login.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="rounded-xs border border-[rgba(16,16,16,0.18)] bg-[#FAF4EA] p-3.5">
-              <span className="font-mono text-[10px] text-[#4A443C] block mb-1 uppercase tracking-wider">
+            <div className="rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35 p-3.5">
+              <span className="font-sans text-[11px] text-[#524D46] block mb-1">
                 Full Name
               </span>
-              <span className="font-sans font-bold text-[#101010] text-sm">
+              <span className="font-sans font-semibold text-[#101010] text-sm">
                 {user?.name || "Alex Morgan"}
               </span>
             </div>
-            <div className="rounded-xs border border-[rgba(16,16,16,0.18)] bg-[#FAF4EA] p-3.5">
-              <span className="font-mono text-[10px] text-[#4A443C] block mb-1 uppercase tracking-wider">
+            <div className="rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35 p-3.5">
+              <span className="font-sans text-[11px] text-[#524D46] block mb-1">
                 Email Address
               </span>
-              <span className="font-sans font-bold text-[#101010] text-sm">
+              <span className="font-sans font-semibold text-[#101010] text-sm">
                 {user?.email || "alex@codespace.dev"}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center justify-between rounded-xs border border-[rgba(16,16,16,0.18)] bg-[#FAF4EA] p-3.5">
+          <div className="flex items-center justify-between rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35 p-3.5">
             <div className="flex items-center gap-3">
-              <Shield className="h-4 w-4 text-[#D5360C]" />
+              <Shield className="h-4 w-4 text-[#D5360C] shrink-0" />
               <div>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#101010]">
+                <span className="text-xs font-sans font-semibold text-[#101010] block">
                   Workspace Role
                 </span>
-                <p className="text-xs text-[#4A443C]">
+                <p className="text-xs text-[#524D46]">
                   Determines your editing capabilities and project management access
                 </p>
               </div>
             </div>
             <Badge variant={user?.role === "ADMIN" ? "default" : "secondary"}>
-              {user?.role || "MEMBER"}
+              {user?.role || "Member"}
             </Badge>
           </div>
         </CardContent>
@@ -85,27 +85,27 @@ export default async function SettingsPage() {
             <ShieldCheck className="h-5 w-5 text-[#D5360C]" />
             <CardTitle>Security & Cloud Options</CardTitle>
           </div>
-          <CardDescription className="text-xs text-[#4A443C]">
+          <CardDescription className="text-xs text-[#524D46]">
             Connected workspace capabilities and session protection.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3 text-xs text-[#4A443C]">
-          <div className="flex justify-between items-center py-2.5 border-b border-[#101010]/15">
+        <CardContent className="space-y-3 text-xs text-[#524D46]">
+          <div className="flex justify-between items-center py-2.5 border-b border-[#101010]/10">
             <span className="font-medium text-[#101010]">Automatic Cloud Backup</span>
             <Badge variant="default" className="text-[10px]">
-              ACTIVE
+              Active
             </Badge>
           </div>
-          <div className="flex justify-between items-center py-2.5 border-b border-[#101010]/15">
+          <div className="flex justify-between items-center py-2.5 border-b border-[#101010]/10">
             <span className="font-medium text-[#101010]">Encrypted Session Verification</span>
             <Badge variant="default" className="text-[10px]">
-              PROTECTED
+              Protected
             </Badge>
           </div>
           <div className="flex justify-between items-center py-2.5">
             <span className="font-medium text-[#101010]">Email Activity Summaries</span>
             <Badge variant="secondary" className="text-[10px]">
-              ENABLED
+              Enabled
             </Badge>
           </div>
         </CardContent>

@@ -75,38 +75,44 @@ export function TaskList({ tasks }: TaskListProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex gap-2">
-            {["all", "pending", "completed"].map((mode) => (
+            {[
+              { id: "all", label: "All" },
+              { id: "pending", label: "Pending" },
+              { id: "completed", label: "Completed" },
+            ].map((tab) => (
               <button
-                key={mode}
-                onClick={() => setTaskFilter(mode as "all" | "pending" | "completed")}
-                className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-xs transition-colors border cursor-pointer ${
-                  filter === mode
-                    ? "bg-[#D5360C] text-[#F4EBDD] border-[#D5360C] font-bold"
-                    : "bg-[#F4EBDD] text-[#4A443C] border-[#101010]/20 hover:bg-[#FAF4EA] hover:text-[#101010]"
+                key={tab.id}
+                onClick={() => setTaskFilter(tab.id as "all" | "pending" | "completed")}
+                className={`font-sans text-xs px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
+                  filter === tab.id
+                    ? "bg-[#D5360C] text-white font-semibold shadow-2xs"
+                    : "bg-[#EDE4D5] text-[#101010] hover:bg-[#E2D6C3] border border-[#101010]/10 font-medium"
                 }`}
               >
-                {mode}
+                {tab.label}
               </button>
             ))}
           </div>
 
           <div className="relative">
-            <Search className="w-3 h-3 text-[#4A443C] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-[#524D46] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter tasks…"
-              className="pl-7 pr-3 py-1 font-mono text-[10px] uppercase rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] placeholder:text-[#4A443C]/60 outline-none focus:border-[#D5360C] w-32 sm:w-40 transition-all"
+              className="pl-8 pr-3 py-1.5 font-sans text-xs rounded-lg border border-[#101010]/12 bg-white text-[#101010] placeholder:text-[#524D46] outline-none focus:border-[#D5360C] w-32 sm:w-44 transition-all"
             />
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={toggleCompactMode}
-            className={`font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-xs border border-[#101010]/20 transition-colors ${
-              compactMode ? 'bg-[#101010] text-[#F4EBDD]' : 'bg-[#F4EBDD] text-[#4A443C]'
-            } hover:bg-[#FAF4EA] hover:text-[#101010]`}
+            className={`font-sans text-xs px-3 py-1.5 rounded-lg border border-[#101010]/12 transition-colors cursor-pointer ${
+              compactMode
+                ? 'bg-[#101010] text-white font-semibold'
+                : 'bg-[#EDE4D5] text-[#101010] hover:bg-[#E2D6C3] font-medium'
+            }`}
             title="Toggle Compact Mode"
           >
             Compact
@@ -114,15 +120,15 @@ export function TaskList({ tasks }: TaskListProps) {
           
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-[#F4EBDD] hover:bg-[#B82D09]">
+              <Button size="sm" className="h-8 gap-1.5 bg-[#D5360C] text-white hover:bg-[#B82D09] font-medium">
                 <Plus className="h-3.5 w-3.5" />
-                <span>+ New Task</span>
+                <span>New Task</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="border border-[#101010] bg-[#F4EBDD] text-[#101010]">
+            <DialogContent className="border border-[#101010]/15 bg-white text-[#101010] rounded-xl">
               <DialogHeader>
-                <DialogTitle className="font-display font-bold">Create Task</DialogTitle>
-                <DialogDescription className="text-xs text-[#4A443C]">
+                <DialogTitle className="font-sans font-bold text-lg text-[#101010]">Create Task</DialogTitle>
+                <DialogDescription className="text-xs text-[#524D46]">
                   Add an actionable item to your checklist.
                 </DialogDescription>
               </DialogHeader>
@@ -135,33 +141,33 @@ export function TaskList({ tasks }: TaskListProps) {
       {/* List */}
       <div className={compactMode ? "space-y-2" : "space-y-3"}>
         {filteredTasks.length === 0 ? (
-          <p className="text-xs font-mono text-[#4A443C] p-6 border border-dashed border-[#101010]/25 rounded-xs text-center bg-[#F4EBDD]/50">
+          <p className="text-xs font-sans text-[#524D46] p-6 border border-dashed border-[#101010]/15 rounded-lg text-center bg-[#EDE4D5]/30">
             No tasks found matching current filter.
           </p>
         ) : (
           filteredTasks.map((task) => (
             <div
               key={task.id}
-              className={`flex items-center justify-between rounded-xs border border-[rgba(16,16,16,0.22)] bg-[#F4EBDD] transition-all duration-200 hover:bg-[#FAF4EA] hover:border-[#101010]/40 hover:shadow-[2px_2px_0px_rgba(16,16,16,0.08)] ${
+              className={`flex items-center justify-between rounded-lg border border-[#101010]/12 bg-white transition-all duration-200 hover:border-[#101010]/25 hover:shadow-xs ${
                 compactMode ? "p-2.5" : "p-3.5"
               }`}
             >
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => handleToggle(task.id, task.completed)}
-                  className="text-[#101010]/40 hover:text-[#D5360C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] rounded-xs"
+                  className="text-[#101010]/40 hover:text-[#D5360C] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] rounded-md cursor-pointer"
                   aria-label={task.completed ? "Mark as pending" : "Mark as completed"}
                 >
                   {task.completed ? (
                     <CheckCircle2 className="h-4 w-4 text-[#D5360C]" />
                   ) : (
-                    <Circle className="h-4 w-4 text-[#101010]/50" />
+                    <Circle className="h-4 w-4 text-[#101010]/40" />
                   )}
                 </button>
                 <span
                   className={`text-xs sm:text-sm font-sans ${
                     task.completed
-                      ? "line-through text-[#4A443C]/60"
+                      ? "line-through text-[#524D46]/60"
                       : "text-[#101010] font-medium"
                   }`}
                 >
@@ -172,14 +178,14 @@ export function TaskList({ tasks }: TaskListProps) {
                 {task.priority && (
                   <Badge
                     variant={task.priority.toLowerCase() === "high" ? "accent" : "secondary"}
-                    className="text-[9px]"
+                    className="text-[10px]"
                   >
                     {task.priority}
                   </Badge>
                 )}
                 {task.completed && (
-                  <Badge variant="default" className="text-[9px]">
-                    DONE
+                  <Badge variant="default" className="text-[10px]">
+                    Done
                   </Badge>
                 )}
               </div>

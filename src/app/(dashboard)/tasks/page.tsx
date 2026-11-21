@@ -25,8 +25,8 @@ export default async function TasksPage() {
         title="Tasks"
         description="Track, organize, and check off deliverables across all your workspace projects."
         action={
-          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {pendingCount} PENDING TASKS
+          <div className="font-sans text-xs text-[#524D46] font-medium">
+            {pendingCount} pending deliverables
           </div>
         }
       />

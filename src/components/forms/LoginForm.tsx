@@ -18,7 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/Card";
-import { KeyRound, ShieldAlert } from "lucide-react";
+import { KeyRound } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
@@ -53,63 +53,63 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="border-[#101010]/20 bg-[#EFE3D1] text-[#101010] shadow-sm">
+    <Card className="border-[#101010]/12 bg-white text-[#101010] shadow-sm rounded-xl">
       <CardHeader className="border-b border-[#101010]/10 pb-5">
-        <CardTitle className="font-display text-2xl font-bold tracking-tight">
+        <CardTitle className="font-sans text-2xl font-bold tracking-tight">
           Welcome back
         </CardTitle>
-        <CardDescription className="text-xs text-[#4A443C] font-light">
+        <CardDescription className="text-xs text-[#524D46] font-normal">
           Sign in to access your projects, tasks, and notes.
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
         {/* Quick Demo Fill Buttons */}
-        <div className="mb-6 rounded-xs border border-[#101010]/15 bg-[#E6D5BD]/60 p-3">
-          <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider uppercase text-[#D5360C] font-bold mb-2">
-            <KeyRound className="w-3 h-3" />
-            <span>ONE-CLICK DEMO ACCESS</span>
+        <div className="mb-6 rounded-lg border border-[#101010]/10 bg-[#EDE4D5]/35 p-3.5">
+          <div className="flex items-center gap-1.5 font-sans text-xs font-semibold text-[#D5360C] mb-2.5">
+            <KeyRound className="w-3.5 h-3.5" />
+            <span>One-Click Demo Access</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => fillDemoAccount("admin@codespace.dev")}
-              className="text-left p-2 rounded-xs border border-[#101010]/10 bg-[#EFE3D1] hover:bg-[#101010] hover:text-[#E6D5BD] transition-all font-mono text-[10px]"
+              className="text-left p-2.5 rounded-lg border border-[#101010]/10 bg-white hover:bg-[#EDE4D5] transition-all font-sans text-xs cursor-pointer"
             >
-              <span className="block font-bold">TEAM LEAD (ALEX)</span>
-              <span className="opacity-70">admin@codespace.dev</span>
+              <span className="block font-semibold text-[#101010]">Alex Morgan</span>
+              <span className="text-[#524D46] text-[11px]">admin@codespace.dev</span>
             </button>
             <button
               type="button"
               onClick={() => fillDemoAccount("guest@codespace.dev")}
-              className="text-left p-2 rounded-xs border border-[#101010]/10 bg-[#EFE3D1] hover:bg-[#101010] hover:text-[#E6D5BD] transition-all font-mono text-[10px]"
+              className="text-left p-2.5 rounded-lg border border-[#101010]/10 bg-white hover:bg-[#EDE4D5] transition-all font-sans text-xs cursor-pointer"
             >
-              <span className="block font-bold">MEMBER (JORDAN)</span>
-              <span className="opacity-70">guest@codespace.dev</span>
+              <span className="block font-semibold text-[#101010]">Jordan Lee</span>
+              <span className="text-[#524D46] text-[11px]">guest@codespace.dev</span>
             </button>
           </div>
         </div>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="email" className="font-mono text-xs uppercase text-[#101010]">
-              Email
+            <Label htmlFor="email" className="font-sans text-xs font-semibold text-[#101010]">
+              Email Address
             </Label>
             <Input
               id="email"
               type="email"
               placeholder="admin@codespace.dev"
               autoComplete="email"
-              className="border-[#101010]/20 bg-[#E6D5BD]/50 focus:border-[#D5360C] text-sm"
+              className="text-sm"
               {...form.register("email")}
             />
             {form.formState.errors.email && (
-              <p className="text-xs font-mono text-[#B32608]">
+              <p className="text-xs font-sans text-[#B32608]">
                 {form.formState.errors.email.message}
               </p>
             )}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="password" className="font-mono text-xs uppercase text-[#101010]">
+            <Label htmlFor="password" className="font-sans text-xs font-semibold text-[#101010]">
               Password
             </Label>
             <Input
@@ -117,27 +117,27 @@ export function LoginForm() {
               type="password"
               placeholder="••••••••"
               autoComplete="current-password"
-              className="border-[#101010]/20 bg-[#E6D5BD]/50 focus:border-[#D5360C] text-sm"
+              className="text-sm"
               {...form.register("password")}
             />
             {form.formState.errors.password && (
-              <p className="text-xs font-mono text-[#B32608]">
+              <p className="text-xs font-sans text-[#B32608]">
                 {form.formState.errors.password.message}
               </p>
             )}
           </div>
           <Button type="submit" loading={isLoading} className="w-full mt-2">
-            {isLoading ? "Authenticating…" : "Enter Workspace"}
+            {isLoading ? "Signing in…" : "Enter Workspace"}
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-[#101010]/70 font-mono">
+        <p className="mt-6 text-center text-xs text-[#524D46] font-sans">
           Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="font-bold text-[#D5360C] underline underline-offset-4 hover:text-[#101010]"
+            className="font-semibold text-[#D5360C] underline underline-offset-4 hover:text-[#101010]"
           >
-            Register
+            Create one
           </Link>
         </p>
       </CardContent>

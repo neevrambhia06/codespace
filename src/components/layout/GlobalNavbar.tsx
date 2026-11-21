@@ -26,12 +26,12 @@ interface NavRoute {
 }
 
 const PRIMARY_ROUTES: NavRoute[] = [
-  { label: "DASHBOARD", href: "/dashboard" },
-  { label: "PROJECTS", href: "/projects" },
-  { label: "TASKS", href: "/tasks" },
-  { label: "NOTES", href: "/notes" },
-  { label: "SNIPPETS", href: "/snippets" },
-  { label: "EXTENSIONS", href: "/extensions" },
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Projects", href: "/projects" },
+  { label: "Tasks", href: "/tasks" },
+  { label: "Notes", href: "/notes" },
+  { label: "Snippets", href: "/snippets" },
+  { label: "Extensions", href: "/extensions" },
 ];
 
 export function GlobalNavbar() {
@@ -104,7 +104,7 @@ export function GlobalNavbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full bg-[#E6D5BD] border-b border-[#101010]">
+      <header className="sticky top-0 z-40 w-full bg-[#F7F4EF] border-b border-[#101010]/12 transition-colors">
         <div className="w-full max-w-7xl mx-auto px-6 sm:px-10 h-16 flex items-center justify-between">
           {/* ── Left: Wordmark with Burnt Orange mark (takes to landing page) ── */}
           <div className="flex items-center gap-6">
@@ -113,17 +113,17 @@ export function GlobalNavbar() {
               className="flex items-center gap-2.5 group outline-none select-none"
               aria-label={`${APP_NAME} Landing Page`}
             >
-              <div className="w-7 h-7 rounded-xs bg-[#D5360C] text-[#F4EBDD] flex items-center justify-center transition-transform group-hover:scale-105 duration-200">
+              <div className="w-7 h-7 rounded-md bg-[#D5360C] text-white flex items-center justify-center transition-transform group-hover:scale-105 duration-200 shadow-2xs">
                 <Code2 className="w-4 h-4 stroke-[2.5]" />
               </div>
-              <span className="font-mono text-sm tracking-[0.25em] font-bold uppercase text-[#101010]">
+              <span className="font-sans text-sm tracking-[0.16em] font-bold uppercase text-[#101010]">
                 {APP_NAME}
               </span>
             </Link>
           </div>
 
           {/* ── Centre: Primary Nav Links with Active Dot Indicator ─────── */}
-          <nav className="hidden md:flex items-center gap-8 lg:gap-9">
+          <nav className="hidden md:flex items-center gap-7 lg:gap-8">
             {PRIMARY_ROUTES.map((route) => {
               const isActive =
                 route.href === "/dashboard"
@@ -134,10 +134,10 @@ export function GlobalNavbar() {
                 <Link
                   key={route.href}
                   href={route.href}
-                  className={`relative py-1 flex flex-col items-center font-mono text-[11px] tracking-[0.2em] uppercase transition-colors outline-none ${
+                  className={`relative py-1 flex flex-col items-center font-sans text-xs tracking-normal transition-colors outline-none ${
                     isActive
-                      ? "text-[#101010] font-bold"
-                      : "text-[#101010]/60 hover:text-[#101010]"
+                      ? "text-[#101010] font-semibold"
+                      : "text-[#524D46] hover:text-[#101010] font-medium"
                   }`}
                 >
                   <span>{route.label}</span>
@@ -159,10 +159,10 @@ export function GlobalNavbar() {
               type="button"
               onClick={() => setIsSearchOpen(true)}
               aria-label="Search Workspace"
-              className="flex items-center gap-2.5 px-3 py-1.5 w-36 sm:w-52 md:w-64 lg:w-72 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010]/40 transition-all font-mono text-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] text-left"
+              className="flex items-center gap-2.5 px-3 py-1.5 w-36 sm:w-52 md:w-64 lg:w-72 rounded-lg border border-[#101010]/12 bg-white text-[#101010] hover:bg-white hover:border-[#101010]/25 transition-all text-xs cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C] text-left shadow-2xs"
             >
               <Search className="w-3.5 h-3.5 text-[#D5360C] shrink-0" />
-              <span className="truncate text-xs font-sans text-[#4A443C]/85 font-normal">
+              <span className="truncate font-sans text-xs text-[#524D46] font-normal">
                 Search workspace…
               </span>
             </button>
@@ -173,7 +173,7 @@ export function GlobalNavbar() {
                 type="button"
                 onClick={() => setIsNotificationsOpen((prev) => !prev)}
                 aria-label="Notifications"
-                className="relative flex h-8 w-8 items-center justify-center rounded-xs border border-[#101010]/15 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] hover:border-[#101010] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
+                className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-[#101010]/12 bg-white text-[#101010] hover:bg-[#EDE4D5] hover:border-[#101010]/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
               >
                 <Bell className="w-3.5 h-3.5 text-[#101010]" />
                 <span
@@ -184,29 +184,29 @@ export function GlobalNavbar() {
 
               {/* Notification Popover */}
               {isNotificationsOpen && (
-                <div className="absolute right-0 mt-2 w-72 rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[4px_4px_0px_#101010] p-3 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
-                  <div className="flex items-center justify-between pb-2 border-b border-[#101010]/15 font-mono text-[10px] uppercase tracking-wider font-bold text-[#101010]">
-                    <span>WORKSPACE ALERTS</span>
-                    <span className="text-[#D5360C]">UP TO DATE</span>
+                <div className="absolute right-0 mt-2 w-72 rounded-lg border border-[#101010]/12 bg-white shadow-lg p-3 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#101010]/10 font-sans text-xs font-semibold text-[#101010]">
+                    <span>Workspace Alerts</span>
+                    <span className="text-[#D5360C] text-[11px] font-mono">UP TO DATE</span>
                   </div>
                   <div className="py-2.5 space-y-2 text-xs">
                     <div className="flex items-start gap-2 text-[#101010]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#D5360C] shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-medium text-[11px] leading-tight">Workspace Synchronized</p>
-                        <p className="text-[10px] text-[#4A443C]">All project changes saved to cloud</p>
+                        <p className="font-medium text-xs leading-tight">Workspace Synchronized</p>
+                        <p className="text-[11px] text-[#524D46]">All project changes saved to cloud</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-2 text-[#101010]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-[#101010] shrink-0 mt-0.5" />
                       <div>
-                        <p className="font-medium text-[11px] leading-tight">Account Protected</p>
-                        <p className="text-[10px] text-[#4A443C]">Session is verified and encrypted</p>
+                        <p className="font-medium text-xs leading-tight">Account Protected</p>
+                        <p className="text-[11px] text-[#524D46]">Session is verified and encrypted</p>
                       </div>
                     </div>
                   </div>
                   <div className="pt-2 border-t border-[#101010]/10 text-center">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-[#4A443C]">
+                    <span className="font-sans text-[11px] text-[#524D46]">
                       All notifications caught up
                     </span>
                   </div>
@@ -220,51 +220,52 @@ export function GlobalNavbar() {
                 type="button"
                 onClick={() => setIsProfileOpen((prev) => !prev)}
                 aria-label="User Profile Menu"
-                className="flex items-center justify-center w-8 h-8 rounded-full border border-[#101010] bg-[#101010] text-[#F4EBDD] font-mono text-xs font-bold hover:bg-[#2A2A2A] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
+                className="flex items-center gap-2 p-1 rounded-lg border border-[#101010]/12 bg-white hover:bg-[#EDE4D5] hover:border-[#101010]/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D5360C]"
               >
-                <span>{userInitial}</span>
+                <div className="w-6 h-6 rounded-full bg-[#101010] text-[#F7F4EF] flex items-center justify-center font-sans font-semibold text-[11px] select-none">
+                  {userInitial}
+                </div>
               </button>
 
               {/* Profile Dropdown */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-56 rounded-xs border border-[#101010] bg-[#F4EBDD] shadow-[4px_4px_0px_#101010] py-1.5 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
+                <div className="absolute right-0 mt-2 w-56 rounded-lg border border-[#101010]/12 bg-white shadow-lg p-1.5 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
                   {/* User info */}
-                  <div className="px-3 py-2 border-b border-[#101010]/15">
-                    <p className="font-mono text-xs font-bold text-[#101010] truncate">
+                  <div className="px-3 py-2 border-b border-[#101010]/10">
+                    <p className="font-sans font-semibold text-xs text-[#101010] truncate">
                       {userName}
                     </p>
-                    <p className="font-mono text-[10px] text-[#4A443C] truncate">
+                    <p className="font-mono text-[11px] text-[#524D46] truncate">
                       {userEmail}
                     </p>
                   </div>
 
-                  {/* Menu items */}
+                  {/* Menu actions */}
                   <div className="py-1">
                     <Link
                       href="/settings"
                       onClick={() => setIsProfileOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#FAF4EA] hover:text-[#D5360C] transition-colors font-mono uppercase tracking-wider"
+                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#F7F4EF] rounded-md transition-colors font-sans font-medium"
                     >
-                      <Settings className="w-3.5 h-3.5 text-[#101010]" />
+                      <Settings className="w-3.5 h-3.5 text-[#524D46]" />
                       <span>Settings</span>
                     </Link>
-
                     <Link
                       href="/"
                       onClick={() => setIsProfileOpen(false)}
-                      className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#FAF4EA] hover:text-[#D5360C] transition-colors font-mono uppercase tracking-wider"
+                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#101010] hover:bg-[#F7F4EF] rounded-md transition-colors font-sans font-medium"
                     >
-                      <ExternalLink className="w-3.5 h-3.5 text-[#101010]" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#524D46]" />
                       <span>Back to Landing</span>
                     </Link>
                   </div>
 
                   {/* Logout */}
-                  <div className="pt-1 border-t border-[#101010]/15">
+                  <div className="pt-1 border-t border-[#101010]/10">
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#D5360C] hover:bg-[#FAF4EA] hover:text-[#B82D09] transition-colors font-mono uppercase tracking-wider font-bold text-left"
+                      className="w-full flex items-center gap-2.5 px-3 py-1.5 text-xs text-[#D5360C] hover:bg-[#F7F4EF] rounded-md transition-colors font-sans font-semibold text-left cursor-pointer"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span>Logout</span>
@@ -279,7 +280,7 @@ export function GlobalNavbar() {
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
               aria-label="Toggle Navigation Menu"
-              className="md:hidden flex h-8 w-8 items-center justify-center rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010] hover:bg-[#FAF4EA] transition-colors"
+              className="md:hidden flex h-8 w-8 items-center justify-center rounded-lg border border-[#101010]/12 bg-white text-[#101010] hover:bg-[#EDE4D5] transition-colors"
             >
               {isMobileMenuOpen ? (
                 <X className="w-4 h-4 text-[#101010]" />
@@ -290,11 +291,11 @@ export function GlobalNavbar() {
           </div>
         </div>
 
-        {/* ── Mobile Full-Height Warm Ivory Drawer ─────────────────────── */}
+        {/* ── Mobile Full-Height Clean Drawer ─────────────────────────── */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-[#101010] bg-[#E6D5BD] px-6 py-6 space-y-5 animate-in slide-in-from-top-2 duration-200">
+          <div className="md:hidden border-t border-[#101010]/12 bg-[#F7F4EF] px-6 py-6 space-y-5 animate-in slide-in-from-top-2 duration-200">
             {/* Primary links */}
-            <div className="flex flex-col space-y-3">
+            <div className="flex flex-col space-y-2">
               {PRIMARY_ROUTES.map((route) => {
                 const isActive =
                   route.href === "/dashboard"
@@ -306,10 +307,10 @@ export function GlobalNavbar() {
                     key={route.href}
                     href={route.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between py-2 border-b border-[#101010]/10 font-mono text-xs tracking-[0.2em] uppercase ${
+                    className={`flex items-center justify-between py-2 border-b border-[#101010]/8 font-sans text-sm ${
                       isActive
-                        ? "text-[#101010] font-bold"
-                        : "text-[#101010]/70 hover:text-[#101010]"
+                        ? "text-[#101010] font-semibold"
+                        : "text-[#524D46] hover:text-[#101010]"
                     }`}
                   >
                     <span>{route.label}</span>
@@ -322,13 +323,13 @@ export function GlobalNavbar() {
             </div>
 
             {/* Mobile utilities */}
-            <div className="pt-2 space-y-2 border-t border-[#101010]/20 font-mono text-xs uppercase tracking-wider">
+            <div className="pt-2 space-y-2 border-t border-[#101010]/12 font-sans text-xs">
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   setIsSearchOpen(true);
                 }}
-                className="w-full flex items-center gap-2 p-2 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010]"
+                className="w-full flex items-center gap-2.5 p-2 rounded-lg border border-[#101010]/12 bg-white text-[#101010]"
               >
                 <Search className="w-3.5 h-3.5 text-[#D5360C]" />
                 <span>Search Workspace</span>
@@ -337,7 +338,7 @@ export function GlobalNavbar() {
               <Link
                 href="/settings"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center gap-2 p-2 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010]"
+                className="w-full flex items-center gap-2 p-2 rounded-lg border border-[#101010]/12 bg-white text-[#101010]"
               >
                 <Settings className="w-3.5 h-3.5 text-[#101010]" />
                 <span>Settings</span>
@@ -346,7 +347,7 @@ export function GlobalNavbar() {
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full flex items-center gap-2 p-2 rounded-xs border border-[#101010]/20 bg-[#F4EBDD] text-[#101010]"
+                className="w-full flex items-center gap-2 p-2 rounded-lg border border-[#101010]/12 bg-white text-[#101010]"
               >
                 <ExternalLink className="w-3.5 h-3.5 text-[#101010]" />
                 <span>Back to Landing</span>
@@ -354,17 +355,17 @@ export function GlobalNavbar() {
 
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center gap-2 p-2 rounded-xs border border-[#D5360C] bg-[#D5360C] text-[#F4EBDD] font-bold"
+                className="w-full flex items-center gap-2 p-2 rounded-lg border border-[#D5360C] bg-[#D5360C] text-white font-semibold cursor-pointer"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                <span>Logout ({userName})</span>
+                <span>Logout</span>
               </button>
             </div>
           </div>
         )}
       </header>
 
-      {/* Global Command / Search Modal */}
+      {/* ── Search Modal Component ───────────────────────────────────── */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}

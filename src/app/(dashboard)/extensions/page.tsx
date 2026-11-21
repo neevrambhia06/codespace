@@ -44,31 +44,31 @@ export default function ExtensionsPage() {
         title="Integrations & Tools"
         description="Connect your workspace with team productivity tools, calendar scheduling, and export options."
         action={
-          <div className="font-mono text-xs text-[#4A443C] uppercase tracking-wider font-semibold">
-            {EXTENSIONS.length} ACTIVE INTEGRATIONS
+          <div className="font-sans text-xs text-[#524D46] font-medium">
+            {EXTENSIONS.length} active integrations
           </div>
         }
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {EXTENSIONS.map((ext) => (
-          <Card key={ext.name} className="hover:border-[#101010]/40 transition-all">
+          <Card key={ext.name} className="hover:border-[#101010]/25 transition-all">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base flex items-center gap-2">
+                <CardTitle className="text-sm sm:text-base font-semibold flex items-center gap-2">
                   <Puzzle className="h-4 w-4 text-[#D5360C] shrink-0" />
                   <span>{ext.name}</span>
                 </CardTitle>
-                <Badge variant="default" className="text-xs">
+                <Badge variant="secondary" className="text-[10px]">
                   {ext.category}
                 </Badge>
               </div>
-              <CardDescription className="text-xs mt-1 text-[#4A443C]">
+              <CardDescription className="text-xs mt-1 text-[#524D46]">
                 {ext.description}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-1.5 text-xs text-[#2A6E3B] font-mono uppercase tracking-wider font-bold">
+              <div className="flex items-center gap-1.5 text-xs text-[#2A6E3B] font-sans font-semibold">
                 <CheckCircle2 className="h-3.5 w-3.5" />
                 <span>{ext.status}</span>
               </div>
